@@ -4,7 +4,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import ru.innopolis.config.JDBCTamplateBuild;
 import ru.innopolis.entity.Appointment;
-import ru.innopolis.entity.Client;
 import ru.innopolis.repository.AppointmentRepository;
 
 import java.util.List;
