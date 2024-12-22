@@ -36,11 +36,9 @@ build/
 
 ### Mac OS ###
 .DS_Store
-/attestation01/
-/attestation01.1/
-/homework03/
-/homework04/
-/homework05/
 homework05/
-homework03/
+homework04/
+attestation01.1/
+attestation01/
 /src/main/java/ru/innopolis/test.txt
+/homework03/
