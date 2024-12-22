@@ -1,0 +1,10 @@
+
+services:
+  java-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: homework05
+    volumes:
+      - ./test.txt:/app/test.txt
+    command: ["java", "-jar", "app.jar"]
