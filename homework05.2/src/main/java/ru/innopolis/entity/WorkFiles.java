@@ -1,5 +1,6 @@
 package ru.innopolis.entity;
 
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
