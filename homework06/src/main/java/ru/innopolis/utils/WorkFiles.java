@@ -1,9 +1,10 @@
-package ru.innopolis.entity;
+package ru.innopolis.utils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 
 public class WorkFiles {
 

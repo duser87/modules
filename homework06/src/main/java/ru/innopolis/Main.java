@@ -1,7 +1,7 @@
 package ru.innopolis;
 
 
-import ru.innopolis.entity.WorkFiles;
+import ru.innopolis.utils.WorkFiles;
 
 import java.util.*;
 
