@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
 
 
-        String[] arrStr = WorkFiles.readFileStream("/app/output.txt");
+        String[] arrStr = WorkFiles.readFileStream("/app/input.txt");
 
         List<String> listKey = new ArrayList<>();
 
@@ -18,7 +18,7 @@ public class Main {
 
         System.out.println(Arrays.toString(arrStr));
 
-        WorkFiles.writeFileStream("/app/input.txt", String.valueOf(Arrays.toString(arrStr)));
+        WorkFiles.writeFileStream("/app/output.txt", String.valueOf(Arrays.toString(arrStr)));
 
         for(int i=0; i<=arrStr.length-1; i++){
 
@@ -28,7 +28,7 @@ public class Main {
 
         }
 
-        WorkFiles.writeFileStream("/app/input.txt", String.valueOf(mapStr));
+        WorkFiles.writeFileStream("/app/output.txt", String.valueOf(mapStr));
 
         mapStr.forEach((key, value) -> { System.out.println(key + ":" + value); });
 
@@ -42,7 +42,7 @@ public class Main {
         mapStr.put("7", "string7");
         mapStr.put("1", "string1");
 
-        WorkFiles.writeFileStream("/app/input.txt", String.valueOf(mapStr));
+        WorkFiles.writeFileStream("/app/output.txt", String.valueOf(mapStr));
 
         // C
 
@@ -56,7 +56,7 @@ public class Main {
 
         mapStr.put("7", "NEWstring7");
 
-        WorkFiles.writeFileStream("/app/input.txt", String.valueOf(mapStr));
+        WorkFiles.writeFileStream("/app/output.txt", String.valueOf(mapStr));
 
         // E
 
@@ -66,7 +66,7 @@ public class Main {
 
         }
 
-        WorkFiles.writeFileStream("/app/input.txt", String.valueOf(listKey));
+        WorkFiles.writeFileStream("/app/output.txt", String.valueOf(listKey));
 
         // F
 
@@ -74,7 +74,7 @@ public class Main {
 
         System.out.println(setColl);
 
-        WorkFiles.writeFileStream("/app/input.txt", String.valueOf(setColl));
+        WorkFiles.writeFileStream("/app/output.txt", String.valueOf(setColl));
 
         // G
 
@@ -96,7 +96,7 @@ public class Main {
 
         System.out.println(mapStr);
 
-        WorkFiles.writeFileStream("/app/input.txt", String.valueOf(mapStr));
+        WorkFiles.writeFileStream("/app/output.txt", String.valueOf(mapStr));
 
     }
 }
