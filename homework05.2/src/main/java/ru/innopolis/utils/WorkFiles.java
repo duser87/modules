@@ -28,6 +28,7 @@ public class WorkFiles{
 
     }
 
+
     static public void writeFileStream(String pathFile, String str){
 
         try (FileWriter writer =  new FileWriter(pathFile, true)){

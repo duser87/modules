@@ -10,19 +10,15 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // A
+        String[] reader = WorkFiles.readFileStream("input.txt");
 
-        String[] reader = WorkFiles.readFileStream("homework05.2/output.txt");
+
+        // 1 Часть
+        // A
 
         List<Integer> intList  = new ArrayList<>();
 
         List<Integer> uniqueIntList  = new ArrayList<>();
-
-        Integer[] intArr = new Integer[reader.length - 1];
-
-        int count = reader.length - 1;
-
-        Integer intBuff;
 
         // B
 
@@ -30,7 +26,7 @@ public class Main {
             intList.add(Integer.parseInt(s));
         }
 
-        WorkFiles.writeFileStream("homework05.2/input.txt", String.valueOf(intList));
+        WorkFiles.writeFileStream("output.txt", String.valueOf(intList));
 
         System.out.println(intList);
 
@@ -38,19 +34,35 @@ public class Main {
 
         Collections.sort(intList);
 
-        WorkFiles.writeFileStream("homework05.2/input.txt", String.valueOf(intList));
+        WorkFiles.writeFileStream("output.txt", String.valueOf(intList));
 
         System.out.println(intList);
 
         // D
 
-        intList.sort(Comparator.reverseOrder());
+        Collections.reverse(intList);
 
-        WorkFiles.writeFileStream("homework05.2/input.txt", String.valueOf(intList));
+        WorkFiles.writeFileStream("output.txt", String.valueOf(intList));
 
         System.out.println(intList);
 
         // E
+
+        Collections.shuffle(intList);
+
+        WorkFiles.writeFileStream("output.txt", String.valueOf(intList));
+
+        System.out.println(intList);
+
+        // F
+
+        intList.addFirst(71);
+
+        WorkFiles.writeFileStream("output.txt", String.valueOf(intList));
+
+        System.out.println(intList);
+
+        // H
 
         for(Integer i: intList){
 
@@ -62,30 +74,87 @@ public class Main {
 
         }
 
+        WorkFiles.writeFileStream("output.txt", String.valueOf(uniqueIntList));
+
         System.out.println(uniqueIntList);
 
-        WorkFiles.writeFileStream("homework05.2/input.txt", String.valueOf(uniqueIntList));
+        // G
 
+        HashSet<Integer> hashInt = new HashSet<>(intList);
 
-        Map<String, String> map = new HashMap<>();
+        intList.clear();
 
-        map.put("Str", "String");
+        intList.addAll(hashInt);
 
-        map.put("int", "int");
+        WorkFiles.writeFileStream("output.txt", String.valueOf(intList));
 
-        if(map.containsKey("Str")){
+        System.out.println(intList);
 
-            String newStr = (String) map.get("Str") + ", string2";
+        // I
 
-            map.put("Str", newStr);
+        int[] intArr = intList.stream().mapToInt(i -> i).toArray();
+
+        WorkFiles.writeFileStream("output.txt", Arrays.toString(intArr));
+
+        System.out.println(Arrays.toString(intArr));
+
+        // Часть 2
+        // A
+
+        String[] readerHash = WorkFiles.readFileStream("input2.txt");
+
+        HashSet<String> hsReader = new HashSet<>(Arrays.asList(readerHash));
+
+        // B
+
+        hsReader.add("но, ");
+        hsReader.add("солнце, ");
+        hsReader.add("светило, ");
+        hsReader.add("очень, ");
+        hsReader.add("ярко");
+
+        // C
+
+        for(String s: hsReader){
+
+            System.out.println(s);
 
         }
 
-        System.out.println(map.keySet());
+        // D
 
-        map.remove("int");
+        hsReader.add("солнце, ");
 
-        System.out.println(map.toString());
+        System.out.println(hsReader);
+
+        // E
+
+        boolean result = hsReader.contains("светило, ");
+
+        System.out.println(result);
+
+        // F
+
+        hsReader.remove("светило, ");
+
+        System.out.println(hsReader);
+
+        // G
+
+        int hsSize = hsReader.size();
+
+        System.out.println(hsSize);
+
+        // H
+
+        hsReader.clear();
+
+        System.out.println(hsReader);
+
+        // I
+
+        System.out.println(hsReader.isEmpty());
+
 
 
     }
