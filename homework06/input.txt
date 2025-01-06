@@ -1,0 +1,15 @@
+
+[1:string1, 2:string2, 3:string3]
+{1=string1, 2=string2, 3=string3}
+{1=string1, 2=string2, 3=string3, 4=string4, 5=string5, 6=string6, 7=string7}
+{1=string1, 2=string2, 3=string3, 4=string4, 5=string5, 6=string6, 7=NEWstring7}
+[1, 2, 3, 4, 5, 6, 7]
+[1=string1, 2=string2, 3=string3, 4=string4, 5=string5, 6=string6, 7=NEWstring7]
+{1=string1, 2=string2, 3=string3, 4=string4, 6=string6, 7=NEWstring7}
+[1:string1, 2:string2, 3:string3]
+{1=string1, 2=string2, 3=string3}
+{1=string1, 2=string2, 3=string3, 4=string4, 5=string5, 6=string6, 7=string7}
+{1=string1, 2=string2, 3=string3, 4=string4, 5=string5, 6=string6, 7=NEWstring7}
+[1, 2, 3, 4, 5, 6, 7]
+[1=string1, 2=string2, 3=string3, 4=string4, 5=string5, 6=string6, 7=NEWstring7]
+{1=string1, 2=string2, 3=string3, 4=string4, 6=string6, 7=NEWstring7}
