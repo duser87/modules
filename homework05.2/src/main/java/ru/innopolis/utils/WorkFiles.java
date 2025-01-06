@@ -1,4 +1,4 @@
-package ru.innopolis.entity;
+package ru.innopolis.utils;
 
 
 import java.io.*;
