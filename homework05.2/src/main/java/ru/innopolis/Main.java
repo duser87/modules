@@ -10,6 +10,8 @@ public class Main {
 
     public static void main(String[] args) {
 
+        // A
+
         String[] reader = WorkFiles.readFileStream("homework05.2/output.txt");
 
         List<Integer> intList  = new ArrayList<>();
@@ -22,6 +24,8 @@ public class Main {
 
         Integer intBuff;
 
+        // B
+
         for (String s: reader){
             intList.add(Integer.parseInt(s));
         }
@@ -30,17 +34,23 @@ public class Main {
 
         System.out.println(intList);
 
+        // C
+
         Collections.sort(intList);
 
         WorkFiles.writeFileStream("homework05.2/input.txt", String.valueOf(intList));
 
         System.out.println(intList);
 
+        // D
+
         intList.sort(Comparator.reverseOrder());
 
         WorkFiles.writeFileStream("homework05.2/input.txt", String.valueOf(intList));
 
         System.out.println(intList);
+
+        // E
 
         for(Integer i: intList){
 
