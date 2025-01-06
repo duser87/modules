@@ -1,4 +1,5 @@
 
+
 FROM openjdk:21
 WORKDIR /app
 COPY target/homework05.2-1.0-SNAPSHOT.jar app.jar
