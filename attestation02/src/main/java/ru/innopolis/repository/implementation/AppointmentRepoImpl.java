@@ -70,20 +70,20 @@ public class AppointmentRepoImpl implements AppointmentRepository   {
         Long rowCount;
         String str;
 
-        Optional<Boolean> id_p = Optional.of(id instanceof Long);
+        Optional<Boolean> id_p = Optional.of((id instanceof Long) & (id != null));
         if(!id_p.get()) { throw  new IllegalArgumentException(" -!- Тип передаваемого параметра id не соответствует заданному"); }
 
         Optional<Boolean> fio_p_p = Optional.of(fio_p instanceof String);
         if(!fio_p_p.get()) { throw  new IllegalArgumentException(" -!- Тип передаваемого параметра fio_p не соответствует заданному"); }
 
         Optional<Boolean> fio_d_p = Optional.of(fio_d instanceof String);
-        if(!fio_d_p.get()) { throw  new IllegalArgumentException(" -!- Тип передаваемого параметра fio_d_p не соответствует заданному"); }
+        if(!fio_d_p.get()) { throw  new IllegalArgumentException(" -!- Тип передаваемого параметра fio_d не соответствует заданному"); }
 
         Optional<Boolean> time_p = Optional.of(time instanceof String);
-        if(!time_p.get()) { throw  new IllegalArgumentException(" -!- Тип передаваемого параметра fio_d_p не соответствует заданному"); }
+        if(!time_p.get()) { throw  new IllegalArgumentException(" -!- Тип передаваемого параметра time не соответствует заданному"); }
 
         Optional<Boolean> desc_p = Optional.of(desc instanceof String);
-        if(!desc_p.get()) { throw  new IllegalArgumentException(" -!- Тип передаваемого параметра fio_d_p не соответствует заданному"); }
+        if(!desc_p.get()) { throw  new IllegalArgumentException(" -!- Тип передаваемого параметра desc не соответствует заданному"); }
 
 
         rowCount = template.queryForObject("SELECT COUNT(*) FROM appointments WHERE id = ?", Long.class, id);
