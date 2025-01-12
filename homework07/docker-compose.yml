@@ -1,0 +1,8 @@
+
+services:
+  java-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: homework07
+    command: ["java", "-jar", "app.jar"]
