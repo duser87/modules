@@ -2,50 +2,60 @@ package ru.innopolis;
 
 import ru.innopolis.exceptions.ErrorWritingDbById;
 import ru.innopolis.exceptions.NoRecordRowDB;
-import ru.innopolis.model.Appointment;
+import ru.innopolis.model.Position;
 import ru.innopolis.repository.AppointmentRepository;
+import ru.innopolis.repository.DoctorRepository;
+import ru.innopolis.repository.PatientRepository;
+import ru.innopolis.repository.PositionRepository;
 import ru.innopolis.repository.implementation.AppointmentRepoImpl;
+import ru.innopolis.repository.implementation.DoctorRepoImpl;
+import ru.innopolis.repository.implementation.PatientRepoImpl;
+import ru.innopolis.repository.implementation.PositionRepoImpl;
+
 import java.util.Optional;
 
 public class App {
 
-    static AppointmentRepository appointmentRepository = new AppointmentRepoImpl();
+    private static final PositionRepository positionRepository = new PositionRepoImpl();
+    private static final PatientRepository patientRepository = new PatientRepoImpl();
+    private static final DoctorRepository doctorRepository = new DoctorRepoImpl();
+    private static final AppointmentRepository appointmentRepository = new AppointmentRepoImpl();
 
     public static void main(String[] args){
-
         try {
 
-            // Создание записи в таблице Appointments
+            // Создание записи в таблице Positions
 
-            appointmentRepository.create(11L, "Иванова Инна Ивановна", "Сидоров Сидор Сидорович", "11.01.2025", "qqqq");
+            positionRepository.create(6L, "Врач-андролог");
 
-            // Получение объект Appointment по ID
+            // Получение объект Positions по ID
 
-            Optional<Appointment> app = appointmentRepository.findById(110L);
+            Optional<Position> app = positionRepository.findById(6L);
 
             System.out.println(app.orElseThrow(() -> new NoRecordRowDB("-!- Объект с заданым ID не существует")));
 
-            // Получить список всех записей таблицы Appointments
+            // Получить список всех записей таблицы Positions
 
-            System.out.println(appointmentRepository.findAll());
+            System.out.println(positionRepository.findAll());
 
-            // Обновление данных в таблице Appointments
+            // Обновление данных в таблице Positions
 
-            System.out.println(appointmentRepository.update(11L, 23, "Сидоров Сидор Сидорович", "19.01.2025", "qqqq"));
+            System.out.println(positionRepository.update(6L, "Врач-сурдролог"));
 
-           // Удаление записи в таблице Appointments по ID
+            // Удаление записи в таблице Positions по ID
 
-            System.out.println(appointmentRepository.deleteById(358L));
+            System.out.println(positionRepository.deleteById(6L));
 
-            // Получение количества записей в таблице Appointments по ID врача
+            // Получение количества записей в таблице Positions
 
-            System.out.println(appointmentRepository.countByNameDoc(1L));
+            System.out.println(positionRepository.count());
 
-            // Удаление всех записей в таблице Appointments
+            // Удаление всех записей в таблице Positions
 
-            appointmentRepository.deleteAll();
+            //System.out.println(positionRepository.deleteAll());
 
         }
+
         catch (NoRecordRowDB | IllegalArgumentException | ErrorWritingDbById ex){
 
             System.out.println(ex.getMessage());

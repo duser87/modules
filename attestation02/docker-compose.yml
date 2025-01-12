@@ -1,0 +1,31 @@
+
+services:
+
+  postgres:
+    image: postgres:17
+    container_name: postgres_db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/medik
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    image: attestation02
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: attestation02
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/medik
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+volumes:
+  postgres_data:
