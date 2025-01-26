@@ -9,8 +9,15 @@ import ru.innopolis.repository.OrderRepository;
 public class Actuator {
 
     @Bean
-    public MeterBinder binder(OrderRepository orderRepository){
-        return meterRegistry -> meterRegistry.gauge("Bla-bla-bla--->>>>>>>>>", orderRepository.getCountOrders());
+    public MeterBinder countOrder(OrderRepository orderRepository){
+        return meterRegistry -> meterRegistry.gauge("method_order_count_all", orderRepository.count());
+    }
+
+    @Bean
+    public MeterBinder sumAvg(OrderRepository orderRepository){
+        System.out.println(orderRepository.sum().getClass().getSimpleName());
+        System.out.println(orderRepository.sum());
+        return meterRegistry -> meterRegistry.gauge("method_order_sum_avg", orderRepository.sum());
     }
 
 }

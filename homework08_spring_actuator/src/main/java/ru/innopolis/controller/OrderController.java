@@ -1,9 +1,7 @@
 package ru.innopolis.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.innopolis.dto.Order;
 import ru.innopolis.repository.OrderRepository;
 
@@ -11,24 +9,29 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/orders")
-public class ProductController {
+@RequestMapping("/api/v1/")
+public class OrderController {
 
     private final OrderRepository productRepository;
 
+    @PostMapping()
+    public void createOrders(){
+        productRepository.create();
+    }
+
     @GetMapping("/all")
     public List<Order> getOrders(){
-        return productRepository.getOrders();
+        return productRepository.orders();
     }
 
     @GetMapping("/count")
     public Long getCount(){
-        return productRepository.getCountOrders();
+        return productRepository.count();
     }
 
     @GetMapping("/sum")
-    public Long getSum(){
-        return productRepository.getSumOrders();
+    public Double getSumAvg(){
+        return productRepository.sum();
     }
 
 }

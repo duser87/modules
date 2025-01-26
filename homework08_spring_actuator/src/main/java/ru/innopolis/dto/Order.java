@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 public class Order {
 
     private Long id;
-    private String name;
+    private String article;
     private Long quantity;
-    private Long sum;
+    private Double sum;
+    private String time;
 
 }
