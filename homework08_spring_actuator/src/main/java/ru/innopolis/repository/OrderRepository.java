@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
-import ru.innopolis.JDBCTemplateConfig;
+import ru.innopolis.config.JDBCTemplateConfig;
 import ru.innopolis.dto.Order;
 import java.util.List;
 import java.util.NoSuchElementException;
