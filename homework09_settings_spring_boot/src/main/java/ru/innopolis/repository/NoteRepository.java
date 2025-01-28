@@ -6,10 +6,6 @@ import org.springframework.stereotype.Component;
 import ru.innopolis.config.JDBCTemplateConfig;
 import ru.innopolis.model.Note;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-
 @Component
 public class NoteRepository {
     JdbcTemplate template = JDBCTemplateConfig.jdbcTemplate();
@@ -19,26 +15,24 @@ public class NoteRepository {
     private static final String DELETE_BY_ID = "DELETE FROM notes WHERE id=?";
     private static final String FIND_BY_ID = "SELECT * FROM notes WHERE id=?";
 
-    public void create(String topic, String text){
-        List<Note> orders = template.query("SELECT * FROM notes", orderRowMapper);
-        Optional<Long> idRowLast = Optional.of(orders.stream().map(x -> x.getId()).reduce((x, y) -> y)).orElseThrow(NoSuchElementException::new);
-        template.update(CREATE, idRowLast.get()+1L, topic, text);
+    public void create(Long id, String topic, String text){
+        template.update(CREATE, id, topic, text);
     }
 
 
-    public void update(){
-
+    public void update(Long id, String topic, String text){
+        template.update(UPDATE_BY_ID, topic, text, id);
     }
 
-    public void delete(){
-
+    public void delete(Long id){
+        template.update(DELETE_BY_ID, id);
     }
 
-    public Note findById(){
-        return new Note();
+    public Note findById(Long id){
+        return (Note)template.query(FIND_BY_ID, noteRowMapper, id);
     }
 
-    private static final RowMapper<Note> orderRowMapper = (row, rowNumber) -> {
+    private static final RowMapper<Note> noteRowMapper = (row, rowNumber) -> {
         Long id = row.getLong("id");
         String data = row.getString("data");
         String topic = row.getString("topic");
