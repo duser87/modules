@@ -1,14 +1,31 @@
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import ru.innopolis.service.NoteServiceProd;
+import ru.innopolis.model.Note;
+import ru.innopolis.repository.implementation.NoteRepositoryProdImpl;
+import ru.innopolis.service.NoteService;
 
-@SpringBootTest(classes={NoteServiceProd.class})
+@SpringBootTest(classes={NoteService.class, NoteRepositoryProdImpl.class})
 public class NoteServiceTest {
 
-    private NoteServiceProd noteService;
+    @Autowired
+    private NoteService noteService;
 
-    void noteTextTest(){
-        var result = noteService.findNote(1L);
-        Assertions.assertEquals("Тема 1", result.getTopic());
+    @Test
+    void noteTopicTest(){
+        Note result = noteService.findNote(1L);
+        Assertions.assertEquals("Topic 1", result.getTopic());
+    }
+
+    @Test
+    void noteTextTopicTest(){
+        Note note = new Note();
+        note.setId(6L);
+        note.setTopic("Topic 6");
+        note.setText_notes("Text topic 6");
+        noteService.createNote(note);
+        var res = noteService.findNote(note.getId());
+        Assertions.assertEquals("Topic 6", res.getTopic());
     }
 }

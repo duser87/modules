@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 public class Note {
 
     private Long id;
-    private String time;
     private String topic;
     private String text_notes;
 
