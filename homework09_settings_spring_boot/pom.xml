@@ -11,30 +11,6 @@
         <relativePath/>
     </parent>
 
-<!--    <profiles>-->
-
-<!--        <profile>-->
-<!--            <id>debug</id>-->
-<!--            <properties>-->
-<!--                <activeProfile>debug</activeProfile>-->
-<!--            </properties>-->
-<!--        </profile>-->
-
-<!--        <profile>-->
-<!--            <id>sandbox</id>-->
-<!--            <properties>-->
-<!--                <activeProfile>sandbox</activeProfile>-->
-<!--            </properties>-->
-<!--        </profile>-->
-
-<!--        <profile>-->
-<!--            <id>production</id>-->
-<!--            <properties>-->
-<!--                <activeProfile>production</activeProfile>-->
-<!--            </properties>-->
-<!--        </profile>-->
-
-<!--    </profiles>-->
 
     <groupId>ru.innopolis</groupId>
     <artifactId>homework09_settings_spring_boot</artifactId>
@@ -87,6 +63,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <version>3.4.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.15.2</version>
             <scope>test</scope>
         </dependency>
 
