@@ -41,7 +41,7 @@ public class NoteController {
     }
 
     @GetMapping(value ="/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Note> methodFindByIdNote(@RequestBody Note note, @PathVariable("id") Long id){
+    public ResponseEntity<Note> methodFindByIdNote(@PathVariable("id") Long id){
         Note noteResponse = noteService.findNote(id);
         return ResponseEntity.ok(noteResponse);
     }

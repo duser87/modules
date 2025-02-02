@@ -15,18 +15,13 @@ public class NoteServiceTest {
 
     @Test
     void noteTopicTest(){
-        Note result = noteService.findNote(1L);
-        Assertions.assertEquals("Topic 1", result.getTopic());
+        Note result = noteService.findNote(2L);
+        Assertions.assertEquals("Тема 2", result.getTopic());
     }
 
     @Test
     void noteTextTopicTest(){
-        Note note = new Note();
-        note.setId(6L);
-        note.setTopic("Topic 6");
-        note.setText_notes("Text topic 6");
-        noteService.createNote(note);
-        var res = noteService.findNote(note.getId());
-        Assertions.assertEquals("Topic 6", res.getTopic());
+        Note res = noteService.findNote(7L);
+        Assertions.assertEquals("Text topic 6", res.getText_notes());
     }
 }

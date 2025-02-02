@@ -13,6 +13,16 @@ public class NoteRepositorySandImpl implements NoteRepositoryInterface {
 
     List<Note> listNoteTest = new ArrayList<>();
 
+    public NoteRepositorySandImpl(){
+        for(int i=0; i<6; i++){
+            Note note = new Note();
+            note.setId(Long.valueOf(i));
+            note.setTopic("Topic sandbox " + i);
+            note.setText_notes("Text topic sandbox" + i);
+            listNoteTest.add(i, note);
+        }
+    }
+
     @Override
     public void create(Long id, String topic, String text) {
         Note note = new Note();

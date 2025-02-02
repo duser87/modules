@@ -32,8 +32,8 @@ public class NoteControllerTest {
     @Test
     void noteFindById() throws Exception{
         Note note = new Note();
-        Mockito.when(noteRepositoryInterface.findById(1L)).thenReturn(Optional.of(note));
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/note/1")).andExpectAll(MvcResult::getResponse);
+        Mockito.when(noteRepositoryInterface.findById(2L)).thenReturn(Optional.of(note));
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/note/2")).andExpectAll(MvcResult::getResponse);
     }
 
     @Test
@@ -51,7 +51,7 @@ public class NoteControllerTest {
         Note note = new Note();
         note.setId(1L);
         note.setTopic("Topic 1");
-        note.setText_notes("Bla bla bla 6");
+        note.setText_notes("Bla bla bla NEW");
         Mockito.doThrow(new RuntimeException()).when(Mockito.mock(NoteController.class)).methodUpdateNote(note);
         mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/note")).andExpectAll(MvcResult::getResponse);
     }
