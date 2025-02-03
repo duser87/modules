@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import ru.innopolis.config.JDBCTemplateConfig;
 import ru.innopolis.models.Course;
 import ru.innopolis.models.ListCourses;
+import ru.innopolis.models.Student;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,11 +19,20 @@ public class ListCoursesRepository{
     JdbcClient templateClient = JdbcClient.create(JDBCTemplateConfig.jdbcTemplate());
 
     private static final String CREATE = "INSERT INTO student.list_courses (id, id_fio, id_course) VALUES (?, ?, ?)";
+    private static final String UPDATE = "UPDATE student.list_courses SET id_fio=? , id_email=? WHERE id=?";
     private static final String DELETE = "DELETE FROM student.list_courses WHERE id=?";
     private static final String FIND_BY_ID = "SELECT * FROM student.list_courses WHERE id=?";
 
-    public void create(Long id, String course) {
-        template.update(CREATE, id, course);
+    public ListCourses create(Long id, Long id_fio, Long id_course) {
+        template.update(CREATE, id, id_fio, id_course);
+        var result = findById(id);
+        return result.get();
+    }
+
+    public ListCourses update(Long id, Long id_fio, Long id_course){
+        template.update(UPDATE, id, id_fio, id_course);
+        var result = findById(id);
+        return result.get();
     }
 
     public String delete(Long id) {
@@ -30,10 +40,16 @@ public class ListCoursesRepository{
         return "Запись с ID=" + id + " удалена!";
     }
 
-    public List<ListCourses> findById(Long id_fio) {
+    public List<ListCourses> findListById(Long id_fio) {
         List<ListCourses> result = template.query("SELECT * FROM student.list_courses", listCourseRowMapper);
         return result.stream().filter(n -> n.getId().equals(id_fio)).toList();
     }
+
+    public Optional<ListCourses> findById(Long id){
+        return templateClient.sql(FIND_BY_ID).param(id).query(ListCourses.class).optional();
+    }
+
+
 
     private static final RowMapper<ListCourses> listCourseRowMapper = (row, rowNumber) -> {
 

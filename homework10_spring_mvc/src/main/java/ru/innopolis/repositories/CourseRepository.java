@@ -20,8 +20,9 @@ public class CourseRepository {
     private static final String DELETE = "DELETE FROM student.courses WHERE id=?";
     private static final String FIND_BY_ID = "SELECT * FROM student.courses WHERE id=?";
 
-    public void create(Long id, String course) {
+    public Optional<Course> create(Long id, String course) {
         template.update(CREATE, id, course);
+        return findById(id);
     }
 
     public Optional<Course> update(Long id, String course) {

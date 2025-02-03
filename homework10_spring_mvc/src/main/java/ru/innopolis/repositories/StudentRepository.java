@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import ru.innopolis.config.JDBCTemplateConfig;
 import ru.innopolis.models.Student;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -39,4 +40,5 @@ public class StudentRepository{
     public Optional<Student> findById(Long id) {
         return templateClient.sql(FIND_BY_ID).param(id).query(Student.class).optional();
     }
+
 }

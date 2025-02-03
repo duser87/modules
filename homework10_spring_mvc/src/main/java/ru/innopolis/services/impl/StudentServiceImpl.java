@@ -1,20 +1,24 @@
 package ru.innopolis.services.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.innopolis.models.Student;
+import ru.innopolis.repositories.CourseRepository;
 import ru.innopolis.repositories.StudentRepository;
-import ru.innopolis.services.StudentServiceInterface;
+import ru.innopolis.services.CRUDServiceInterface;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
-public class StudentServiceImpl implements StudentServiceInterface<Student, String> {
+public class StudentServiceImpl implements CRUDServiceInterface<Student, String> {
+
 
     StudentRepository studentRepository;
+    CourseRepository courseRepository;
 
-    public StudentServiceImpl(StudentRepository repository){
-        studentRepository = repository;
+    public StudentServiceImpl(StudentRepository student,
+                              CourseRepository course){
+        studentRepository = student;
+        courseRepository = course;
 
     }
 
@@ -38,4 +42,9 @@ public class StudentServiceImpl implements StudentServiceInterface<Student, Stri
     public Student findById(Long id) throws Exception{
         return studentRepository.findById(id).orElseThrow();
     }
+
+    public String recordOnCourse(Student student){
+        return "";
+    }
+
 }
