@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ListCourses {
+public class ResponseListCourse {
     private Long id;
     private Long id_student;
-    private Long id_source;
+    private Long id_course;
 }

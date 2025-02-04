@@ -1,25 +1,34 @@
 package ru.innopolis.services.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.innopolis.models.Course;
+import ru.innopolis.models.ListCourses;
+import ru.innopolis.models.ResponseListCourse;
 import ru.innopolis.models.Student;
 import ru.innopolis.repositories.CourseRepository;
+import ru.innopolis.repositories.ListCoursesRepository;
 import ru.innopolis.repositories.StudentRepository;
 import ru.innopolis.services.CRUDServiceInterface;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements CRUDServiceInterface<Student, String> {
 
-
-    StudentRepository studentRepository;
-    CourseRepository courseRepository;
+    @Autowired
+    private final StudentRepository studentRepository;
+    @Autowired
+    private final CourseRepository courseRepository;
+    @Autowired
+    private final ListCoursesRepository listCoursesRepository;
 
     public StudentServiceImpl(StudentRepository student,
-                              CourseRepository course){
+                              CourseRepository courserepo,
+                              ListCoursesRepository listcoursesrepo){
         studentRepository = student;
-        courseRepository = course;
-
+        courseRepository = courserepo;
+        listCoursesRepository = listcoursesrepo;
     }
 
     @Override
@@ -43,8 +52,11 @@ public class StudentServiceImpl implements CRUDServiceInterface<Student, String>
         return studentRepository.findById(id).orElseThrow();
     }
 
-    public String recordOnCourse(Student student){
-        return "";
+    public String recordOnCourse(ResponseListCourse listCourse)throws Exception{
+        listCoursesRepository.create(listCourse.getId(), listCourse.getId_student(), listCourse.getId_course());
+        Course course = courseRepository.findById(listCourse.getId_course()).orElseThrow();
+        Student student = studentRepository.findById(listCourse.getId_student()).orElseThrow();
+        return "Запись студента: " + student.getFio() + " на курс \"" + course.getName() + "\"" + " произведена успешно!";
     }
 
 }
