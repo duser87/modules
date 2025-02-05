@@ -19,14 +19,12 @@ public class StudentRepository{
     private static final String FIND_BY_ID = "SELECT * FROM student.students WHERE id=?";
     private static final String FIND_ID = "SELECT id FROM student.students WHERE fio=?";
 
-    public Optional<Student> create(Long id, String fio, String email) {
+    public void create(Long id, String fio, String email) {
         template.update(CREATE, id, fio, email);
-        return findById(id);
     }
 
-    public Optional<Student> update(Long id, String fio, String email) {
+    public void update(Long id, String fio, String email) {
         template.update(UPDATE, fio, email, id);
-        return findById(id);
     }
 
 
@@ -48,10 +46,5 @@ public class StudentRepository{
         return templateClient.sql(FIND_ID).param(fio).query(Long.class).optional();
     }
 
-//    public Optional<Student> record(String fio, String email){
-//        String message ="Пользователя с ФИО-" + fio + " нет в БД!";
-//        Optional<Student> result = templateClient.sql("SELECT * FOR student.students WHERE fio=?").param(fio).query(Student.class).optional();
-//        return result.get().getId() != 0 ? findById(result.get().getId()) : Optional.empty();
-//    }
 
 }
