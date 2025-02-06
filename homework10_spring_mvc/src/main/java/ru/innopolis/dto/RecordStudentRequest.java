@@ -1,6 +1,5 @@
-package ru.innopolis.models;
+package ru.innopolis.dto;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,12 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ListCourses {
+public class RecordStudentRequest {
     private Long id;
-
-    @NotNull
     private Long id_student;
-
-    @NotNull
     private Long id_course;
 }

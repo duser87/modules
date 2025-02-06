@@ -5,6 +5,8 @@ import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 import ru.innopolis.config.JDBCTemplateConfig;
 import ru.innopolis.models.Student;
+
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -33,13 +35,8 @@ public class StudentRepository{
         return "Запись с ID=" + id + " удалена!";
     }
 
-
     public Optional<Student> findById(Long id) {
         return templateClient.sql(FIND_BY_ID).param(id).query(Student.class).optional();
-    }
-
-    public Student findListCourses(){
-        return null;
     }
 
     public Optional<Long> findId(String fio){

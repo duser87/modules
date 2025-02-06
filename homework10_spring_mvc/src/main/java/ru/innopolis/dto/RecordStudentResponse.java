@@ -7,9 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ListCourseResponse {
-    private Long id;
-    private Long id_student;
-    private Long id_course;
+public class RecordStudentResponse {
+    private String fio;
+    private String course;
     private String message;
 }
