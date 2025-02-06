@@ -52,13 +52,22 @@ public class StudentServiceImpl implements CRUDServiceInterface<Student, String>
 
     public RecordStudentResponse recordOnCourse(RecordStudentRequest request) {
         List<ListCourses> result = listCoursesRepository.findListCourses(request.getId_student());
-        listCoursesRepository.create(request.getId(), request.getId_student(), request.getId_course());
+        boolean n = result.stream().anyMatch(p -> p.getId_course().equals(request.getId_course()));
+        RecordStudentResponse response = new RecordStudentResponse();
         Student student = studentRepository.findById(request.getId_student()).orElseThrow();
         Course course = courseRepository.findById(request.getId_course()).orElseThrow();
-        RecordStudentResponse response = new RecordStudentResponse();
-        response.setFio(student.getFio());
-        response.setCourse(course.getName());
-        response.setMessage("Запись прошла успешно!");
+        if (!n){
+            listCoursesRepository.create(request.getId(), request.getId_student(), request.getId_course());
+            response.setFio(student.getFio());
+            response.setCourse(course.getName());
+            response.setMessage("Запись прошла успешно!");
+        }
+        else {
+            response.setFio(student.getFio());
+            response.setCourse(course.getName());
+            response.setMessage(" ---> Вы уже записаны на данный курс! Выберите другое направление!");
+        }
+
         return response;
     }
 
