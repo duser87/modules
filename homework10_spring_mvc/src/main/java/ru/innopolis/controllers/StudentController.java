@@ -10,7 +10,7 @@ import ru.innopolis.dto.RecordStudentRequest;
 
 import ru.innopolis.dto.RecordStudentResponse;
 import ru.innopolis.models.Student;
-import ru.innopolis.services.impl.StudentService;
+import ru.innopolis.services.StudentService;
 
 @RestController
 @RequestMapping("/api/v1/student")

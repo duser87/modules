@@ -1,4 +1,4 @@
-package ru.innopolis.services.impl;
+package ru.innopolis.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

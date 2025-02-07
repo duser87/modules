@@ -12,7 +12,7 @@ import ru.innopolis.controllers.StudentController;
 import ru.innopolis.dto.RecordStudentRequest;
 import ru.innopolis.models.Student;
 import ru.innopolis.repositories.StudentRepository;
-import ru.innopolis.services.impl.StudentService;
+import ru.innopolis.services.StudentService;
 
 import java.util.Optional;
 
