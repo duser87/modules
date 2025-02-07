@@ -10,16 +10,16 @@ import ru.innopolis.dto.RecordStudentRequest;
 
 import ru.innopolis.dto.RecordStudentResponse;
 import ru.innopolis.models.Student;
-import ru.innopolis.services.impl.StudentServiceImpl;
+import ru.innopolis.services.impl.StudentService;
 
 @RestController
 @RequestMapping("/api/v1/student")
 public class StudentController {
 
     @Autowired
-    StudentServiceImpl service;
+    StudentService service;
 
-    public StudentController(StudentServiceImpl studentService){
+    public StudentController(StudentService studentService){
         service = studentService;
     }
 

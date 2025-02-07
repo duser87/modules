@@ -11,12 +11,11 @@ import ru.innopolis.models.Student;
 import ru.innopolis.repositories.CourseRepository;
 import ru.innopolis.repositories.ListCoursesRepository;
 import ru.innopolis.repositories.StudentRepository;
-import ru.innopolis.services.CRUDServiceInterface;
 
 import java.util.List;
 
 @Service
-public class StudentServiceImpl implements CRUDServiceInterface<Student, String> {
+public class StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
@@ -25,26 +24,22 @@ public class StudentServiceImpl implements CRUDServiceInterface<Student, String>
     @Autowired
     private ListCoursesRepository listCoursesRepository;
 
-    @Override
     public Student create(Student student){
         studentRepository.create(student.getId(), student.getFio(), student.getEmail());
         var result = studentRepository.findById(student.getId());
         return result.orElseThrow();
     }
 
-    @Override
     public Student update(Student student){
         studentRepository.update(student.getId(), student.getFio(), student.getEmail());
         var result = studentRepository.findById(student.getId());
         return result.orElseThrow();
     }
 
-    @Override
     public String delete(Long id){
         return studentRepository.delete(id);
     }
 
-    @Override
     public Student findById(Long id){
         return studentRepository.findById(id).orElseThrow();
     }
@@ -52,11 +47,11 @@ public class StudentServiceImpl implements CRUDServiceInterface<Student, String>
 
     public RecordStudentResponse recordOnCourse(RecordStudentRequest request) {
         List<ListCourses> result = listCoursesRepository.findListCourses(request.getId_student());
-        boolean n = result.stream().anyMatch(p -> p.getId_course().equals(request.getId_course()));
+        boolean resultRecord = result.stream().anyMatch(p -> p.getId_course().equals(request.getId_course()));
         RecordStudentResponse response = new RecordStudentResponse();
         Student student = studentRepository.findById(request.getId_student()).orElseThrow();
         Course course = courseRepository.findById(request.getId_course()).orElseThrow();
-        if (!n){
+        if (!resultRecord){
             listCoursesRepository.create(request.getId(), request.getId_student(), request.getId_course());
             response.setFio(student.getFio());
             response.setCourse(course.getName());
