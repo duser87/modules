@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ListCourses {
 
-    private Long id;
-
     @NotNull
     private Long id_student;
 

@@ -19,6 +19,7 @@ public class CourseRepository {
     private static final String DELETE = "DELETE FROM student.courses WHERE id=?";
     private static final String FIND_BY_ID = "SELECT * FROM student.courses WHERE id=?";
     private static final String FIND_ID = "SELECT id FROM student.courses WHERE name=?";
+    private static final String FIND_MAX_ID ="SELECT id FROM student.courses WHERE id = (SELECT MAX(id) FROM student.courses)";
 
     public Optional<Course> create(Long id, String name) {
         template.update(CREATE, id, name);
@@ -41,6 +42,10 @@ public class CourseRepository {
 
     public Optional<Long> findId(String name){
         return templateClient.sql(FIND_ID).param(name).query(Long.class).optional();
+    }
+
+    public Long findMaxId(){
+        return template.queryForObject(FIND_MAX_ID, Long.class);
     }
 
 }

@@ -13,9 +13,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Student {
-
-    private Long id;
-
     @NotNull
     @Size(min = 2, max = 100)
     private String fio;

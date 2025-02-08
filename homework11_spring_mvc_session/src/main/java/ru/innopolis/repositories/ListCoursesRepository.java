@@ -18,9 +18,10 @@ public class ListCoursesRepository {
 
     private static final String CREATE = "INSERT INTO student.list_courses (id, id_student, id_course) VALUES (?, ?, ?)";
     private static final String UPDATE = "UPDATE student.list_courses SET id_student=?, id_course=? WHERE id=?";
-    private static final String DELETE = "DELETE FROM student.list_courses WHERE id=?";
+    private static final String DELETE = "DELETE FROM student.list_courses WHERE id_student=?";
     private static final String FIND_BY_ID = "SELECT * FROM student.list_courses WHERE id=?";
     private static final String FIND_ALL = "SELECT * FROM student.list_courses";
+    private static final String FIND_MAX_ID ="SELECT id FROM student.list_courses WHERE id = (SELECT MAX(id) FROM student.list_courses)";
 
     public Optional<ListCourses> create(Long id, Long id_student, Long id_course) {
         template.update(CREATE, id, id_student, id_course);
@@ -47,13 +48,16 @@ public class ListCoursesRepository {
         return (template.query(FIND_ALL, listCoursesRowMapper)).stream().filter(x -> x.getId_student().equals(id_student)).toList();
     }
 
+    public Long findMaxId(){
+        return template.queryForObject(FIND_MAX_ID, Long.class);
+    }
+
     private static final RowMapper<ListCourses> listCoursesRowMapper = (row, rowNumber) -> {
 
-        Long id = row.getLong("id");
         Long id_student = row.getLong("id_student");
         Long id_course = row.getLong("id_course");
 
-        return new ListCourses(id, id_student, id_course);
+        return new ListCourses(id_student, id_course);
 
     };
 

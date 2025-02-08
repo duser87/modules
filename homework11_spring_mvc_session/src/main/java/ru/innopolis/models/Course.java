@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Course {
 
-    private Long id;
-
     @NotNull
     private String name;
 
