@@ -5,7 +5,9 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/homework03/pom.xml" />
+        <option value="$PROJECT_DIR$/homework06/pom.xml" />
+        <option value="$PROJECT_DIR$/attestation02/pom.xml" />
+        <option value="$PROJECT_DIR$/homework10_spring_mvc/pom.xml" />
       </list>
     </option>
   </component>
