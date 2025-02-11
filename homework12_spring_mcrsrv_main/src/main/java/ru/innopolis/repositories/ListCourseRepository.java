@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface ListCourseRepository {
     void create(ListCoursesEntity entity);
-    void update(ListCoursesEntity entity);
-    ListCoursesEntity findListCoursesById(Long id);
-    List<ListCoursesEntity> findListsCourses();
-    void delete(Long id);
+    List<ListCoursesEntity> findListCoursesById(Long id);
+    String delete(Long id_student, Long id_course);
 }

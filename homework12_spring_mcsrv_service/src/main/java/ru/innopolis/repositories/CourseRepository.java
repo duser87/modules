@@ -4,7 +4,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
-import ru.innopolis.config.JDBCTemplateConfig;
+import ru.innopolis.config.JDBCTemplateConfigService;
 import ru.innopolis.dto.CourseResponse;
 
 import java.util.List;
@@ -13,8 +13,8 @@ import java.util.Optional;
 @Repository
 public class CourseRepository {
 
-    JdbcTemplate template = JDBCTemplateConfig.jdbcTemplate();
-    JdbcClient templateClient = JdbcClient.create(JDBCTemplateConfig.jdbcTemplate());
+    JdbcTemplate template = JDBCTemplateConfigService.jdbcTemplate();
+    JdbcClient templateClient = JdbcClient.create(JDBCTemplateConfigService.jdbcTemplate());
 
     private static final String FIND_BY_ID = "SELECT * FROM courses.courses WHERE id=?";
     private static final String FIND_ALL = "SELECT * FROM courses.courses";
