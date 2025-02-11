@@ -21,7 +21,7 @@ public class StudentRepoImpl implements StudentRepository {
     private static final String UPDATE = "UPDATE students.students SET fio=? , email=? WHERE id=?";
     private static final String DELETE = "DELETE FROM students.students WHERE id=?";
     private static final String FIND_BY_FIO = "SELECT * FROM students.students WHERE fio=?";
-   // private static final String FIND_BY_ID = "SELECT * FROM students.students WHERE id=?";
+    private static final String FIND_BY_ID = "SELECT * FROM students.students WHERE id=?";
     private static final String FIND_MAX_ID ="SELECT id FROM students.students WHERE id = (SELECT MAX(id) FROM students.students)";
 
     @Override
@@ -39,6 +39,11 @@ public class StudentRepoImpl implements StudentRepository {
     @Override
     public Optional<StudentEntity> findByName(String fio) {
         return templateClient.sql(FIND_BY_FIO).param(fio).query(StudentEntity.class).optional();
+    }
+
+    @Override
+    public Optional<StudentEntity> findById(Long id) {
+        return templateClient.sql(FIND_BY_ID).param(id).query(StudentEntity.class).optional();
     }
 
     @Override

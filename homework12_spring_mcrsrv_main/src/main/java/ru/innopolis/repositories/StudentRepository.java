@@ -11,5 +11,6 @@ public interface StudentRepository {
     void create(StudentEntity student);
     void update(StudentEntity student);
     Optional<StudentEntity> findByName(String fio);
+    Optional<StudentEntity> findById(Long id);
     String delete(Long id);
 }

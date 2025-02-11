@@ -78,10 +78,10 @@ public class StudentService implements StudentServiceInterface {
     }
 
     @Override
-    public StudentResponse getListRecordStudent(StudentRequest request) throws Exception {
+    public StudentResponse getListRecordStudent(Long id) {
         StudentResponse response = new StudentResponse();
         try {
-            StudentEntity student= Optional.of(studentRepo.findByName(request.getFio())).get().orElseThrow();
+            StudentEntity student= Optional.of(studentRepo.findById(id)).get().orElseThrow();
             List<CourseResponse> course = Optional.of(coursesClient.getListCourses()).orElseThrow();
 
             String[] str = new String[course.size()];
@@ -89,12 +89,12 @@ public class StudentService implements StudentServiceInterface {
                 str[i] = course.get(i).getName();
             }
 
-            response.setName(request.getFio());
+            response.setName(student.getFio());
             response.setCourses(str);
             response.setMessage(" ---> Вы записаны на следующие курсы");
         }
         catch (Exception e) {
-            throw new Exception(e);
+            throw new RuntimeException(e);
         }
         return response;
     }

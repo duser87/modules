@@ -6,5 +6,5 @@ import ru.innopolis.dto.students.StudentResponse;
 public interface StudentServiceInterface {
     StudentResponse createRecord(StudentRequest request) ;
     StudentResponse deleteRecord(StudentRequest request);
-    StudentResponse getListRecordStudent(StudentRequest request) throws Exception;
+    StudentResponse getListRecordStudent(Long id);
 }
