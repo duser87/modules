@@ -28,9 +28,10 @@ public class StudentController {
         return ResponseEntity.ok(result);
     }
 
-
-    public ResponseEntity<StudentResponse> getListCourseAllCoursesStudent(){
-        return null;
+    @GetMapping(value = "/course/all/{id}",  produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<StudentResponse> getListCourseAllCoursesStudent(@PathVariable("id") Long id){
+        StudentResponse result = studentService.getListRecordStudent(id);
+        return ResponseEntity.ok(result);
     }
 
 }

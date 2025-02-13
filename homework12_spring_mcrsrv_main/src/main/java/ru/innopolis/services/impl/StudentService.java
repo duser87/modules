@@ -13,41 +13,64 @@ import ru.innopolis.repositories.StudentRepository;
 import ru.innopolis.services.StudentServiceInterface;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 public class StudentService implements StudentServiceInterface {
 
-    @Autowired
     private StudentRepository studentRepo;
-    @Autowired
     private ListCourseRepository listCourseRepo;
     @Autowired
     private CoursesClient coursesClient;
+
+    public StudentService(StudentRepository _studentRepo,
+                          ListCourseRepository _listCourseRepo){
+        studentRepo = _studentRepo;
+        listCourseRepo =_listCourseRepo;
+    }
 
 
     @Override
     public StudentResponse createRecord(StudentRequest request){
         StudentResponse response = new StudentResponse();
+        ListCoursesEntity list = new ListCoursesEntity();
+        List<ListCoursesEntity> allListCourses;
+        StudentEntity student;
+        CourseResponse course;
+
         try {
-            StudentEntity student= Optional.of(studentRepo.findByName(request.getFio())).get().orElseThrow();
-            CourseResponse course = Optional.of(coursesClient.getCourse(request.getId_course())).orElseThrow();
-            ListCoursesEntity list = new ListCoursesEntity();
+            student= Optional.of(studentRepo.findByName(request.getFio()))
+                    .get()
+                    .orElseThrow();
+            course = Optional.of(coursesClient.getCourse(request.getId_course()))
+                    .orElseThrow();
+            allListCourses = Optional.of(listCourseRepo.findListCoursesById(student.getId()))
+                    .orElseThrow();
 
-            String[] str = new String[1];
-            str[0] = course.getName();
-            response.setName(student.getFio());
-            response.setCourses(str);
+            if(course.getActivity()) {
 
-            if(student.getId() != 0L & course.getId() != null){
-                list.setId_student(student.getId());
-                list.setId_course(course.getId());
-                list.setActivity(0L);
-                listCourseRepo.create(list);
-                response.setMessage(" ---> Запись на курс прошла успешно!");
+                response.setName(student.getFio());
+                response.setCourses(Stream.of(course.getName())
+                        .toArray(String[]::new));
+                boolean result = allListCourses.stream()
+                        .allMatch(x -> x.getId_course() != request.getId_course());
+
+                if(result){
+                    list.setId_student(student.getId());
+                    list.setId_course(course.getId());
+                    list.setActivity(course.getActivity());
+                    listCourseRepo.create(list);
+                    response.setMessage(" ---> Запись на курс прошла успешно!");
+                }
+                else {
+                    response.setMessage(" ---> Нельзя записаться дважды на один и тот же курс...");
+                }
+
             }
-            else{
-                response.setMessage(" ---> Не удалось провести запись на курс...");
+            else {
+                response.setMessage(" ---> Нельзя записаться на данный курс пока он не активен");
             }
+
         }
         catch (Exception e){
             throw new RuntimeException(e);
@@ -59,16 +82,21 @@ public class StudentService implements StudentServiceInterface {
     @Override
     public StudentResponse deleteRecord(StudentRequest request) {
         StudentResponse response = new StudentResponse();
+        StudentEntity student;
+        CourseResponse course;
+
         try {
-            StudentEntity student= Optional.of(studentRepo.findByName(request.getFio())).get().orElseThrow();
-            CourseResponse course = Optional.of(coursesClient.getCourse(request.getId_course())).orElseThrow();
+            student= Optional.of(studentRepo.findByName(request.getFio()))
+                    .get()
+                    .orElseThrow();
+            course = Optional.of(coursesClient.getCourse(request.getId_course()))
+                    .orElseThrow();
 
             listCourseRepo.delete(student.getId(), course.getId());
 
-            String[] str = new String[1];
-            str[0] = course.getName();
+            response.setCourses(Stream.of(course.getName())
+                    .toArray(String[]::new));
             response.setName(student.getFio());
-            response.setCourses(str);
             response.setMessage(" ---> Запись с данного курса удалена.");
         }
         catch (Exception e) {
@@ -80,13 +108,21 @@ public class StudentService implements StudentServiceInterface {
     @Override
     public StudentResponse getListRecordStudent(Long id) {
         StudentResponse response = new StudentResponse();
-        try {
-            StudentEntity student= Optional.of(studentRepo.findById(id)).get().orElseThrow();
-            List<CourseResponse> course = Optional.of(coursesClient.getListCourses()).orElseThrow();
+        StudentEntity student;
+        List<ListCoursesEntity> list;
 
-            String[] str = new String[course.size()];
-            for(int i=0; i<course.size(); i++){
-                str[i] = course.get(i).getName();
+        try {
+            student= Optional.of(studentRepo.findById(id))
+                    .get()
+                    .orElseThrow();
+            list= Optional.of(listCourseRepo.findListCoursesById(id))
+                    .orElseThrow();
+
+            String[] str = new String[list.size()];
+            for(int i=0; i<list.size(); i++){
+                Long in = list.get(i).getId_course();
+                CourseResponse courseResponse = Optional.of(coursesClient.getCourse(in)).orElseThrow();
+                str[i] = "< " + courseResponse.getName() + " >" + " - начало обучения на курсе с " + list.get(i).getStart_date();
             }
 
             response.setName(student.getFio());

@@ -1,10 +1,8 @@
 package ru.innopolis.client.impl;
 
 import jakarta.annotation.PostConstruct;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import ru.innopolis.client.CoursesClient;
@@ -14,7 +12,6 @@ import java.nio.file.NoSuchFileException;
 import java.util.List;
 
 @Component
-@Profile("restClient")
 public class CoursesRestClientImpl implements CoursesClient {
 
     RestClient restClient;
@@ -27,7 +24,7 @@ public class CoursesRestClientImpl implements CoursesClient {
 
     @Override
     public CourseResponse getCourse(Long id) {
-        return restClient.get().uri("/" + id).retrieve().toEntity(CourseResponse.class).getBody();
+        return restClient.get().uri("/" + id.intValue()).retrieve().body(CourseResponse.class);
     }
 
     @Override

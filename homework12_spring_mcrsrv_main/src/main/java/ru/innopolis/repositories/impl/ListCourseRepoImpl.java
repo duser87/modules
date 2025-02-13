@@ -46,9 +46,9 @@ public class ListCourseRepoImpl implements ListCourseRepository {
         Long id = row.getLong("id");
         Long id_student = row.getLong("id_student");
         Long id_course = row.getLong("id_course");
-        String start_data = row.getString("start_data");
-        Long activity = row.getLong("activity");
-        return new ListCoursesEntity(id, id_student, id_course, start_data, activity);
+        String start_date = row.getString("start_date");
+        Boolean activity = row.getBoolean("activity");
+        return new ListCoursesEntity(id, id_student, id_course, start_date, activity);
 
     };
 }

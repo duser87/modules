@@ -16,5 +16,5 @@ public class ListCoursesEntity {
     private Long id_course;
     private String start_date;
     @NotNull
-    private Long activity;
+    private Boolean activity;
 }

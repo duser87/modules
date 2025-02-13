@@ -1,6 +1,6 @@
 
-INSERT INTO "courses".courses(id, name) VALUES (1, 'Гистология');
-INSERT INTO "courses".courses(id, name) VALUES (2, 'Общая анатомия');
-INSERT INTO "courses".courses(id, name) VALUES (3, 'Физиология');
-INSERT INTO "courses".courses(id, name) VALUES (4, 'Патологическая анатомия');
-INSERT INTO "courses".courses(id, name) VALUES (5, 'Фармакология');
+INSERT INTO "courses".courses(id, name, activity) VALUES (1, 'Гистология', true);
+INSERT INTO "courses".courses(id, name, activity) VALUES (2, 'Общая анатомия', true);
+INSERT INTO "courses".courses(id, name, activity) VALUES (3, 'Физиология', true);
+INSERT INTO "courses".courses(id, name, activity) VALUES (4, 'Патологическая анатомия', true);
+INSERT INTO "courses".courses(id, name, activity) VALUES (5, 'Фармакология', true);

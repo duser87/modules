@@ -24,7 +24,7 @@ public class CourseController {
     @GetMapping("/{id}")
     public ResponseEntity<CourseResponse> getCourse(@PathVariable Long id){
         var result = repository.getCourse(id).orElseThrow();
-        return result.equals(null) ? ResponseEntity.ok(result) : ResponseEntity.notFound().build();
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/list")

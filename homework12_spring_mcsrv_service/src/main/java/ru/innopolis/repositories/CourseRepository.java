@@ -31,8 +31,9 @@ public class CourseRepository {
 
         Long id = row.getLong("id");
         String name = row.getString("name");
+        Boolean activity = row.getBoolean("activity");
 
-        return new CourseResponse(id, name);
+        return new CourseResponse(id, name, activity);
 
     };
 
