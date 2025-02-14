@@ -23,8 +23,13 @@ public class ListCourseRepoImpl implements ListCourseRepository {
 
     @Override
     public void create(ListCoursesEntity list) {
-        Long result = findMaxId();
-        template.update(CREATE, result+1L, list.getId_student(), list.getId_course(), list.getActivity());
+        if(list.getId() == null){
+            var result = findMaxId() + 1L;
+            template.update(CREATE, result, list.getId_student(), list.getId_course(), list.getActivity());
+        }
+        else{
+            template.update(CREATE, list.getId(), list.getId_student(), list.getId_course(), list.getActivity());
+        }
     }
 
     @Override

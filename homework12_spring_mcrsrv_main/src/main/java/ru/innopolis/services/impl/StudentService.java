@@ -48,24 +48,30 @@ public class StudentService implements StudentServiceInterface {
                     .orElseThrow();
 
             if(course.getActivity()) {
-
                 response.setName(student.getFio());
                 response.setCourses(Stream.of(course.getName())
                         .toArray(String[]::new));
-                boolean result = allListCourses.stream()
-                        .allMatch(x -> x.getId_course() != request.getId_course());
 
-                if(result){
-                    list.setId_student(student.getId());
-                    list.setId_course(course.getId());
-                    list.setActivity(course.getActivity());
+                list.setId_student(student.getId());
+                list.setId_course(course.getId());
+                list.setActivity(course.getActivity());
+
+                if(allListCourses.isEmpty()) {
+                    list.setId(1L);
                     listCourseRepo.create(list);
                     response.setMessage(" ---> Запись на курс прошла успешно!");
                 }
                 else {
-                    response.setMessage(" ---> Нельзя записаться дважды на один и тот же курс...");
+                    boolean result = allListCourses.stream()
+                            .allMatch(x -> x.getId_course() != request.getId_course());
+                    if(result){
+                        listCourseRepo.create(list);
+                        response.setMessage(" ---> Запись на курс прошла успешно!");
+                    }
+                    else {
+                        response.setMessage(" ---> Нельзя записаться дважды на один и тот же курс...");
+                    }
                 }
-
             }
             else {
                 response.setMessage(" ---> Нельзя записаться на данный курс пока он не активен");
@@ -73,7 +79,7 @@ public class StudentService implements StudentServiceInterface {
 
         }
         catch (Exception e){
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
         return response;
     }
@@ -100,7 +106,7 @@ public class StudentService implements StudentServiceInterface {
             response.setMessage(" ---> Запись с данного курса удалена.");
         }
         catch (Exception e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
         return response;
     }
@@ -130,7 +136,7 @@ public class StudentService implements StudentServiceInterface {
             response.setMessage(" ---> Вы записаны на следующие курсы");
         }
         catch (Exception e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
         return response;
     }
