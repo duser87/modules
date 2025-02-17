@@ -8,30 +8,41 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "students")
-public class StudentEntity {
+@Table(name = "students", schema = "student")
+public class StudentEntity{
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
     @NotNull
     @Size(min = 2, max = 100)
+    @Column(name = "fio")
     private String fio;
 
     @NotNull
     @Email
+    @Column(name = "email")
     private String email;
 
     @NotNull
+    @Column(name = "age")
     private Integer age;
 
-    @OneToMany(mappedBy = "student")
-    List<ListCoursesEntity> listCoursesEntities;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "list_courses",
+            joinColumns = { @JoinColumn(name = "id_student") },
+            inverseJoinColumns = { @JoinColumn(name = "id_course") }
+    )
+    private Set<CourseEntity> courses;
 
 }

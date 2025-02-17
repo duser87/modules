@@ -1,5 +1,6 @@
 package ru.innopolis.services;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.innopolis.dto.ListStudentsCourseResponse;
 import ru.innopolis.dto.StudentRequest;
@@ -13,6 +14,7 @@ import ru.innopolis.repositories.JpaStudentRepository;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class StudentsService {
 
@@ -29,12 +31,13 @@ public class StudentsService {
     }
 
     public StudentEntity create(StudentEntity student){
+        log.info("--> SERVICE START");
         return jpaStudentRepository.save(student);
     }
 
     public String delete(Long id){
         jpaStudentRepository.deleteById(id);
-        return "Запись с ID - {id} удалена!";
+        return "Запись с ID - " + id + " удалена!";
     }
 
     public StudentEntity update(StudentEntity student){
@@ -70,8 +73,8 @@ public class StudentsService {
             if (!resultRecord){
                 ListCoursesEntity newList = new ListCoursesEntity();
                 newList.setId(request.getId());
-                newList.setId_student(student);
-                newList.setId_course(course);
+                newList.setId_student(student.getId());
+                newList.setId_course(course.getId());
                 jpaListCoursesRepository.save(newList);
                 response.setFio(student.getFio());
                 response.setCourse(course.getName());
@@ -92,13 +95,12 @@ public class StudentsService {
     public ListStudentsCourseResponse getListStudentsOnCourse(Long id_course){
         ListStudentsCourseResponse listStudentsCourseResponse = new ListStudentsCourseResponse();
         try {
-            //List<ListCoursesEntity> listCourses =listCoursesRepository.findListStudentsCourse(id_course);
             List<ListCoursesEntity> result = jpaListCoursesRepository.findAll();
             List<ListCoursesEntity> resultFilter = result.stream()
                     .filter(x-> x.getId_course().equals(id_course))
                     .toList();
             List<StudentEntity> students = resultFilter.stream()
-                    .map(x->jpaStudentRepository.findById(x.getId_student().getId())
+                    .map(x->jpaStudentRepository.findById(x.getId_student())
                             .orElseThrow()).toList();
             CourseEntity course = jpaCourseRepository.findById(id_course).orElseThrow();
             listStudentsCourseResponse.setCourse(course.getName());

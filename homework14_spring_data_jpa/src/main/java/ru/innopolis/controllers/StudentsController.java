@@ -1,6 +1,7 @@
 package ru.innopolis.controllers;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import ru.innopolis.dto.StudentResponse;
 import ru.innopolis.entity.StudentEntity;
 import ru.innopolis.services.StudentsService;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/student/")
 public class StudentsController {
@@ -20,7 +22,9 @@ public class StudentsController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StudentEntity> methodCreateStudent(@Valid @RequestBody StudentEntity student){
+        log.info("START");
         StudentEntity std = service.create(student);
+        log.info("STOP");
         return ResponseEntity.ok(std);
     }
 

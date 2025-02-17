@@ -6,25 +6,30 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="courses", schema = "student")
-public class CourseEntity {
+public class CourseEntity{
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
     @NotNull
+    @Column(name = "name")
     private String name;
 
     @NotNull
+    @Column(name = "activity")
     private Boolean activity;
 
-    @OneToMany(mappedBy = "course")
-    List<ListCoursesEntity> listCoursesEntities;
+    @ManyToMany(mappedBy = "courses", fetch = FetchType.LAZY)
+    private Set<StudentEntity> students;
 
 }
