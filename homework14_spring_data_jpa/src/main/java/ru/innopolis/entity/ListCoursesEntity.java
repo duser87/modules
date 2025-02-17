@@ -16,10 +16,12 @@ public class ListCoursesEntity {
     @Id
     @GeneratedValue
     private Long id;
-    @ManyToMany
+
+    @ManyToOne
     @JoinColumn(name = "id")
-    private List<StudentEntity> id_student;
-    @ManyToMany
+    private StudentEntity id_student;
+
+    @ManyToOne
     @JoinColumn(referencedColumnName = "fk_course_id")
-    private List<CourseEntity> id_course;
+    private CourseEntity id_course;
 }

@@ -28,7 +28,10 @@ public class StudentEntity {
     @Email
     private String email;
 
-    @ManyToMany
+    @NotNull
+    private Integer age;
+
+    @OneToMany
     @JoinColumn(referencedColumnName = "fk_lis_course_id")
     private List<ListCoursesEntity> listCourses;
 }
