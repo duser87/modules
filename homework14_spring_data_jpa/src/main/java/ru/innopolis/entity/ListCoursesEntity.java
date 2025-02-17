@@ -1,11 +1,10 @@
 package ru.innopolis.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Entity
 @Data
@@ -18,10 +17,15 @@ public class ListCoursesEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "student_id")
     private StudentEntity id_student;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "fk_course_id")
+    @JoinColumn(name = "course_id")
     private CourseEntity id_course;
+
+    private String start_date;
+
+    @NotNull
+    private Boolean activity;
 }

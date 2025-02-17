@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="courses")
+@Table(name="courses", schema = "student")
 public class CourseEntity {
     @Id
     @GeneratedValue
@@ -22,14 +22,9 @@ public class CourseEntity {
     private String name;
 
     @NotNull
-    private Long id_course;
-
-    private String start_date;
-
-    @NotNull
     private Boolean activity;
 
-    @OneToMany
-    @JoinColumn(referencedColumnName = "fk_lis_course_id")
-    private List<ListCoursesEntity> listCourses;
+    @OneToMany(mappedBy = "course")
+    List<ListCoursesEntity> listCoursesEntities;
+
 }

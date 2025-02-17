@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.innopolis.aop.LogDebug;
+import ru.innopolis.dto.ListStudentsCourseResponse;
 import ru.innopolis.dto.StudentRequest;
 import ru.innopolis.dto.StudentResponse;
 import ru.innopolis.entity.StudentEntity;
@@ -19,7 +20,7 @@ public class StudentsController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StudentEntity> methodCreateStudent(@Valid @RequestBody StudentEntity student){
-        StudentEntity std = service.;
+        StudentEntity std = service.create(student);
         return ResponseEntity.ok(std);
     }
 
@@ -49,12 +50,6 @@ public class StudentsController {
     @PostMapping(path = "/add_course", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StudentResponse> methodRecordOnCourse(@RequestBody StudentRequest request){
         var result = service.recordOnCourse(request);
-        return ResponseEntity.ok(result);
-    }
-
-    @GetMapping(value = "/list_courses/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ListCoursesStudentResponse> methodGetListStudentCourses(@PathVariable("id") Long id){
-        var result = service.getListStudentCourses(id);
         return ResponseEntity.ok(result);
     }
 

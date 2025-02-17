@@ -31,7 +31,7 @@ public class StudentEntity {
     @NotNull
     private Integer age;
 
-    @OneToMany
-    @JoinColumn(referencedColumnName = "fk_lis_course_id")
-    private List<ListCoursesEntity> listCourses;
+    @OneToMany(mappedBy = "student")
+    List<ListCoursesEntity> listCoursesEntities;
+
 }
