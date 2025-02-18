@@ -25,23 +25,23 @@ public class LoggingAspect {
 
     @Profile("prod")
     @Before("logPointcut()")
-    public void logMethodeStartedTimeNow(){
+    public void logMethodeStartedTimeNow(JoinPoint joinPoint){
         timeNow = Instant.now();
-        System.out.println(timeNow + " - Начало выполнения метода");
+        log.info(" >>> Начало выполнения метода: {}, время: {}", joinPoint.toString(), timeNow);
     }
 
     @Profile("prod")
     @After("logPointcut()")
-    public void logMethodeFinishTimeNow(){
+    public void logMethodeFinishTimeNow(JoinPoint joinPoint){
         timeEnd = Instant.now();
-        System.out.println(timeEnd + " - Завершение выполнения метода");
+        log.info(" >>> Окончание выполнения метода: {}, время: {}", joinPoint.toString(), timeEnd);
         Duration timeResult = Duration.between(timeNow, timeEnd);
-        System.out.println("Время выполнение метода: " + timeResult.toMillis() + "мс");
+        log.info(" >>> Время выполнение метода: {}ms", timeResult.toMillis());
     }
 
     @Profile("debug")
     @After("logPoint()")
-    public void logger(JoinPoint joinPoint){
-        log.info(" -> Вызов метода: {}", joinPoint.toString());
+    public void loggerDebug(JoinPoint joinPoint){
+        log.debug(" -> Вызов метода: {}", joinPoint.toString());
     }
 }

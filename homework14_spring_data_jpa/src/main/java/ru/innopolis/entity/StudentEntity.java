@@ -8,8 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -37,12 +35,12 @@ public class StudentEntity{
     @Column(name = "age")
     private Integer age;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(
-            name = "list_courses",
-            joinColumns = { @JoinColumn(name = "id_student") },
-            inverseJoinColumns = { @JoinColumn(name = "id_course") }
-    )
-    private Set<CourseEntity> courses;
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(
+//            name = "list_courses",
+//            joinColumns = { @JoinColumn(name = "id_student") },
+//            inverseJoinColumns = { @JoinColumn(name = "id_course") }
+//    )
+//    private Set<CourseEntity> courses;
 
 }

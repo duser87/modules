@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS students
     "id" bigint primary key not null,
     "fio" varchar,
     "email" varchar,
-    "age" varchar
+    "age" bigint
 );
 
 COMMENT ON table students IS 'The table students';

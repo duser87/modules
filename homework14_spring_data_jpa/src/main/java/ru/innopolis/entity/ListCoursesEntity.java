@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
 import java.util.List;
@@ -26,6 +27,7 @@ public class ListCoursesEntity{
     private Long id_course;
 
     @Column(name = "start_date")
+    @CreationTimestamp
     private String start_date;
 
     @NotNull

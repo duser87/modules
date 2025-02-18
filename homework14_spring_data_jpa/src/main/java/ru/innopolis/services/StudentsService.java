@@ -16,11 +16,11 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class StudentsService {
+public class StudentsService{
 
-    private JpaStudentRepository jpaStudentRepository;
-    private JpaCourseRepository jpaCourseRepository;
-    private JpaListCoursesRepository jpaListCoursesRepository;
+    private final JpaStudentRepository jpaStudentRepository;
+    private final JpaCourseRepository jpaCourseRepository;
+    private final JpaListCoursesRepository jpaListCoursesRepository;
 
     public StudentsService(JpaStudentRepository jpaStudent,
                            JpaCourseRepository jpaCourse,
@@ -30,9 +30,14 @@ public class StudentsService {
         jpaListCoursesRepository = jpaList;
     }
 
-    public StudentEntity create(StudentEntity student){
-        log.info("--> SERVICE START");
-        return jpaStudentRepository.save(student);
+    public StudentResponse create(StudentEntity student){
+        jpaStudentRepository.save(student);
+        StudentResponse response = new StudentResponse();
+        response.setFio(student.getFio());
+        response.setEmail(student.getEmail());
+        response.setAge(student.getAge());
+        response.setMessage(" ---> Студент добавлен!");
+        return response;
     }
 
     public String delete(Long id){
@@ -40,16 +45,28 @@ public class StudentsService {
         return "Запись с ID - " + id + " удалена!";
     }
 
-    public StudentEntity update(StudentEntity student){
+    public StudentResponse update(StudentEntity student){
         StudentEntity studentOld = jpaStudentRepository.findById(student.getId()).orElseThrow();
         studentOld.setFio(student.getFio());
         studentOld.setEmail(student.getEmail());
         studentOld.setAge(student.getAge());
-        return jpaStudentRepository.save(studentOld);
+        var result = jpaStudentRepository.save(studentOld);
+        StudentResponse response = new StudentResponse();
+        response.setFio(result.getFio());
+        response.setEmail(result.getEmail());
+        response.setAge(result.getAge());
+        response.setMessage(" ---> Данные студента обновлены успешно!");
+        return response;
     }
 
-    public StudentEntity findById(Long id){
-        return jpaStudentRepository.findById(id).orElseThrow();
+    public StudentResponse findById(Long id){
+        var result = jpaStudentRepository.findById(id).orElseThrow();
+        StudentResponse response = new StudentResponse();
+        response.setFio(result.getFio());
+        response.setEmail(result.getEmail());
+        response.setAge(result.getAge());
+        response.setMessage(" ---> Данные студента получены!");
+        return response;
     }
 
     public StudentResponse recordOnCourse(StudentRequest request) {
@@ -61,33 +78,56 @@ public class StudentsService {
             CourseEntity course = jpaCourseRepository
                     .findById(request.getId_course())
                     .orElseThrow();
-            List<ListCoursesEntity> result = jpaListCoursesRepository.findAll();
-            List<ListCoursesEntity> resultFilter = result.stream()
-                    .filter( x-> x.getId_student()
-                            .equals(request.getId_student()))
-                    .toList();
-            boolean resultRecord = resultFilter.stream()
-                    .anyMatch(p -> p.getId_course()
-                            .equals(request.getId_course()));
+            List<ListCoursesEntity> listCourse = jpaListCoursesRepository.findAll();
 
-            if (!resultRecord){
+            List<ListCoursesEntity> resultFilter;
+            boolean resultRecord = true;
+
+            response.setId(student.getId());
+            response.setFio(student.getFio());
+            response.setEmail(student.getEmail());
+            response.setAge(student.getAge());
+            response.setCourse(course.getName());
+
+            if(listCourse.size() != 0){
+                resultFilter = listCourse.stream()
+                        .filter( x-> x.getId_student()
+                                .equals(request.getId_student()))
+                        .toList();
+                resultRecord = resultFilter.stream()
+                        .anyMatch(p -> p.getId_course()
+                                .equals(request.getId_course()));
+
+                if(!resultRecord){
+                    if(!course.getActivity()){
+                        response.setMessage("Невозможно записаться на курс. Курс не активен!");
+                    }
+                    else{
+                        ListCoursesEntity newList = new ListCoursesEntity();
+                        newList.setId_student(student.getId());
+                        newList.setId_course(course.getId());
+                        newList.setActivity(course.getActivity());
+                        jpaListCoursesRepository.save(newList);
+                        response.setMessage("Запись прошла успешно!");
+                    }
+                }
+                else{
+                    response.setMessage("Вы уже записаны на данный курс. Выберите другое направление");
+                }
+
+            }
+            else{
                 ListCoursesEntity newList = new ListCoursesEntity();
-                newList.setId(request.getId());
                 newList.setId_student(student.getId());
                 newList.setId_course(course.getId());
+                newList.setActivity(course.getActivity());
                 jpaListCoursesRepository.save(newList);
-                response.setFio(student.getFio());
-                response.setCourse(course.getName());
                 response.setMessage("Запись прошла успешно!");
-            }
-            else {
-                response.setFio(student.getFio());
-                response.setCourse(course.getName());
-                response.setMessage(" ---> Вы уже записаны на данный курс! Выберите другое направление!");
             }
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
+            response.setMessage(">>> ОШИБКА: " + e.getMessage());
         }
         return response;
     }
@@ -120,4 +160,7 @@ public class StudentsService {
         return listStudentsCourseResponse;
     }
 
+    public List<StudentEntity> getListStudentByAge(Integer id) {
+        return jpaStudentRepository.findAll().stream().filter(x -> x.getAge() > id ).toList();
+    }
 }

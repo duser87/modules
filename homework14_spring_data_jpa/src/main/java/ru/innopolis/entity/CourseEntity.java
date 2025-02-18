@@ -6,10 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
-
 @Entity
 @Data
 @NoArgsConstructor
@@ -29,7 +25,7 @@ public class CourseEntity{
     @Column(name = "activity")
     private Boolean activity;
 
-    @ManyToMany(mappedBy = "courses", fetch = FetchType.LAZY)
-    private Set<StudentEntity> students;
+//    @ManyToMany(mappedBy = "courses", fetch = FetchType.LAZY)
+//    private Set<StudentEntity> students;
 
 }
