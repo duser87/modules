@@ -47,4 +47,12 @@ public class EarthquakeService {
         log.info(">>>" + responses);
         return responses;
     }
+
+//
+    public List<EarthquakeEntity> findByTimeBetween(String timeAfter, String timeBefore){
+
+        LocalDateTime dateTime1 = LocalDateTime.parse(timeAfter);
+        LocalDateTime dateTime2 = LocalDateTime.parse(timeBefore);
+        return repository.findByTimeBetween(dateTime2, dateTime1);
+    }
 }
