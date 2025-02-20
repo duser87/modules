@@ -8,7 +8,6 @@ import ru.innopolis.entity.EarthquakeEntity;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Qualifier("default")
 @Repository
 public interface EarthquakeRepository extends JpaRepository<EarthquakeEntity, Long> {
     List<EarthquakeEntity> findByTimeBetween(LocalDateTime timeAfter, LocalDateTime timeBefore);

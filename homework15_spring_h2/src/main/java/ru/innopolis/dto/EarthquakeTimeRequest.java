@@ -12,6 +12,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class EarthquakeTimeRequest {
-    private String time1;
-    private String time2;
+    private LocalDateTime time1;
+    private LocalDateTime time2;
 }

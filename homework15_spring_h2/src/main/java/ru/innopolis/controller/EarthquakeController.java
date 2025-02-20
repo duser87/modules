@@ -3,6 +3,7 @@ package ru.innopolis.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,6 @@ public class EarthquakeController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addEarthquake(@RequestBody EarthquakeCreateRequest request){
-        log.info(LocalDateTime.now().toString());
         service.addEarthquake(request);
         return ResponseEntity.ok(">>> Данные добавлены");
     }
@@ -41,9 +41,7 @@ public class EarthquakeController {
 
     @PostMapping(path = "/time", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<EarthquakeResponse>> getEarthquakeByPeriodTime(@RequestBody EarthquakeTimeRequest request){
-        log.info(LocalDateTime.now().toString());
         List<EarthquakeEntity> result = service.findByTimeBetween(request.getTime1(), request.getTime2());
-        log.info(result.toString());
         List<EarthquakeResponse> response = result.stream().map( x -> EarthquakeResponse.builder()
                 .id(x.getId())
                 .title(x.getTitle())
