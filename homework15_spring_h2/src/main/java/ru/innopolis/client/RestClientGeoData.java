@@ -14,7 +14,7 @@ import java.util.*;
 @Component
 public class RestClientGeoData implements CommandLineRunner {
 
-    private final EarthquakeRepository repository;
+    private EarthquakeRepository repository;
 
     public RestClientGeoData(EarthquakeRepository repo){
         repository = repo;
@@ -33,7 +33,7 @@ public class RestClientGeoData implements CommandLineRunner {
 
         ParameterizedTypeReference<List<EarthquakeDataRemoteHostResponse>> typeRef = new ParameterizedTypeReference<>(){};
         var result = RestClient.builder().build();
-        return result
+        var x =  result
                 .get()
                 .uri("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson")
                 .exchange((clientRequest, clientResponse) -> {
@@ -46,6 +46,8 @@ public class RestClientGeoData implements CommandLineRunner {
             }
             return null;
         });
+        System.out.println(x.get(0).getFeatures().get(0).getProperties());
+        return  x;
     }
 
 }

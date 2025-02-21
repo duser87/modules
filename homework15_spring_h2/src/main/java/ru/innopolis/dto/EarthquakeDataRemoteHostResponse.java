@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -12,20 +13,20 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class EarthquakeDataRemoteHostResponse {
-    private List<EarthquakeDataRemoteHostResponse.Features> features;
+    private List<Features> features;
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    @Builder
+    //@Builder
     public static class Features{
-        private EarthquakeDataRemoteHostResponse.Properties properties;
+        private Properties properties;
     }
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    @Builder
+    //@Builder
     public static class Properties{
         private String title;
         private Long time;

@@ -18,7 +18,7 @@ public class EarthquakeCreateRequest {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    @Builder
+   // @Builder
     public static class Features{
         private Properties properties;
     }
@@ -26,7 +26,7 @@ public class EarthquakeCreateRequest {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    @Builder
+   // @Builder
     public static class Properties{
         private String title;
         private Long time;
