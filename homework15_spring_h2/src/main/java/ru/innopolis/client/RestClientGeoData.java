@@ -35,25 +35,31 @@ public class RestClientGeoData implements CommandLineRunner {
     public void run(String... args) throws Exception {
         var res = getDataGeoJson();
         System.out.println(res);
-        //
+        // Как получить json с удаленного сайта я не смог реализовать. Единственное
+        // что получилось, принять все данные  о землетрясениях в формате String.
+        // Но что делать дальше - не знаю. Пробовал в json перевести, но не смог решить задачу.
+        // Спрашивал в группе (эмоциональный чат), все молчат.
     }
 
 
+    // String
     private List<EarthquakeResponse> getDataGeoJson(){
-        ParameterizedTypeReference<List<EarthquakeResponse>> typeRef = new ParameterizedTypeReference<>(){};
-        var result = RestClient.builder().build();
-        return result.get()
-                .uri("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson")
-                .exchange((clientRequest, clientResponse) -> {
-            if(clientResponse.getStatusCode().is2xxSuccessful()){
-                System.out.println(clientResponse);
-                return clientResponse.bodyTo(typeRef);
-            }
-            if(clientResponse.getStatusCode().isSameCodeAs(HttpStatus.NOT_FOUND)){
-                throw new NoSuchFileException(" ---> Ничего не найдено!");
-            }
-            return null;
-        });
+        // String
+//        ParameterizedTypeReference<List<EarthquakeResponse>> typeRef = new ParameterizedTypeReference<>(){};
+//        var result = RestClient.builder().build();
+//        return result.get()
+//                .uri("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson")
+//                .exchange((clientRequest, clientResponse) -> {
+//            if(clientResponse.getStatusCode().is2xxSuccessful()){
+//                System.out.println(clientResponse);
+//                return clientResponse.bodyTo(typeRef);
+//            }
+//            if(clientResponse.getStatusCode().isSameCodeAs(HttpStatus.NOT_FOUND)){
+//                throw new NoSuchFileException(" ---> Ничего не найдено!");
+//            }
+//            return null;
+//        });
+        return  null;
     }
 
 }
