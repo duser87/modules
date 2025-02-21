@@ -1,54 +1,59 @@
 package ru.innopolis.client;
 
-import jakarta.annotation.PostConstruct;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestTemplate;
 import ru.innopolis.dto.EarthquakeResponse;
+import ru.innopolis.entity.EarthquakeEntity;
 import ru.innopolis.repository.EarthquakeRepository;
 
 import java.nio.file.NoSuchFileException;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class RestClientGeoData implements CommandLineRunner {
 
-    @Autowired
-    private EarthquakeRepository repository;
-    RestClient restClient;
-    List<EarthquakeResponse> responseList;
+    private final EarthquakeRepository repository;
 
-    @Value("${geojson.api.url}")
-    private static String urlGeo;
-
+    public RestClientGeoData(EarthquakeRepository repo){
+        repository = repo;
+    }
 
     @Override
     public void run(String... args) throws Exception {
-        initRestClient();
-        var result = getDataGeoJson();
-
-        repository.flush();
+        var res = getDataGeoJson();
+        System.out.println(res);
+        //
     }
 
-    private void initRestClient(){
-        restClient.get().uri(urlGeo).retrieve().body(EarthquakeResponse.class);
-    }
 
     private List<EarthquakeResponse> getDataGeoJson(){
-        ParameterizedTypeReference ref = new ParameterizedTypeReference<>() {
-        };
-        var result = restClient.get().exchange((clientRequest, clientResponse) -> {
+        ParameterizedTypeReference<List<EarthquakeResponse>> typeRef = new ParameterizedTypeReference<>(){};
+        var result = RestClient.builder().build();
+        return result.get()
+                .uri("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson")
+                .exchange((clientRequest, clientResponse) -> {
             if(clientResponse.getStatusCode().is2xxSuccessful()){
-                return clientResponse.bodyTo(ref);
+                System.out.println(clientResponse);
+                return clientResponse.bodyTo(typeRef);
             }
             if(clientResponse.getStatusCode().isSameCodeAs(HttpStatus.NOT_FOUND)){
                 throw new NoSuchFileException(" ---> Ничего не найдено!");
             }
-            return List.of();
+            return null;
         });
     }
+
 }
