@@ -1,7 +1,12 @@
 package ru.innopolis.services;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.support.ResourceTransactionManager;
 import ru.innopolis.dto.ListStudentsCourseResponse;
 import ru.innopolis.dto.StudentRequest;
 import ru.innopolis.dto.StudentResponse;
@@ -162,4 +167,32 @@ public class StudentsService {
     public List<StudentEntity> getListStudentByAge(Integer id) {
         return jpaStudentRepository.findAll().stream().filter(x -> x.getAge() > id ).toList();
     }
+
+    public List<StudentResponse> getListStudentByOverOneCourse(Integer age, Long id_course){
+        var result = jpaStudentRepository.getListStudentByOverOneCourse(age, id_course);
+        return  result.stream().map( x-> StudentResponse.builder()
+                .age(x.getAge())
+                .fio(x.getFio())
+                .email(x.getEmail())
+                .course(jpaCourseRepository.findById(id_course).get().getName())
+                .id(x.getId()).build()).toList();
+    }
+
+
+    public List<StudentResponse> getStudents(Integer age){
+        Specification<StudentEntity> result = getSpecificationAge(age);
+        var list = jpaStudentRepository.findAll(result);
+        return list.stream().map(x -> StudentResponse.builder()
+                .id(x.getId())
+                .fio(x.getFio())
+                .age(x.getAge())
+                .email(x.getEmail())
+                .course(null)
+                .message("Студент найден").build()).toList();
+    }
+
+    private Specification<StudentEntity> getSpecificationAge(@NotNull Integer age){
+        return (root, query, criteriaBuilder) -> criteriaBuilder.gt(root.get("age"), age);
+    }
+
 }

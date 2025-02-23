@@ -73,4 +73,18 @@ public class StudentsController {
         List<StudentEntity> result = serviceStudent.getListStudentByAge(id);
         return ResponseEntity.ok(result);
     }
+
+    @LogDebug
+    @GetMapping(value = "/list_students/{age}/{id_course}", produces =MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<StudentResponse>> methodGetListStudentsByAge(@PathVariable("age") Integer age, @PathVariable("id_course") Long id_course){
+        List<StudentResponse> result = serviceStudent.getListStudentByOverOneCourse(age, id_course);
+        return ResponseEntity.ok(result);
+    }
+
+    @LogDebug
+    @GetMapping(value = "/age_students/{age_students}", produces =MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<StudentResponse>> methodGetStudents(@PathVariable("age_students") Integer age_students){
+        List<StudentResponse> result = serviceStudent.getStudents(age_students);
+        return ResponseEntity.ok(result);
+    }
 }

@@ -1,4 +1,3 @@
-import jakarta.inject.Qualifier;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ import java.util.Optional;
 public class StudentControllerTest {
     @Autowired
     private StudentsController controller;
-    @Qualifier("prod")
     @MockitoBean
     private JpaStudentRepository repository;
     @MockitoBean
