@@ -1,12 +1,12 @@
 package ru.innopolis.controllers;
 
 import jakarta.validation.Valid;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.innopolis.aop.Log;
 import ru.innopolis.aop.LogDebug;
 import ru.innopolis.dto.ListStudentsCourseResponse;
 import ru.innopolis.dto.StudentRequest;
@@ -77,9 +77,17 @@ public class StudentsController {
     }
 
     @LogDebug
-    @GetMapping(value = "/age_students/{age_students}", produces =MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<StudentResponse>> methodGetStudents(@PathVariable("age_students") Integer age_students){
-        List<StudentResponse> result = serviceStudent.getStudents(age_students);
-        return ResponseEntity.ok(result);
+    @PostMapping(path = "/review", consumes = MediaType.APPLICATION_JSON_VALUE, produces =MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<StudentResponse> methodCreateReview(@RequestBody StudentRequest request){
+        StudentResponse response = serviceStudent.createReview(request);
+        return ResponseEntity.ok(response);
     }
+
+    @LogDebug
+    @GetMapping(value = "/review/{id_student}", produces =MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<StudentResponse> methodGetStudents(@PathVariable("id_student") Long id_student){
+        StudentResponse response = serviceStudent.getListReviewsStudents(id_student);
+        return ResponseEntity.ok(response);
+    }
+
 }

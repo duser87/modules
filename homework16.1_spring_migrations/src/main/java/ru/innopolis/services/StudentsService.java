@@ -3,18 +3,26 @@ package ru.innopolis.services;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.innopolis.dto.ListStudentsCourseResponse;
 import ru.innopolis.dto.StudentRequest;
 import ru.innopolis.dto.StudentResponse;
 import ru.innopolis.entity.CourseEntity;
 import ru.innopolis.entity.ListCoursesEntity;
+import ru.innopolis.entity.ReviewEntity;
 import ru.innopolis.entity.StudentEntity;
 import ru.innopolis.repositories.JpaCourseRepository;
 import ru.innopolis.repositories.JpaListCoursesRepository;
+import ru.innopolis.repositories.JpaReviewRepository;
 import ru.innopolis.repositories.JpaStudentRepository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -23,13 +31,16 @@ public class StudentsService {
     private final JpaStudentRepository jpaStudentRepository;
     private final JpaCourseRepository jpaCourseRepository;
     private final JpaListCoursesRepository jpaListCoursesRepository;
+    private final JpaReviewRepository jpaReviewRepository;
 
     public StudentsService(JpaStudentRepository jpaStudent,
                            JpaCourseRepository jpaCourse,
-                           JpaListCoursesRepository jpaList){
+                           JpaListCoursesRepository jpaList,
+                           JpaReviewRepository jpaReview){
         jpaStudentRepository= jpaStudent;
         jpaCourseRepository = jpaCourse;
         jpaListCoursesRepository = jpaList;
+        jpaReviewRepository = jpaReview;
     }
 
     public StudentResponse create(StudentEntity student){
@@ -191,6 +202,71 @@ public class StudentsService {
 
     private Specification<StudentEntity> getSpecificationAge(@NotNull Integer age){
         return (root, query, criteriaBuilder) -> criteriaBuilder.gt(root.get("age"), age);
+    }
+
+    // Methods of working with reviews
+
+    public StudentResponse createReview(StudentRequest request) {
+        StudentResponse response  = new StudentResponse();
+        try {
+            var se = jpaStudentRepository.findById(request.getId_student());
+            var ce = jpaCourseRepository.findById(request.getId_course());
+
+            response.setId(request.getId_student());
+            response.setFio(se.get().getFio());
+            response.setEmail(se.get().getEmail());
+            response.setAge(se.get().getAge());
+            response.setCourse(ce.get().getName());
+
+            if (se.get().getId() != 0 & ce.get().getId() != 0) {
+                ReviewEntity review = new ReviewEntity();
+                review.setId_student(request.getId_student());
+                review.setId_course(request.getId_course());
+                review.setReview(request.getReview());
+                jpaReviewRepository.save(review);
+                response.setMessage(" ---> Комментарий к курсу добавлен!");
+                HashMap<String, String> rev = new HashMap<>();
+                rev.put(ce.get().getName(), request.getReview());
+                response.setReview(rev);
+            } else {
+                response.setMessage(" ---> Возможно вы не правильно указали пользователя или название курса...");
+            }
+        } catch (Exception e) {
+            log.info(e.getMessage());
+        }
+        return response;
+    }
+
+    public StudentResponse getListReviewsStudents(Long id_student){
+        StudentResponse response = new StudentResponse();
+        HashMap<String, String> arrReviews = new HashMap<>();
+        try{
+            var se = jpaStudentRepository.findById(id_student).orElseThrow();
+
+            response.setId(id_student);
+            response.setFio(se.getFio());
+            response.setEmail(se.getEmail());
+            response.setAge(se.getAge());
+
+            if(se.getId() != 0){
+                var allReviews = jpaReviewRepository.findAllByIdStudent(id_student);
+                for(int i=0; i<allReviews.size(); i++){
+                    CourseEntity nameCourse = jpaCourseRepository
+                            .findById(allReviews
+                                    .get(i)
+                                    .getId_course())
+                            .orElseThrow();
+                    arrReviews.put(nameCourse.getName(), allReviews.get(i).getReview() + " -><- " + allReviews.get(i).getDate().toString());
+                }
+                log.info(arrReviews.toString());
+               response.setReview(arrReviews);
+               response.setMessage(" ---> Все отзывы студента " + se.getFio());
+            }
+        }
+        catch(Exception e){
+            log.info(e.getMessage());
+        }
+        return response;
     }
 
 }
