@@ -62,7 +62,7 @@ public class StudentController {
     }
 
     @GetMapping(value = "/list_students/{age}/{id_course}", produces =MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<StudentResponse>> methodGetListStudentsByAge(@PathVariable("age") Integer age, @PathVariable("id_course") Long id_course){
+    public ResponseEntity<List<StudentResponse>> methodGetListStudentsByAgeAndCourse(@PathVariable("age") Integer age, @PathVariable("id_course") Long id_course){
         List<StudentResponse> result = studentService.getListStudentByOverOneCourse(age, id_course);
         return ResponseEntity.ok(result);
     }
@@ -71,6 +71,18 @@ public class StudentController {
     public ResponseEntity<List<StudentResponse>> methodGetStudents(@PathVariable("age_students") Integer age_students){
         List<StudentResponse> result = studentService.getStudents(age_students);
         return ResponseEntity.ok(result);
+    }
+
+    @PostMapping(path = "/review", consumes = MediaType.APPLICATION_JSON_VALUE, produces =MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<StudentResponse> methodCreateReview(@RequestBody StudentRequest request){
+        StudentResponse response = studentService.createReview(request);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(value = "/review/{id_student}", produces =MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<StudentResponse> methodGetStudents(@PathVariable("id_student") Long id_student){
+        StudentResponse response = studentService.getListReviewsStudents(id_student);
+        return ResponseEntity.ok(response);
     }
 
 }
