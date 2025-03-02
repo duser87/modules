@@ -11,10 +11,10 @@ import java.util.List;
 
 @Repository
 public interface JpaListCoursesRepository extends JpaRepository<ListCoursesEntity, Long> {
-    @Query(value = "SELECT lce FROM ListCoursesEntity lce WHERE lce.id_student = :x")
-    List<ListCoursesEntity> findListCoursesById(@Param("x") Long id_student);
+    @Query(value = "SELECT lce FROM ListCoursesEntity lce WHERE lce.id_student = :id")
+    List<ListCoursesEntity> findListCoursesById(@Param("id") Long idStudent);
 
     @Modifying
-    @Query(value = "DELETE FROM ListCoursesEntity lce WHERE lce.id_student = :x AND lce.id_course = :y")
-    void deleteByFioAndCourse(@Param("x") Long id_student, @Param("y") Long id_course);
+    @Query(value = "DELETE FROM ListCoursesEntity lce WHERE lce.id_student = :idStudent AND lce.id_course = :idCourse")
+    void deleteByFioAndCourse(@Param("idStudent") Long idStudent, @Param("idCourse") Long idCourse);
 }

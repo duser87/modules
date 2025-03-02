@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS student_courses
     "id_student" bigint, FOREIGN KEY (id_student) REFERENCES students(id),
     "id_course" bigint,
     "start_date" TIMESTAMP WITH TIME ZONE DEFAULT current_timestamp,
+    "info" text,
     "activity" boolean
 );
 

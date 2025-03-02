@@ -17,11 +17,8 @@ import ru.innopolis.repositories.JpaReviewRepository;
 import ru.innopolis.repositories.JpaStudentRepository;
 import ru.innopolis.services.StudentServiceInterface;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
@@ -46,12 +43,15 @@ public class StudentServiceImpl implements StudentServiceInterface {
 
     public StudentResponse create(StudentEntity student){
         studentRepo.save(student);
-        StudentResponse response = new StudentResponse();
-        response.setFio(student.getFio());
-        response.setEmail(student.getEmail());
-        response.setAge(student.getAge());
-        response.setMessage(" ---> Студент добавлен!");
-        return response;
+        var se = studentRepo.findByName(student.getFio());
+        return StudentResponse.builder()
+                .id(se.getId())
+                .fio(se.getFio())
+                .message(" ---> Студент добавлен!")
+                .age(se.getAge())
+                .email(se.getEmail())
+                .courses(null)
+                .build();
     }
 
     public String delete(Long id){
@@ -69,10 +69,10 @@ public class StudentServiceImpl implements StudentServiceInterface {
             CourseResponse course;
 
             try {
-                student= Optional.of(studentRepo.findById(request.getId_student()))
+                student= Optional.of(studentRepo.findById(request.getIdStudent()))
                         .get()
                         .orElseThrow();
-                course = Optional.of(coursesClient.getCourse(request.getId_course()))
+                course = Optional.of(coursesClient.getCourse(request.getIdCourse()))
                         .orElseThrow();
                 allListCourses = Optional.of(listCourseRepo.findListCoursesById(student.getId()))
                         .orElseThrow();
@@ -93,7 +93,7 @@ public class StudentServiceImpl implements StudentServiceInterface {
                     }
                     else {
                         boolean result = allListCourses.stream()
-                                .allMatch(x -> x.getId_course() != request.getId_course());
+                                .allMatch(x -> x.getId_course() != request.getIdCourse());
                         if(result){
                             listCourseRepo.save(list);
                             response.setMessage(" ---> Запись на курс прошла успешно!");
@@ -122,10 +122,10 @@ public class StudentServiceImpl implements StudentServiceInterface {
             CourseResponse course;
 
             try {
-                student= Optional.of(studentRepo.findById(request.getId_student()))
+                student= Optional.of(studentRepo.findById(request.getIdStudent()))
                         .get()
                         .orElseThrow();
-                course = Optional.of(coursesClient.getCourse(request.getId_course()))
+                course = Optional.of(coursesClient.getCourse(request.getIdCourse()))
                         .orElseThrow();
 
                 listCourseRepo.deleteByFioAndCourse(student.getId(), course.getId());
@@ -158,7 +158,7 @@ public class StudentServiceImpl implements StudentServiceInterface {
                 for(int i=0; i<list.size(); i++){
                     Long in = list.get(i).getId_course();
                     CourseResponse courseResponse = Optional.of(coursesClient.getCourse(in)).orElseThrow();
-                    str[i] = "< " + courseResponse.getName() + " >" + " - начало обучения на курсе с " + list.get(i).getStart_date();
+                    str[i] = "< " + courseResponse.getName() + " >" + " - начало обучения на курсе с " + list.get(i).getStartDate();
                 }
 
                 response.setFio(student.getFio());
@@ -227,12 +227,12 @@ public class StudentServiceImpl implements StudentServiceInterface {
     public StudentResponse createReview(StudentRequest request) {
         StudentResponse response  = new StudentResponse();
         try {
-            var se = studentRepo.findById(request.getId_student());
-            var re = reviewRepo.findAllByIdStudent(request.getId_student());
-            var ce = coursesClient.getCourse(request.getId_course());
+            var se = studentRepo.findById(request.getIdStudent());
+            var re = reviewRepo.findAllByIdStudent(request.getIdStudent());
+            var ce = coursesClient.getCourse(request.getIdCourse());
 
             var responseSE = StudentResponse.builder()
-                    .id(request.getId_student())
+                    .id(request.getIdStudent())
                     .fio(se.get().getFio())
                     .email(se.get().getEmail())
                     .age(se.get().getAge())
@@ -240,12 +240,12 @@ public class StudentServiceImpl implements StudentServiceInterface {
 
             if (se.get().getId() != 0 & ce.getId() != 0) {
                 ReviewEntity review = new ReviewEntity();
-                review.setId_student(request.getId_student());
-                review.setId_course(request.getId_course());
+                review.setIdStudent(request.getIdStudent());
+                review.setIdCourse(request.getIdCourse());
                 review.setReview(request.getReview());
                 reviewRepo.save(review);
                 responseSE.setMessage(" ---> Комментарий к курсу добавлен!");
-                response.setCourses(new String[]{ce.getName() + " >-< " + request.getReview()});
+                response.setCourses(new String[]{ce.getName() + " : " + request.getReview()});
             } else {
                 response.setMessage(" ---> Возможно вы не правильно указали пользователя или название курса...");
             }
@@ -255,31 +255,41 @@ public class StudentServiceImpl implements StudentServiceInterface {
         return response;
     }
 
-    public StudentResponse getListReviewsStudents(Long id_student){
+    public StudentResponse getListReviewsStudents(Long idStudent){
         StudentResponse response = new StudentResponse();
 
         try{
-            var se = studentRepo.findById(id_student).orElseThrow();
-
-            response.setId(id_student);
+            var se = studentRepo.findById(idStudent).orElseThrow();
+            var cc = coursesClient.getListCourses();
+            response.setId(idStudent);
             response.setFio(se.getFio());
             response.setEmail(se.getEmail());
             response.setAge(se.getAge());
 
             if(se.getId() != 0){
-                var allReviews = reviewRepo.findAllByIdStudent(id_student);
+                var allReviews = reviewRepo.findAllByIdStudent(idStudent);
 
-//                for(int i=0; i<allReviews.size(); i++){
-//                    CourseEntity nameCourse = jpaCourseRepository
-//                            .findById(allReviews
-//                                    .get(i)
-//                                    .getId_course())
-//                            .orElseThrow();
-//                    arrReviews.put(nameCourse.getName(), allReviews.get(i).getReview() + " -><- " + allReviews.get(i).getDate().toString());
-//                }
-//                log.info(arrReviews.toString());
-//                response.setReview(arrReviews);
-//                response.setMessage(" ---> Все отзывы студента " + se.getFio());
+//                response.setCourses(allReviews.stream()
+//                        .map( x-> {
+//                            return cc.stream().filter( y-> y.getId().equals(x.getIdCourse())).map( CourseResponse::getName);
+//                        }).toArray(String[]::new));
+
+                String[] courseReviews = new String[allReviews.size()];
+                for(int i=0; i<allReviews.size(); i++){
+                    Long idC = allReviews.get(i).getIdCourse();
+                    String nameC = cc.stream()
+                            .filter( x-> x.getId()
+                                    .equals(idC))
+                            .map(CourseResponse::getName)
+                            .toString();
+                    String msg = allReviews.get(i).getReview() + "::" + allReviews.get(i).getDate();
+                    courseReviews[i] = nameC + "-" + msg;
+                }
+                response.setCourses(courseReviews);
+                response.setMessage(" ---> Все отзывы студента " + se.getFio());
+            }
+            else{
+                response.setMessage(" ---> Студента с таким ID-" + idStudent + " нет...");
             }
         }
         catch(Exception e){

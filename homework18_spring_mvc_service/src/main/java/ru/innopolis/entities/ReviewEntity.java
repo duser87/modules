@@ -21,10 +21,10 @@ public class ReviewEntity {
     private Long id;
 
     @Column(name = "id_student")
-    private Long id_student;
+    private Long idStudent;
 
     @Column(name = "id_course")
-    private Long id_course;
+    private Long idCourse;
 
     @Column(name = "review")
     private String review;

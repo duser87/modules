@@ -8,6 +8,6 @@ import ru.innopolis.entities.ReviewEntity;
 import java.util.List;
 
 public interface JpaReviewRepository extends JpaRepository<ReviewEntity, Long> {
-    @Query(value = "SELECT r FROM ReviewEntity r WHERE r.id_student = :x")
-    public List<ReviewEntity> findAllByIdStudent(@Param("x") Long id_student);
+    @Query(value = "SELECT r FROM ReviewEntity r WHERE r.id_student = :id")
+    public List<ReviewEntity> findAllByIdStudent(@Param("id") Long idStudent);
 }

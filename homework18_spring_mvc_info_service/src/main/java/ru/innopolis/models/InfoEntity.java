@@ -1,31 +1,25 @@
-package ru.innopolis.entities;
+package ru.innopolis.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ListCoursesEntity {
+@Builder
+public class InfoEntity {
     @Id
     @GeneratedValue
     private Long id;
-
-    @NotNull
-    private Long id_student;
-
-    @NotNull
-    private Long id_course;
-    private String startDate;
-    private String info;
-
-    @NotNull
-    private Boolean activity;
+    private String name;
+    private LocalDate dateStart;
+    private Boolean archive;
 }
-

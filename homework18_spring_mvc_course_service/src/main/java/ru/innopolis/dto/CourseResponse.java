@@ -1,4 +1,4 @@
-package ru.innopolis.dto.courses;
+package ru.innopolis.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,6 +12,5 @@ import lombok.NoArgsConstructor;
 public class CourseResponse {
     private Long id;
     private String name;
-    private String info;
     private Boolean activity;
 }
