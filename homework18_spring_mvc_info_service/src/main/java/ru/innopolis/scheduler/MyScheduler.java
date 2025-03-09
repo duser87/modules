@@ -20,6 +20,7 @@ public class MyScheduler {
     @Autowired
     InfoStudentClient studentClient;
 
+
     @Scheduled(fixedDelay = 10, timeUnit = TimeUnit.SECONDS)
     public void printMessage(){
 
