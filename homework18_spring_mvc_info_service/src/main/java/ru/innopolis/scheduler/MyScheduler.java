@@ -35,7 +35,7 @@ public class MyScheduler {
             var listNoActivityCourse = courses.stream().filter( x-> x.getActivity().equals(false)).toList();
             if(!listNoActivityCourse.isEmpty()){
                 for(int i=0; i<students.size(); i++){
-                    log.info(students.get(i).toString());
+                    log.info(students.get(i).getFio() + " уведомление о курсе/ах " + listNoActivityCourse);
                 }
             }
         }
