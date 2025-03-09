@@ -1,5 +1,6 @@
 package ru.innopolis.scheduler;
 
+import jakarta.mail.Session;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -12,8 +13,10 @@ import ru.innopolis.dto.ListCoursesStudentResponse;
 import ru.innopolis.mail.MyMailSender;
 import ru.innopolis.models.InfoEntity;
 
+import java.net.PasswordAuthentication;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
@@ -43,11 +46,7 @@ public class MyScheduler {
             var listNoActivityCourse = courses.stream().filter( x-> x.getActivity().equals(false)).toList();
             if(!listNoActivityCourse.isEmpty()){
                 for(int i=0; i<students.size(); i++){
-                    SimpleMailMessage mailMessage = new SimpleMailMessage();
-                    mailMessage.setTo("duser87@yandex.ru");
-                    mailMessage.setText(listNoActivityCourse.toString());
-                    mailMessage.setSubject("Не активные курсы");
-                    mailSender.send(mailMessage);
+                    log.info(students.get(i).toString());
                 }
             }
         }
