@@ -12,6 +12,5 @@ import lombok.NoArgsConstructor;
 public class CourseResponse {
     private Long id;
     private String name;
-    private String info;
     private Boolean activity;
 }

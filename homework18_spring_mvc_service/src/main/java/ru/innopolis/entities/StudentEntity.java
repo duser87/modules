@@ -1,8 +1,6 @@
 package ru.innopolis.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -16,19 +14,24 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "students", schema = "student")
 public class StudentEntity {
 
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
     @NotNull
     @Size(min = 2, max = 100)
+    @Column(name = "fio")
     private String fio;
 
     @NotNull
     @Email
+    @Column(name = "email")
     private String email;
 
+    @Column(name = "age")
     private Integer age;
 }

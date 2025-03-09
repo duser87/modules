@@ -1,7 +1,6 @@
 package ru.innopolis.services.impl;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,7 @@ import java.util.stream.Stream;
 
 @Slf4j
 @Service
-public class StudentServiceImpl implements StudentServiceInterface {
+public class StudentServiceImpl implements StudentServiceInterface{
 
         private final JpaStudentRepository studentRepo;
         private final JpaListCoursesRepository listCourseRepo;
@@ -42,8 +41,12 @@ public class StudentServiceImpl implements StudentServiceInterface {
         }
 
     public StudentResponse create(StudentEntity student){
+        log.info("---> Service");
+        log.info(student.toString());
         studentRepo.save(student);
         var se = studentRepo.findByName(student.getFio());
+        log.info(se.toString());
+        log.info("---> Service out");
         return StudentResponse.builder()
                 .id(se.getId())
                 .fio(se.getFio())
@@ -82,8 +85,8 @@ public class StudentServiceImpl implements StudentServiceInterface {
                     response.setCourses(Stream.of(course.getName())
                             .toArray(String[]::new));
 
-                    list.setId_student(student.getId());
-                    list.setId_course(course.getId());
+                    list.setIdStudent(student.getId());
+                    list.setIdCourse(course.getId());
                     list.setActivity(course.getActivity());
 
                     if(allListCourses.isEmpty()) {
@@ -93,7 +96,7 @@ public class StudentServiceImpl implements StudentServiceInterface {
                     }
                     else {
                         boolean result = allListCourses.stream()
-                                .allMatch(x -> x.getId_course() != request.getIdCourse());
+                                .allMatch(x -> x.getIdCourse() != request.getIdCourse());
                         if(result){
                             listCourseRepo.save(list);
                             response.setMessage(" ---> Запись на курс прошла успешно!");
@@ -156,9 +159,9 @@ public class StudentServiceImpl implements StudentServiceInterface {
 
                 String[] str = new String[list.size()];
                 for(int i=0; i<list.size(); i++){
-                    Long in = list.get(i).getId_course();
+                    Long in = list.get(i).getIdCourse();
                     CourseResponse courseResponse = Optional.of(coursesClient.getCourse(in)).orElseThrow();
-                    str[i] = "< " + courseResponse.getName() + " >" + " - начало обучения на курсе с " + list.get(i).getStartDate();
+                    str[i] = "< " + courseResponse.getName() + " >" + " - начало обучения на курсе с " + list.get(i).getDateStart();
                 }
 
                 response.setFio(student.getFio());
@@ -176,7 +179,7 @@ public class StudentServiceImpl implements StudentServiceInterface {
         var lc = listCourseRepo.findListCoursesById(id);
         var cc = coursesClient.getListCourses();
         String[] listCS = lc.stream().map( x-> cc.stream()
-                .filter( y -> y.getId().equals(x.getId_course()))
+                .filter( y -> y.getId().equals(x.getIdCourse()))
                 .map(CourseResponse::getName)).toArray(String[]::new);
 
         return StudentResponse.builder()
@@ -193,8 +196,8 @@ public class StudentServiceImpl implements StudentServiceInterface {
         return studentRepo.findAll().stream().filter(x -> x.getAge() > id ).toList();
     }
 
-    public List<StudentResponse> getListStudentByOverOneCourse(Integer age, Long id_course){
-        var result = studentRepo.getListStudentByOverOneCourse(age, id_course);
+    public List<StudentResponse> getListStudentByOverOneCourse(Integer age, Long idCourse){
+        var result = studentRepo.getListStudentByOverOneCourse(age, idCourse);
         var cc = coursesClient.getListCourses();
         return  result.stream().map( x-> StudentResponse.builder()
                 .age(x.getAge())
@@ -202,7 +205,7 @@ public class StudentServiceImpl implements StudentServiceInterface {
                 .email(x.getEmail())
                 .courses(cc.stream()
                         .filter( a-> a.getId()
-                                .equals(id_course))
+                                .equals(idCourse))
                         .map(CourseResponse::getName)
                         .toArray(String[]::new))
                 .id(x.getId()).build()).toList();
@@ -296,6 +299,14 @@ public class StudentServiceImpl implements StudentServiceInterface {
             log.info(e.getMessage());
         }
         return response;
+    }
+
+    public List<StudentEntity> getAllStudents(){
+           return studentRepo.findAll();
+    }
+
+    public List<ListCoursesEntity> getAllRecord(){
+        return listCourseRepo.findAll();
     }
 
 }

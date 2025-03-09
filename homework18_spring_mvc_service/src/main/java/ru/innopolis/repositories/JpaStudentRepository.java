@@ -12,12 +12,12 @@ import java.util.List;
 @Repository
 public interface JpaStudentRepository extends JpaRepository<StudentEntity, Long> {
 
-    @Query(value = "SELECT s FROM StudentEntity s WHERE s.fio = : fio")
+    @Query(value = "SELECT s FROM StudentEntity s WHERE s.fio = :fio")
     StudentEntity findByName(@Param("fio") String fio);
 
     List<StudentEntity> findAll(Specification<StudentEntity> s);
 
     @Query(value = "SELECT s FROM StudentEntity s, ListCoursesEntity lcs " +
-            "WHERE lcs.id_student = s.id AND lcs.id_course = :idCourse and s.age > :age")
+            "WHERE lcs.idStudent = s.id AND lcs.idCourse = :idCourse and s.age > :age")
     List<StudentEntity> getListStudentByOverOneCourse(@Param("age") Integer age, @Param("idCourse") Long idCourse);
 }

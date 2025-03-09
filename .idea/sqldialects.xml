@@ -3,7 +3,6 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/homework18_spring_mvc_course_service/src/main/resources/db/migration/V1_schema.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/homework18_spring_mvc_course_service/src/main/resources/db/migration/V2_data.sql" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/homework18_spring_mvc_info_service/src/main/resources/db/migration/V1_schema.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/homework18_spring_mvc_service/src/main/resources/db/migration/V1_schema.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/homework18_spring_mvc_service/src/main/resources/db/migration/V2_data_.sql" dialect="PostgreSQL" />
   </component>

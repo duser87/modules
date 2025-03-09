@@ -11,9 +11,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CourseResponse {
+public class ListCoursesStudentResponse {
     private Long id;
-    private String name;
+    private Long idStudent;
+    private Long idCourses;
+    private String dateStart;
     private Boolean activity;
-    private LocalDate dateStart;
 }

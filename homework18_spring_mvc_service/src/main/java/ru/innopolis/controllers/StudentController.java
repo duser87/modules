@@ -1,6 +1,7 @@
 package ru.innopolis.controllers;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -8,11 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import ru.innopolis.dto.courses.CourseResponse;
 import ru.innopolis.dto.students.StudentRequest;
 import ru.innopolis.dto.students.StudentResponse;
+import ru.innopolis.entities.ListCoursesEntity;
 import ru.innopolis.entities.StudentEntity;
 import ru.innopolis.services.impl.StudentServiceImpl;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/student")
 public class StudentController {
@@ -40,11 +43,19 @@ public class StudentController {
         return ResponseEntity.ok(result);
     }
 
+    @GetMapping(value = "/record/all",  produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ListCoursesEntity>> getListRecordsAll(){
+        var result = studentService.getAllRecord();
+        return ResponseEntity.ok(result);
+    }
+
     // Методы для работы с сущностью "Студент"
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StudentResponse> createStudent(@Valid @RequestBody StudentEntity std){
+        log.info("---> Controller");
         StudentResponse result = studentService.create(std);
+        log.info("---> Controller out");
         return ResponseEntity.ok(result);
     }
 
@@ -93,6 +104,12 @@ public class StudentController {
     @GetMapping(value = "/info/")
     public ResponseEntity<CourseResponse> getInfoByCourses(){
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(value = "/all", produces =MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<StudentEntity>> getAllStudents(){
+        var result = studentService.getAllStudents();
+        return ResponseEntity.ok(result);
     }
 
 }

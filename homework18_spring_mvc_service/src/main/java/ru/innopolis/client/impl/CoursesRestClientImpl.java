@@ -1,9 +1,15 @@
 package ru.innopolis.client.impl;
 
 import jakarta.annotation.PostConstruct;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import ru.innopolis.client.CoursesClient;
+import ru.innopolis.dto.courses.CourseResponse;
+
+import java.nio.file.NoSuchFileException;
+import java.util.List;
 
 @Component
 public class CoursesRestClientImpl implements CoursesClient {

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface InfoClient {
     CourseResponse getCourse(Long id);
+    List<CourseResponse> getListCourses();
 }
