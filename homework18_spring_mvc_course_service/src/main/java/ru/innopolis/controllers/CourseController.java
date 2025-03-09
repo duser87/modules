@@ -24,16 +24,13 @@ public class CourseController {
 
     @GetMapping(value="/{id}")
     public ResponseEntity<CourseEntity> getCourse(@PathVariable("id") Long id){
-        log.info("------->" + id.toString());
         var result = repository.findById(id).orElseThrow();
-        log.info(result.toString());
         CourseEntity course = CourseEntity.builder()
                 .id(result.getId())
                 .name(result.getName())
                 .activity(result.getActivity())
                 .dateStart(result.getDateStart())
                 .build();
-        log.info(course.toString());
         return ResponseEntity.ok(course);
     }
 

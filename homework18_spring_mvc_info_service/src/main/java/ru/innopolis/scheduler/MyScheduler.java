@@ -1,22 +1,12 @@
 package ru.innopolis.scheduler;
 
-import jakarta.mail.Session;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import ru.innopolis.clients.InfoClient;
 import ru.innopolis.clients.InfoStudentClient;
-import ru.innopolis.dto.CourseResponse;
-import ru.innopolis.dto.ListCoursesStudentResponse;
 import ru.innopolis.mail.MyMailSender;
-import ru.innopolis.models.InfoEntity;
-
-import java.net.PasswordAuthentication;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
@@ -32,8 +22,7 @@ public class MyScheduler {
 
     @Scheduled(fixedDelay = 10, timeUnit = TimeUnit.SECONDS)
     public void printMessage(){
-        log.info("Zdarova, drugi");
-        List<InfoEntity> listInfo = new ArrayList<>();
+
         try{
             var courses = infoClient.getListCourses();
             var students = studentClient.getListStudent();
@@ -53,7 +42,6 @@ public class MyScheduler {
         catch (Exception e){
             log.info(e.getMessage());
         }
-        log.info("----> scheduler");
     }
 
 }
