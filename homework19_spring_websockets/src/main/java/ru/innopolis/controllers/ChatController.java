@@ -1,30 +1,33 @@
 package ru.innopolis.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.messaging.simp.annotation.SendToUser;
-import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import ru.innopolis.models.ChatMessage;
-import ru.innopolis.models.Message;
-import ru.innopolis.services.ChatService;
+import ru.innopolis.repository.JpaChatRepository;
 
 @Controller
 public class ChatController {
-    private final ChatService chatService;
 
-    public ChatController(ChatService chatService) {
-        this.chatService = chatService;
+    @Autowired
+    private JpaChatRepository repository;
+
+    @MessageMapping("/chat.sendMessage")
+    @SendTo("/topic/public")
+    public ChatMessage sendMessage(@Payload ChatMessage chatMessage){
+        repository.save(chatMessage);
+        return chatMessage;
     }
 
-    @MessageMapping("/send") // Указывает, что этот метод будет вызываться при получении сообщения на "/app/send"
-    @SendTo("/topic/messages") // Указывает, что результат будет отправлен всем подписанным на "/topic/messages"
-    public Message send(Message message) {
-        chatService.sendMessage(message);
-        return message; // Возвращает сообщение, которое будет отправлено всем клиентам
+    @MessageMapping("/chat.addUser")
+    @SendTo("/topic/public")
+    public ChatMessage addUser(@Payload ChatMessage chatMessage,
+                               SimpMessageHeaderAccessor headerAccessor){
+        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+        return chatMessage;
     }
 }
