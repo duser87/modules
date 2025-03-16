@@ -13,9 +13,9 @@ public class KafkaController {
         this.kafkaProducerService = kafkaProducerService;
     }
 
-    @PostMapping(path = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String sendMessage(@RequestBody KafkaMessage message) {
-        kafkaProducerService.sendMessage(message.getMessage());
+    @GetMapping("/send")
+    public String sendMessage(@RequestParam String message) {
+        kafkaProducerService.sendMessage(message);
         return "-----> Message sent successfully";
     }
 }
