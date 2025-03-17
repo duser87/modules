@@ -5,7 +5,12 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/homework03/pom.xml" />
+        <option value="$PROJECT_DIR$/homework06/pom.xml" />
+        <option value="$PROJECT_DIR$/attestation02/pom.xml" />
+        <option value="$PROJECT_DIR$/homework20_spring_kafaka/pom.xml" />
+        <option value="$PROJECT_DIR$/homework20_spring_kafka_v2/pom.xml" />
+        <option value="$PROJECT_DIR$/homework20_spring_kafka/pom.xml" />
+        <option value="$PROJECT_DIR$/homework20_kafka_v3/pom.xml" />
       </list>
     </option>
   </component>
