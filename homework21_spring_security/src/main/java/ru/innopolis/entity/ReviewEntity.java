@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "reviews", schema = "student")
+@Table(name = "reviews", schema = "security")
 public class ReviewEntity {
     @Id
     @GeneratedValue

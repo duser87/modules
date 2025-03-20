@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name="courses", schema = "student")
+@Table(name="courses", schema = "security")
 public class CourseEntity {
     @Id
     @GeneratedValue

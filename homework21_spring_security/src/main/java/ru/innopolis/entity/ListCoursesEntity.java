@@ -13,7 +13,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name="list_courses", schema = "student")
+@Table(name="list_courses", schema = "security")
 public class ListCoursesEntity {
     @Id
     @GeneratedValue
