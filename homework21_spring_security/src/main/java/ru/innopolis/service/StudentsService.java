@@ -1,26 +1,23 @@
 package ru.innopolis.service;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.innopolis.dto.ListStudentsCourseResponse;
 import ru.innopolis.dto.StudentRequest;
 import ru.innopolis.dto.StudentResponse;
-import ru.innopolis.entity.CourseEntity;
-import ru.innopolis.entity.ListCoursesEntity;
-import ru.innopolis.entity.ReviewEntity;
-import ru.innopolis.entity.StudentEntity;
-import ru.innopolis.repository.JpaCourseRepository;
-import ru.innopolis.repository.JpaListCoursesRepository;
-import ru.innopolis.repository.JpaReviewRepository;
-import ru.innopolis.repository.JpaStudentRepository;
+import ru.innopolis.entity.*;
+import ru.innopolis.repository.*;
 
 import java.util.HashMap;
 import java.util.List;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class StudentsService {
 
     private final JpaStudentRepository jpaStudentRepository;
@@ -28,15 +25,16 @@ public class StudentsService {
     private final JpaListCoursesRepository jpaListCoursesRepository;
     private final JpaReviewRepository jpaReviewRepository;
 
-    public StudentsService(JpaStudentRepository jpaStudent,
-                           JpaCourseRepository jpaCourse,
-                           JpaListCoursesRepository jpaList,
-                           JpaReviewRepository jpaReview){
-        jpaStudentRepository= jpaStudent;
-        jpaCourseRepository = jpaCourse;
-        jpaListCoursesRepository = jpaList;
-        jpaReviewRepository = jpaReview;
-    }
+//    public StudentsService(JpaStudentRepository jpaStudent,
+//                           JpaCourseRepository jpaCourse,
+//                           JpaListCoursesRepository jpaList,
+//                           JpaReviewRepository jpaReview){
+//        jpaStudentRepository= jpaStudent;
+//        jpaCourseRepository = jpaCourse;
+//        jpaListCoursesRepository = jpaList;
+//        jpaReviewRepository = jpaReview;
+//    }
+
 
     public StudentResponse create(StudentEntity student){
         jpaStudentRepository.save(student);

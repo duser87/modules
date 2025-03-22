@@ -5,10 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ru.innopolis.dto.ListStudentsCourseResponse;
 import ru.innopolis.dto.StudentRequest;
 import ru.innopolis.dto.StudentResponse;
+import ru.innopolis.entity.AuthenticateUser;
 import ru.innopolis.entity.StudentEntity;
 import ru.innopolis.service.StudentsService;
 
@@ -23,7 +25,9 @@ public class StudentsController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StudentResponse> createStudent(@Valid @RequestBody StudentEntity std){
+        log.info(std.toString());
         StudentResponse result = serviceStudent.create(std);
+        log.info(result.toString());
         return ResponseEntity.ok(result);
     }
 
@@ -54,8 +58,8 @@ public class StudentsController {
 
     @GetMapping(value = "/list/{id}", produces =MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ListStudentsCourseResponse> getListStudentsCourse(@PathVariable("id") Long id){
-        var result = serviceStudent.getListStudentsOnCourse(id);
-        return ResponseEntity.ok(result);
+        var lscr = serviceStudent.getListStudentsOnCourse(id);
+        return ResponseEntity.ok(lscr);
     }
 
     @GetMapping(value = "/list_age/{id}", produces =MediaType.APPLICATION_JSON_VALUE)

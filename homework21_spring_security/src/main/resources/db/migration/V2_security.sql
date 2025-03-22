@@ -1,7 +1,7 @@
 
 CREATE TABLE IF NOT EXISTS users
 (
-    "id" bigint primary key not null,
+    "id" bigint,
     "username" varchar,
     "password" varchar,
     "enabled" boolean,
@@ -16,7 +16,7 @@ COMMENT ON COLUMN users.priority IS 'Priority';
 
 CREATE TABLE IF NOT EXISTS authorities
 (
-    "id" bigint primary key not null,
+
     "username" varchar,
     "authority" varchar
 );

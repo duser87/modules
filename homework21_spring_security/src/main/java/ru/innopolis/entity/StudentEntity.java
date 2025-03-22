@@ -34,4 +34,5 @@ public class StudentEntity {
     @NotNull
     @Column(name = "age")
     private Integer age;
+
 }
