@@ -13,7 +13,7 @@ import ru.innopolis.service.RegService;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/register/")
+@RequestMapping("/api/v1/student/register/")
 public class RegistrationController {
 
     @Autowired

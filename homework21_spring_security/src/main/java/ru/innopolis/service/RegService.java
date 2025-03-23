@@ -1,6 +1,7 @@
 package ru.innopolis.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,9 +10,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.innopolis.dto.UserRegisterDataRequest;
 import ru.innopolis.entity.AuthenticateUser;
+import ru.innopolis.entity.CourseEntity;
 import ru.innopolis.entity.UserRegEntity;
 import ru.innopolis.repository.JpaUserRegRepository;
 
+import java.util.List;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class RegService implements UserDetailsService {
@@ -23,6 +28,7 @@ public class RegService implements UserDetailsService {
 
     public UserRegEntity register(UserRegisterDataRequest request){
         var result = UserRegEntity.builder()
+                .idStudent(request.getIdStudent())
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .enabled(true)
@@ -32,15 +38,14 @@ public class RegService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.info("--->>> LOADUSERBYUSERNAME --->" + username);
         var user = jpaUserRegRepository.findByUsername(username);
+        log.info("--->>> " + user.toString());
         return new AuthenticateUser(user);
     }
 
-//    public void createUser(UserRegisterDataRequest data){
-//                var result = UserRegEntity.builder()
-//                .username(data.getUsername())
-//                .password(data.getPassword())
-//                .build();
-//        jpaUserRegRepository.save(result);
-//    }
+    public UserRegEntity getUserData(String s){
+        return jpaUserRegRepository.findByUsername(s);
+    }
+
 }

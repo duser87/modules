@@ -8,14 +8,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Data
-//@NoArgsConstructor
-//@AllArgsConstructor
-@Builder
-@RequiredArgsConstructor
+
 public class AuthenticateUser implements UserDetails {
 
-    private final UserRegEntity userRegEntity;
+    private UserRegEntity userRegEntity;
+
+    public  AuthenticateUser(UserRegEntity e){
+        userRegEntity = e;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

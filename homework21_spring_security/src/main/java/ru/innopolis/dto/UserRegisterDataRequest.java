@@ -8,6 +8,7 @@ import lombok.*;
 @Builder
 @ToString
 public class UserRegisterDataRequest {
+    private Long idStudent;
     private String username;
     private String password;
 }

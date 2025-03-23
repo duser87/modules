@@ -19,6 +19,9 @@ public class UserRegEntity {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "id_student")
+    private Long idStudent;
+
     @Column(name = "username")
     private String username;
 
@@ -27,4 +30,7 @@ public class UserRegEntity {
 
     @Column(name = "enabled")
     private Boolean enabled;
+
+    @Column(name = "priority")
+    private Integer priority;
 }

@@ -12,6 +12,7 @@ import ru.innopolis.dto.StudentResponse;
 import ru.innopolis.entity.*;
 import ru.innopolis.repository.*;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,17 +25,6 @@ public class StudentsService {
     private final JpaCourseRepository jpaCourseRepository;
     private final JpaListCoursesRepository jpaListCoursesRepository;
     private final JpaReviewRepository jpaReviewRepository;
-
-//    public StudentsService(JpaStudentRepository jpaStudent,
-//                           JpaCourseRepository jpaCourse,
-//                           JpaListCoursesRepository jpaList,
-//                           JpaReviewRepository jpaReview){
-//        jpaStudentRepository= jpaStudent;
-//        jpaCourseRepository = jpaCourse;
-//        jpaListCoursesRepository = jpaList;
-//        jpaReviewRepository = jpaReview;
-//    }
-
 
     public StudentResponse create(StudentEntity student){
         jpaStudentRepository.save(student);
@@ -164,6 +154,20 @@ public class StudentsService {
             System.out.println(e.getMessage());
         }
         return listStudentsCourseResponse;
+    }
+
+    public String getListCoursesStudent(Long id){
+        var lcs = jpaListCoursesRepository.findAll();
+        var lc = jpaCourseRepository.findAll();
+        var std = jpaStudentRepository.findById(id);
+        var rlc = lcs.stream().filter( e -> e.getIdStudent().equals(id)).toList();
+        String[] listCourses = new String[rlc.size()];
+        for(int i=0; i<rlc.size(); i++){
+            var idCrs = rlc.get(i).getIdCourse();
+            var nameCrs = lc.stream().filter( el -> el.getId().equals(idCrs)).toList();
+            listCourses[i] = nameCrs.get(0).getName();
+        }
+        return "---> Студент - " + std.get().getFio() + " записан на следующие курсы: " + Arrays.toString(listCourses);
     }
 
     public List<StudentEntity> getListStudentByAge(Integer id) {
