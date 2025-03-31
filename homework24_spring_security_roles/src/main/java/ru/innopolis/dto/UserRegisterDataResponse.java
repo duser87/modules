@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @ToString
-public class UserRegisterDataRequest {
+public class UserRegisterDataResponse {
     private Long idStudent;
     private String username;
     private String password;

@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "users", schema = "security")
-public class UserRegEntity {
+@Table(name = "authorities", schema = "security")
+public class AuthorityEntity {
 
     @Id
     @GeneratedValue
@@ -25,9 +25,6 @@ public class UserRegEntity {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "password")
-    private String password;
-
-    @Column(name = "role")
-    private String role;
+    @Column(name = "authority")
+    private String authority;
 }

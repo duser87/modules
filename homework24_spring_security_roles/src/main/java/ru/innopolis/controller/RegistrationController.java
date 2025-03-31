@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.innopolis.dto.UserRegisterDataRequest;
+import ru.innopolis.dto.UserRegisterDataResponse;
 import ru.innopolis.entity.UserRegEntity;
 import ru.innopolis.service.RegService;
 
@@ -21,7 +22,7 @@ public class RegistrationController {
     private RegService service;
 
     @PostMapping(path = "lk", consumes = MediaType.APPLICATION_JSON_VALUE, produces =MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserRegEntity> getLk(@RequestBody UserRegisterDataRequest data){
+    public ResponseEntity<UserRegisterDataResponse> getLk(@RequestBody UserRegisterDataRequest data){
         var result = service.register(data);
         return ResponseEntity.ok(result);
     }

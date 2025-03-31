@@ -3,6 +3,7 @@ package ru.innopolis.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -27,7 +28,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests( auth -> {
                     auth
                             .requestMatchers("api/v1/student/register/lk").permitAll()
-                            .requestMatchers("api/v1/student/lk/").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/api/v1/tasks").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/v1/tasks/").hasAnyRole( "USER", "ADMIN")
+                            .requestMatchers(HttpMethod.DELETE, "/api/v1/tasks/{id}").hasRole("ADMIN")
+                            //.requestMatchers("api/v1/student/lk/").permitAll()
                             .anyRequest().authenticated();
                 })
                 .httpBasic(Customizer.withDefaults())

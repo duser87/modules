@@ -1,6 +1,7 @@
 package ru.innopolis.entity;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class AuthenticateUser implements UserDetails {
 
-    private UserRegEntity userRegEntity;
+    private final UserRegEntity userRegEntity;
 
     public  AuthenticateUser(UserRegEntity e){
         userRegEntity = e;
@@ -16,7 +17,7 @@ public class AuthenticateUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of((GrantedAuthority) new SimpleGrantedAuthority("ADMIN"));
     }
 
     @Override
@@ -28,4 +29,5 @@ public class AuthenticateUser implements UserDetails {
     public String getUsername() {
         return userRegEntity.getUsername();
     }
+
 }

@@ -11,23 +11,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "users", schema = "security")
-public class UserRegEntity {
-
+@Table(name = "tasks", schema = "security")
+public class TaskEntity {
     @Id
     @GeneratedValue
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "id_student")
-    private Long idStudent;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "username")
-    private String username;
+    @Column(name = "description")
+    private String description;
 
-    @Column(name = "password")
-    private String password;
-
-    @Column(name = "role")
-    private String role;
 }
