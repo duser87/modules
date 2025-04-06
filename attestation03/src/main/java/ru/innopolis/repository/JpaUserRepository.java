@@ -6,4 +6,5 @@ import ru.innopolis.entity.UserEntity;
 
 @Repository
 public interface JpaUserRepository extends JpaRepository<UserEntity, Long> {
+    UserEntity findByEmail(String email);
 }

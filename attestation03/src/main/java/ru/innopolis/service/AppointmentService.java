@@ -44,7 +44,6 @@ public class AppointmentService {
     }
 
     public String delete(Long id){
-
         var record = jpaAppointmentRepository.findById(id);
         var doctor = jpaDoctorRepository.findById(record.get().getIdDoc());
         jpaAppointmentRepository.deleteById(id);

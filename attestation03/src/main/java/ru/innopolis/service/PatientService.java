@@ -3,6 +3,7 @@ package ru.innopolis.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.innopolis.dto.PatientDTO;
+import ru.innopolis.entity.DoctorEntity;
 import ru.innopolis.entity.PatientEntity;
 import ru.innopolis.repository.JpaPatientRepository;
 
@@ -35,5 +36,17 @@ public class PatientService {
                 .tel(result.get().getTel())
                 .address(result.get().getAddress())
                 .build();
+    }
+
+    public String update(PatientDTO patientDTO){
+        var patient = jpaPatientRepository.findById(patientDTO.getId());
+        var result = PatientEntity.builder()
+                .id(patient.get().getId())
+                .fio(patient.get().getFio())
+                .tel(patient.get().getTel())
+                .address(patient.get().getAddress())
+                .build();
+        jpaPatientRepository.save(result);
+        return "Запись с ID-" + patient.get().getId() + " обновлена!";
     }
 }
