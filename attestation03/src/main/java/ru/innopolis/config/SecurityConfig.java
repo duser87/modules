@@ -25,42 +25,46 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private static final String[] LIST_URL = {"/api/v1/auth/**",
-            "/patient",
-            "/patient/**",
-            "/doctor",
-            "/doctor/**",
-            "/appointment",
-            "/appointment/**"};
+    private static final String[] WHITELIST_URLS = {"/api/v1/auth/**"};
+//    private static final String[] LIST_URL = {"/api/v1/auth/**",
+//            "/patient",
+//            "/patient/**",
+//            "/doctor",
+//            "/doctor/**",
+//            "/appointment",
+//            "/appointment/**"};
 
     private final JwtAuthenticationFilter jwtAuthFilter;
-    private final AuthenticationProvider authenticationProvider;
-    private final LogoutHandler logoutHandler;
+    //private final AuthenticationProvider authenticationProvider;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+//        http
+//                .csrf(csrf -> csrf.disable())
+//                .authorizeHttpRequests(req ->
+//                        req.requestMatchers(LIST_URL).permitAll()
+//                                .requestMatchers("/api/v1/auth/**").hasAnyAuthority()
+//                                .anyRequest()
+//                                .authenticated()
+//                )
+//                .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
+//                .authenticationProvider(authenticationProvider)
+//                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+//                .logout(logout ->
+//                        logout.logoutUrl("/api/v1/auth/logout")
+//                                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
+//                )
+//        ;
+       // return http.build();
+
         http
+                .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(req ->
-                        req.requestMatchers(LIST_URL)
-                                .permitAll()
-                                .requestMatchers("/api/v1/appointment/**").hasAnyAuthority()
-                                .requestMatchers(GET, "/api/v1/appointment/**").hasAnyAuthority()
-                                .requestMatchers(POST, "/api/v1/appointment/**").hasAnyAuthority()
-                                .requestMatchers(PUT, "/api/v1/appointment/**").hasAnyAuthority()
-                                .requestMatchers(DELETE, "/api/v1/appointment/**").hasAnyAuthority()
-                                .anyRequest()
-                                .authenticated()
-                )
-                .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .logout(logout ->
-                        logout.logoutUrl("/api/v1/auth/logout")
-                                .addLogoutHandler(logoutHandler)
-                                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
-                )
-        ;
+                .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers(WHITELIST_URLS).permitAll().anyRequest().authenticated();
+                })
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
 
     }
