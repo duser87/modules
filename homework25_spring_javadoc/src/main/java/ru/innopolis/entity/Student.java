@@ -9,6 +9,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Это класс, отражающий сущность в БД. Он имеет следующие поля:
+ *  -идентификатор студента
+ *  - fio-Ф.И.О. студента
+ *  - email-электронный адрес студента
+ *  - age-возраст
+ */
 @Entity
 @Data
 @NoArgsConstructor
