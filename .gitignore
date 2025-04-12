@@ -36,3 +36,37 @@ build/
 
 ### Mac OS ###
 .DS_Store
+attestation01.1/
+attestation01/
+attestation02/
+attestation03/
+/src/main/java/ru/innopolis/test.txt
+homework03/
+homework04/
+homework05/
+homework05.2/
+homework06/
+/homework07/
+homework08_spring_actuator/
+homework09_settings_spring_boot/
+homework10_spring_mvc/
+homework11_spring_mvc_session/
+homework12_spring_mcrsrv_main/
+homework12_spring_mcsrv_service/
+homework13_spring_aop/
+homework14_spring_data_jpa/
+homework15_spring_h2/
+homework16_spring_data/
+homework16.1_spring_migrations/
+homework18_spring_mvc_course_service/
+homework18_spring_mvc_info_service/
+homework18_spring_mvc_service/
+homework19_spring_websockets/
+homework19_websocket_v_2/
+homework20_spring_kafka/
+homework20_kafka_v3/
+homework20_spring_kafka_v2/
+homework21_spring_security/
+homework22_spring_security_pass_encoder/
+homework23_spring_auth_from_db/
+homework24_spring_security_roles/
