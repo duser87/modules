@@ -1,4 +1,4 @@
-package ru.innopolis.entity;
+package ru.innopolis.dto;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -16,30 +16,13 @@ import lombok.NoArgsConstructor;
  *  - email-электронный адрес студента
  *  - age-возраст
  */
-@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "students", schema = "doc")
-public class Student {
-
-    @Id
-    @GeneratedValue
-    @Column(name = "id")
-    private Long id;
-
-    @NotNull
-    @Size(min = 2, max = 100)
-    @Column(name = "fio")
+//@Schema(description = "Представляет пользователя в приложении")
+public class StudentDTO {
     private String fio;
-
-    @NotNull
-    @Email
-    @Column(name = "email")
     private String email;
-
-    @NotNull
-    @Column(name = "age")
     private Integer age;
 }
