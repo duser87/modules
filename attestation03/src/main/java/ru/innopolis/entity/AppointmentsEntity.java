@@ -21,8 +21,8 @@ public class AppointmentsEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "id_d")
-    private Long idDoc;
+    @Column(name = "id_empl")
+    private Long idEmpl;
 
     @Column(name = "id_p")
     private Long idPac;

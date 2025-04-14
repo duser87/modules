@@ -3,7 +3,6 @@ package ru.innopolis.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.innopolis.dto.PatientDTO;
-import ru.innopolis.entity.DoctorEntity;
 import ru.innopolis.entity.PatientEntity;
 import ru.innopolis.repository.JpaPatientRepository;
 

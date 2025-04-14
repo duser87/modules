@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class AppointmentsDTO {
     private Long id;
-    private String fioDoc;
+    private String fioEmpl;
     private String fioPac;
     private String time;
     private String description;

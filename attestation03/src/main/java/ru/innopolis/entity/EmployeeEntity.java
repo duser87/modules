@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name="doctors", schema = "med")
-public class DoctorEntity {
+@Table(name="employees", schema = "med")
+public class EmployeeEntity {
 
     @Id
     @GeneratedValue
@@ -23,9 +23,9 @@ public class DoctorEntity {
     @Column(name = "id_pos")
     private Long idPos;
 
-    @Column(name = "fio_d")
-    private String fioDoc;
+    @Column(name = "fio_empl")
+    private String fioEmpl;
 
-    @Column(name = "tel_d")
-    private String telDoc;
+    @Column(name = "tel_empl")
+    private String telEmpl;
 }

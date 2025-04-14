@@ -42,19 +42,19 @@ COMMENT ON COLUMN positions.position IS 'Position name';
 --  3. fio_d - ФамилияИмяОтчество врача
 --  4. tel_d - номер телефона врача
 
-CREATE  TABLE IF NOT EXISTS doctors
+CREATE  TABLE IF NOT EXISTS employees
 (
     "id" bigint primary key not null,
     "id_pos" bigint, FOREIGN KEY (id_pos) REFERENCES positions(id),
-    "fio_d" varchar,
-    "tel_d" varchar
+    "fio_empl" varchar,
+    "tel_empl" varchar
 );
 
-COMMENT ON table doctors IS 'The table of data about doctors';
-COMMENT ON COLUMN doctors.id IS 'ID doctor';
-COMMENT ON COLUMN doctors.id_pos IS 'Position of doctor';
-COMMENT ON COLUMN doctors.fio_d IS 'Last name, first name, patronymic doctor';
-COMMENT ON COLUMN doctors.tel_d IS 'Number telephone doctor ';
+COMMENT ON table employees IS 'The table of data about doctors';
+COMMENT ON COLUMN employees.id IS 'ID doctor';
+COMMENT ON COLUMN employees.id_pos IS 'Position of doctor';
+COMMENT ON COLUMN employees.fio_empl IS 'Last name, first name, patronymic doctor';
+COMMENT ON COLUMN employees.tel_empl IS 'Number telephone doctor ';
 
 -----------------------------------------------------------------------------------
 
@@ -68,7 +68,7 @@ COMMENT ON COLUMN doctors.tel_d IS 'Number telephone doctor ';
 CREATE TABLE IF NOT EXISTS appointments
 (
     "id" bigint primary key not null,
-    "id_d" bigint, FOREIGN KEY (id_d) REFERENCES doctors(id) ON DELETE CASCADE , -- каскадное удаление
+    "id_empl" bigint, FOREIGN KEY (id_empl) REFERENCES employees(id) ON DELETE CASCADE , -- каскадное удаление
     "id_p" bigint, FOREIGN KEY (id_p) REFERENCES patients(id) ON DELETE CASCADE,
     "time" varchar,
     "description" text
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS appointments
 
 COMMENT ON table appointments IS 'The table of data about doctors';
 COMMENT ON COLUMN appointments.id IS 'ID appointment';
-COMMENT ON COLUMN appointments.id_d IS 'ID doctor, foreign key from table doctors';
+COMMENT ON COLUMN appointments.id_empl IS 'ID doctor, foreign key from table doctors';
 COMMENT ON COLUMN appointments.id_p IS 'ID patient, foreign key from table patients';
 COMMENT ON COLUMN appointments.time IS 'Time appointments ';
 COMMENT ON COLUMN appointments.description IS 'Description appointment';

@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.innopolis.dto.DoctorDTO;
 import ru.innopolis.dto.PatientDTO;
 import ru.innopolis.service.PatientService;
 

@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AuthenticationRequest {
-    private String email;
-    private String password;
+public class EmployeeDTO {
+    private Long id;
+    private String pos;
+    private String fioEmpl;
+    private String telEmpl;
 }

@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS users
 (
     "id" bigint primary key not null,
-    "id_patients" bigint, FOREIGN KEY (id_patients) REFERENCES patients(id),
+    "id_usr" bigint,
     "username" varchar,
     "password" varchar,
     "email" varchar,
