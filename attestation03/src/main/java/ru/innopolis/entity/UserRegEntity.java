@@ -35,4 +35,7 @@ public class UserRegEntity {
     @Column(name = "permit")
     private Boolean permit;
 
+    @Column(name = "time")
+    private LocalDateTime time;
+
 }

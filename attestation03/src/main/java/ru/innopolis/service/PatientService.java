@@ -2,7 +2,6 @@ package ru.innopolis.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.innopolis.dto.PatientDTO;
 import ru.innopolis.entity.PatientEntity;
 import ru.innopolis.repository.JpaPatientRepository;
 
@@ -12,14 +11,9 @@ public class PatientService {
 
     private final JpaPatientRepository jpaPatientRepository;
 
-    public String create(PatientDTO patientDTO){
-        var patient = PatientEntity.builder()
-                .fio(patientDTO.getFio())
-                .address(patientDTO.getAddress())
-                .tel(patientDTO.getTel())
-                .build();
-        jpaPatientRepository.save(patient);
-        return "Добавлен клиент - " + patient.getFio() + ", тел. " + patient.getTel() + ", адрес " + patient.getAddress();
+    public String create(PatientEntity pe){
+        jpaPatientRepository.save(pe);
+        return "Добавлен клиент - " + pe.getFio() + ", тел. " + pe.getTel() + ", адрес " + pe.getAddress();
     }
 
     public String delete(Long id){
@@ -27,25 +21,19 @@ public class PatientService {
         return "Данные клиента с ID-" + id + " удалены...";
     }
 
-    public PatientDTO findById(Long id){
-        var result = jpaPatientRepository.findById(id);
-        return PatientDTO.builder()
-                .id(result.get().getId())
-                .fio(result.get().getFio())
-                .tel(result.get().getTel())
-                .address(result.get().getAddress())
-                .build();
+    public PatientEntity findById(Long id){
+        return jpaPatientRepository.findById(id).orElseThrow();
     }
 
-    public String update(PatientDTO patientDTO){
-        var patient = jpaPatientRepository.findById(patientDTO.getId());
-        var result = PatientEntity.builder()
-                .id(patient.get().getId())
-                .fio(patient.get().getFio())
-                .tel(patient.get().getTel())
-                .address(patient.get().getAddress())
-                .build();
-        jpaPatientRepository.save(result);
-        return "Запись с ID-" + patient.get().getId() + " обновлена!";
+    public String update(PatientEntity pe){
+        var res = jpaPatientRepository.findById(pe.getId());
+        var resNew = PatientEntity.builder()
+                        .id(pe.getId())
+                                .fio(pe.getFio())
+                                        .address(pe.getAddress())
+                                                .tel(pe.getTel())
+                                                        .build();
+        jpaPatientRepository.save(resNew);
+        return "Запись с ID-" + pe.getId() + " обновлена!";
     }
 }

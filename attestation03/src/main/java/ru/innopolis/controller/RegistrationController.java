@@ -14,15 +14,15 @@ import ru.innopolis.service.RegService;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/employee/register/")
+@RequestMapping("/api/v1/employee/register/lk")
 public class RegistrationController {
     @Autowired
     private RegService service;
 
-    @PostMapping(path = "lk", consumes = MediaType.APPLICATION_JSON_VALUE, produces =MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserRegEntity> getLk(@RequestBody UserRegisterDataRequest data){
-        log.info("---------->>>>>>>>>>>>>>>>>>>");
-        var result = service.register(data);
-        return ResponseEntity.ok(result);
-    }
+//    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces =MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<UserRegEntity> getLk(@RequestBody UserRegisterDataRequest data){
+//        log.info("---> Метод getLk:: RegistrationController");
+//        var result = service.register(data);
+//        return ResponseEntity.ok(result);
+//    }
 }

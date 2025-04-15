@@ -2,7 +2,6 @@ package ru.innopolis.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.innopolis.dto.AppointmentsDTO;
 import ru.innopolis.entity.AppointmentsEntity;
 import ru.innopolis.repository.JpaAppointmentRepository;
 import ru.innopolis.repository.JpaEmployeeRepository;
@@ -16,52 +15,32 @@ public class AppointmentService {
     private final JpaEmployeeRepository jpaEmployeeRepository;
     private final JpaPatientRepository jpaPatientRepository;
 
-    public String create(AppointmentsDTO appointmentsDTO){
-        var doctor = jpaEmployeeRepository.findByFioEmpl(appointmentsDTO.getFioEmpl());
-        var pacient = jpaPatientRepository.findByFio(appointmentsDTO.getFioPac());
-        var data = AppointmentsEntity.builder()
-                        .idEmpl(doctor.getId())
-                                .idPac(pacient.getId())
-                                        .time(appointmentsDTO.getTime())
-                                                .description(appointmentsDTO.getDescription())
-                                                        .build();
-        jpaAppointmentRepository.save(data);
-        return "Вы записаны к врачу " + doctor.getFioEmpl() + " на " + appointmentsDTO.getTime();
+    public String create(AppointmentsEntity ae){
+        jpaAppointmentRepository.save(ae);
+        var res = jpaEmployeeRepository.findById(ae.getIdEmpl());
+        return "Вы записаны к врачу " + res.get().getFioEmpl() + " на " + ae.getTime();
     }
 
-    public AppointmentsDTO findById(Long id){
-        var result = jpaAppointmentRepository.findById(id).orElseThrow();
-        var doctor = jpaEmployeeRepository.findById(result.getIdEmpl());
-        var pacient = jpaPatientRepository.findById(result.getIdPac());
-
-        return AppointmentsDTO.builder()
-                .id(result.getId())
-                .fioEmpl(doctor.get().getFioEmpl())
-                .fioPac(pacient.get().getFio())
-                .time(result.getTime())
-                .description(result.getDescription())
-                .build();
+    public AppointmentsEntity findById(Long id){
+        return jpaAppointmentRepository.findById(id).orElseThrow();
     }
 
     public String delete(Long id){
-        var record = jpaAppointmentRepository.findById(id);
-        var doctor = jpaEmployeeRepository.findById(record.get().getIdEmpl());
         jpaAppointmentRepository.deleteById(id);
-        return "Ваша запись к врачу " + doctor.get().getFioEmpl() + " на " + record.get().getTime() + " удалена!";
+        return "Ваша запись к врачу " + " удалена!";
     }
 
-    public String update(AppointmentsDTO appointmentsDTO){
-        var doctor = jpaEmployeeRepository.findByFioEmpl(appointmentsDTO.getFioEmpl());
-        var pacient = jpaPatientRepository.findByFio(appointmentsDTO.getFioPac());
-        var result = AppointmentsEntity.builder()
-                .id(appointmentsDTO.getId())
-                .idPac(pacient.getId())
-                .idEmpl(doctor.getId())
-                .time(appointmentsDTO.getTime())
-                .description(appointmentsDTO.getDescription())
-                .build();
-        jpaAppointmentRepository.save(result);
-        return "Запись с ID-" + appointmentsDTO.getId() + " изменена!";
+    public String update(AppointmentsEntity ae){
+        var res = jpaAppointmentRepository.findById(ae.getId());
+        var aeNew = AppointmentsEntity.builder()
+                        .id(ae.getId())
+                                .idPac(ae.getIdPac())
+                                        .idEmpl(ae.getIdEmpl())
+                                                .description(ae.getDescription())
+                .time(res.get().getTime())
+                                                        .build();
+        jpaAppointmentRepository.save(aeNew);
+        return "Запись с ID-" + ae.getId() + " изменена!";
     }
 
 }

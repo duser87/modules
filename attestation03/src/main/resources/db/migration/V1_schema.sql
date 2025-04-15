@@ -45,7 +45,7 @@ COMMENT ON COLUMN positions.position IS 'Position name';
 CREATE  TABLE IF NOT EXISTS employees
 (
     "id" bigint primary key not null,
-    "id_pos" bigint, FOREIGN KEY (id_pos) REFERENCES positions(id),
+    "id_pos" bigint,-- FOREIGN KEY (id_pos) REFERENCES positions(id),
     "fio_empl" varchar,
     "tel_empl" varchar
 );
@@ -68,8 +68,8 @@ COMMENT ON COLUMN employees.tel_empl IS 'Number telephone doctor ';
 CREATE TABLE IF NOT EXISTS appointments
 (
     "id" bigint primary key not null,
-    "id_empl" bigint, FOREIGN KEY (id_empl) REFERENCES employees(id) ON DELETE CASCADE , -- каскадное удаление
-    "id_p" bigint, FOREIGN KEY (id_p) REFERENCES patients(id) ON DELETE CASCADE,
+    "id_empl" bigint,-- FOREIGN KEY (id_empl) REFERENCES employees(id) ON DELETE CASCADE , -- каскадное удаление
+    "id_p" bigint,-- FOREIGN KEY (id_p) REFERENCES patients(id) ON DELETE CASCADE,
     "time" varchar,
     "description" text
 );
