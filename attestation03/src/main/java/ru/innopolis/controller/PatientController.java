@@ -18,10 +18,9 @@ public class PatientController {
     private final PatientService patientService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> addDoctor(@Valid @RequestBody PatientEntity pe){
+    public ResponseEntity<String> addDoctor(@RequestBody PatientEntity pe){
         log.info(pe.toString());
         var result = patientService.create(pe);
-        log.info(result);
         return ResponseEntity.ok(result);
     }
 
@@ -32,7 +31,7 @@ public class PatientController {
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> updateDoctor(@Valid @RequestBody PatientEntity pe){
+    public ResponseEntity<String> updateDoctor(@RequestBody PatientEntity pe){
         var result = patientService.update(pe);
         return ResponseEntity.ok(result);
     }

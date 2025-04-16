@@ -26,14 +26,11 @@ public class PatientService {
     }
 
     public String update(PatientEntity pe){
-        var res = jpaPatientRepository.findById(pe.getId());
-        var resNew = PatientEntity.builder()
-                        .id(pe.getId())
-                                .fio(pe.getFio())
-                                        .address(pe.getAddress())
-                                                .tel(pe.getTel())
-                                                        .build();
-        jpaPatientRepository.save(resNew);
+        var res = jpaPatientRepository.findById(pe.getId()).orElseThrow();
+        res.setAddress(pe.getAddress());
+        res.setFio(pe.getFio());
+        res.setTel(pe.getTel());
+        jpaPatientRepository.save(res);
         return "Запись с ID-" + pe.getId() + " обновлена!";
     }
 }

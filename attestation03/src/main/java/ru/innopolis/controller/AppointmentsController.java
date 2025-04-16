@@ -18,7 +18,7 @@ public class AppointmentsController {
     private final AppointmentService appointmentService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> addAppointment(@Valid @RequestBody AppointmentsEntity ae){
+    public ResponseEntity<String> addAppointment(@RequestBody AppointmentsEntity ae){
         log.info(ae.toString());
         var result = appointmentService.create(ae);
         log.info(result);
@@ -32,7 +32,7 @@ public class AppointmentsController {
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> updateAppointment(@Valid @RequestBody AppointmentsEntity ae){
+    public ResponseEntity<String> updateAppointment(@RequestBody AppointmentsEntity ae){
         var result = appointmentService.update(ae);
         return ResponseEntity.ok(result);
     }

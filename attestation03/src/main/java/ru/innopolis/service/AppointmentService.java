@@ -1,12 +1,14 @@
 package ru.innopolis.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.innopolis.entity.AppointmentsEntity;
 import ru.innopolis.repository.JpaAppointmentRepository;
 import ru.innopolis.repository.JpaEmployeeRepository;
 import ru.innopolis.repository.JpaPatientRepository;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AppointmentService {
@@ -16,9 +18,9 @@ public class AppointmentService {
     private final JpaPatientRepository jpaPatientRepository;
 
     public String create(AppointmentsEntity ae){
+        log.info(ae.toString());
         jpaAppointmentRepository.save(ae);
-        var res = jpaEmployeeRepository.findById(ae.getIdEmpl());
-        return "Вы записаны к врачу " + res.get().getFioEmpl() + " на " + ae.getTime();
+        return "Вы записаны к врачу " +  " на " + ae.getTime();
     }
 
     public AppointmentsEntity findById(Long id){
@@ -31,15 +33,11 @@ public class AppointmentService {
     }
 
     public String update(AppointmentsEntity ae){
-        var res = jpaAppointmentRepository.findById(ae.getId());
-        var aeNew = AppointmentsEntity.builder()
-                        .id(ae.getId())
-                                .idPac(ae.getIdPac())
-                                        .idEmpl(ae.getIdEmpl())
-                                                .description(ae.getDescription())
-                .time(res.get().getTime())
-                                                        .build();
-        jpaAppointmentRepository.save(aeNew);
+        var res = jpaAppointmentRepository.findById(ae.getId()).orElseThrow();
+        res.setDescription(ae.getDescription());
+        res.setIdEmpl(ae.getIdEmpl());
+        res.setIdPac(ae.getIdPac());
+        jpaAppointmentRepository.save(res);
         return "Запись с ID-" + ae.getId() + " изменена!";
     }
 

@@ -6,7 +6,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
 public class UserRegisterDataRequest {
     private Long idUsr;
     private String username;
