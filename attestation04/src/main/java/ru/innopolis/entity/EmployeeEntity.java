@@ -9,6 +9,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Это класс, описывающий сущность работника в БД. Он имеет следующие поля:
+ * - id - идентификатор
+ * - idPos - идентификатор должности
+ * - fioEmpl - Ф.И.О. работника
+ * - telEmpl - телефон работника
+ */
 @Entity
 @Data
 @NoArgsConstructor

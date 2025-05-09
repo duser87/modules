@@ -9,6 +9,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Это класс, описывающий сущность должности работников поликлинники в БД. Он имеет следующие поля:
+ * - id - идентификатор
+ * - position - наименование должности
+ */
 @Entity
 @Data
 @NoArgsConstructor

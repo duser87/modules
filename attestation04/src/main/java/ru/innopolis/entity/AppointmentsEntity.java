@@ -9,6 +9,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Это класс, описывающий сущность записи на прием в БД. Он имеет следующие поля:
+ * - id - идентификатор записи на прием
+ * - idEmpl - id работника, к которому оформлена запись
+ * - idPat - id пациента
+ * - time - время записи
+ * - description - описание
+ */
 @Entity
 @Data
 @NoArgsConstructor

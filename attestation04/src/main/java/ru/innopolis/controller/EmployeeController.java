@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.innopolis.entity.EmployeeEntity;
 import ru.innopolis.service.EmployeeService;
 
+/**
+ * Класс контроллера, обрабатывающий запросы по URL- localhost:8080/api/v1/employee
+ */
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -16,6 +19,11 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
+    /**
+     * Метод реализует обработку POST-запросов. Он вызывает методы соответсвующего service-слоя и передаёт туда принятый JSON-объект
+     * @param ee - параметр метода, содержащий объект класса EmployeeEntity - описывающий сущность сотрудника поликлиники
+     * @return result - ответ клиентской стороне в виде строки, содержащей информацию о удачной записи в БД
+     */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addEmployee(@RequestBody EmployeeEntity ee){
         log.info(ee.toString());
@@ -24,18 +32,35 @@ public class EmployeeController {
         return ResponseEntity.ok(result);
     }
 
+    /**
+     * Метод реализует обработку GET-запросов. Он вызывает методы соответсвующего service-слоя и передаёт туда принятый идентификатор записи,
+     * по которому можно получить объект этой записи из БД
+     * @param id - идентификатор записи, типа Long
+     * @return result - возвращаемый объект из БД типа EmployeeEntity
+     */
     @GetMapping(value ="/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EmployeeEntity> findByIdEmployee(@PathVariable("id") Long id){
         var result = employeeService.findById(id);
         return ResponseEntity.ok(result);
     }
 
+    /**
+     * Метод реализует обработку PUT-запросов. Он вызывает методы соответсвующего service-слоя и передаёт туда принятый JSON-объект
+     * для обновления записи в БД
+     * @param ee - параметр метода, содержащий объект класса EmployeeEntity - описывающий сущность работника поликлиники
+     * @return result - ответ клиентской стороне в виде строки, содержащей информацию о удачном обновлении записи в БД
+     */
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> updateEmployee(@RequestBody EmployeeEntity ee){
         var result = employeeService.update(ee);
         return ResponseEntity.ok(result);
     }
 
+    /**
+     * Метод реализует обработку DELETE-запросов. Он вызывает методы соответсвующего service-слоя для удаления записи из БД по id
+     * @param id - идентификатор записи, типа Long
+     * @return result - ответ клиентской стороне в виде строки, содержащей информацию о удачном удалении записи из БД
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteEmployee(@PathVariable("id") Long id){
         String noteResponse = employeeService.delete(id);
