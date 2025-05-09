@@ -17,8 +17,6 @@ import ru.innopolis.repository.JpaPatientRepository;
 public class AppointmentService {
 
     private final JpaAppointmentRepository jpaAppointmentRepository;
-    private final JpaEmployeeRepository jpaEmployeeRepository;
-    private final JpaPatientRepository jpaPatientRepository;
 
     /**
      * Метод добавления новой записи о приеме в БД

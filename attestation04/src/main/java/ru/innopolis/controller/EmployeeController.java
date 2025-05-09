@@ -1,5 +1,7 @@
 package ru.innopolis.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -25,6 +27,8 @@ public class EmployeeController {
      * @return result - ответ клиентской стороне в виде строки, содержащей информацию о удачной записи в БД
      */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary="Метод создания новой сущности работника в БД", description = "Создание новой записи о работнике")
+    @ApiResponse(responseCode = "200", description = "Создание записи о работнике в БД")
     public ResponseEntity<String> addEmployee(@RequestBody EmployeeEntity ee){
         log.info(ee.toString());
         var result = employeeService.create(ee);
@@ -39,6 +43,8 @@ public class EmployeeController {
      * @return result - возвращаемый объект из БД типа EmployeeEntity
      */
     @GetMapping(value ="/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary="Метод получения объекта \"Работник\" из БД", description = "Получение записи о работнике")
+    @ApiResponse(responseCode = "200", description = "Получение записи о работнике из БД по ID")
     public ResponseEntity<EmployeeEntity> findByIdEmployee(@PathVariable("id") Long id){
         var result = employeeService.findById(id);
         return ResponseEntity.ok(result);
@@ -51,6 +57,8 @@ public class EmployeeController {
      * @return result - ответ клиентской стороне в виде строки, содержащей информацию о удачном обновлении записи в БД
      */
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary="Метод обновления уже существующего объекта \"Работник\" в БД", description = "Обновление записи о работнике")
+    @ApiResponse(responseCode = "200", description = "Обновление записи о работнике в БД")
     public ResponseEntity<String> updateEmployee(@RequestBody EmployeeEntity ee){
         var result = employeeService.update(ee);
         return ResponseEntity.ok(result);
@@ -62,6 +70,8 @@ public class EmployeeController {
      * @return result - ответ клиентской стороне в виде строки, содержащей информацию о удачном удалении записи из БД
      */
     @DeleteMapping("/{id}")
+    @Operation(summary="Метод удаления объекта \"Работник\" из БД", description = "Удаление записи о работнике")
+    @ApiResponse(responseCode = "200", description = "Удаление записи о работнике из БД по ID")
     public ResponseEntity<String> deleteEmployee(@PathVariable("id") Long id){
         String noteResponse = employeeService.delete(id);
         return ResponseEntity.ok(noteResponse);

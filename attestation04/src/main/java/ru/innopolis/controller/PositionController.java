@@ -1,5 +1,7 @@
 package ru.innopolis.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -25,6 +27,8 @@ public class PositionController {
      * @return result - ответ клиентской стороне в виде строки, содержащей информацию о удачной записи в БД
      */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary="Метод содания объекта \"Должность\" в БД", description = "Создание записи о должности")
+    @ApiResponse(responseCode = "200", description = "Создание записи о должности в БД")
     public ResponseEntity<String> addPosition(@RequestBody PositionEntity pe){
         log.info(pe.toString());
         var result = positionService.create(pe);
@@ -37,6 +41,8 @@ public class PositionController {
      * @return result - ответ клиентской стороне в виде строки, содержащей информацию о удачном удалении записи из БД
      */
     @DeleteMapping("/{id}")
+    @Operation(summary="Метод удаления объекта \"Должность\" в БД", description = "Удаление записи о должности")
+    @ApiResponse(responseCode = "200", description = "Удаление записи о должности из БД")
     public ResponseEntity<String> deletePosition(@PathVariable("id") Long id){
         String response = positionService.delete(id);
         return ResponseEntity.ok(response);
@@ -49,6 +55,8 @@ public class PositionController {
      * @return result - возвращаемый объект из БД типа PositionEntity
      */
     @GetMapping(value ="/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary="Метод получения объекта \"Должность\" в БД", description = "Получение записи о должности")
+    @ApiResponse(responseCode = "200", description = "Получение записи о должности из БД")
     public ResponseEntity<PositionEntity> findByIdPosition(@PathVariable("id") Long id){
         var result = positionService.findById(id);
         return ResponseEntity.ok(result);
