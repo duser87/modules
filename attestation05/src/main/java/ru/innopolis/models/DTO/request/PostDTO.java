@@ -1,4 +1,4 @@
-package ru.innopolis.models.DTO;
+package ru.innopolis.models.DTO.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,10 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PatientDTO {
+public class PostDTO {
 
-    String fio;
-    String tel;
-    String address;
+    Long idPost;
+    Long idEmpl;
 
 }

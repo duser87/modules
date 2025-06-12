@@ -1,4 +1,4 @@
-package ru.innopolis.models.DTO;
+package ru.innopolis.models.DTO.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,11 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AppointmentDTO {
+public class PositionDTO {
 
-    Long idEmpl;
-    Long idPat;
-    String time;
     String description;
 
 }

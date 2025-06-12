@@ -1,4 +1,4 @@
-package ru.innopolis.models.DTO;
+package ru.innopolis.models.DTO.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
