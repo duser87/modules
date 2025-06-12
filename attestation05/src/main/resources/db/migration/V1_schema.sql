@@ -94,5 +94,5 @@ COMMENT ON COLUMN appointments.id IS 'ID appointment';
 COMMENT ON COLUMN appointments.id_empl IS 'ID doctor, foreign key from table doctors';
 COMMENT ON COLUMN appointments.id_pat IS 'ID patient, foreign key from table patients';
 COMMENT ON COLUMN appointments.time IS 'Time appointments ';
-COMMENT ON COLUMN appointments.description IS 'Description appointment';\
+COMMENT ON COLUMN appointments.description IS 'Description appointment';
 COMMENT ON COLUMN appointments.del IS 'Soft delete FLAG';
