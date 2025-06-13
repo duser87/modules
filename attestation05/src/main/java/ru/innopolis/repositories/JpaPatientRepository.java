@@ -6,4 +6,7 @@ import ru.innopolis.models.Entity.PatientEntity;
 
 @Repository
 public interface JpaPatientRepository extends JpaRepository<PatientEntity, Long> {
+
+    PatientEntity findByFioAndTel(String fio, String tel);
+
 }

@@ -6,4 +6,7 @@ import ru.innopolis.models.Entity.PostEntity;
 
 @Repository
 public interface JpaPostRepository extends JpaRepository<PostEntity, Long> {
+
+    PostEntity findByIdPosAndIdEmpl(Long idPos, Long idEmpl);
+
 }

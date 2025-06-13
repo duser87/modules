@@ -6,4 +6,7 @@ import ru.innopolis.models.Entity.PositionEntity;
 
 @Repository
 public interface JpaPositionRepository extends JpaRepository<PositionEntity, Long> {
+    PositionEntity findByPosition(String position);
+
+    void deleteByPosition(String position);
 }

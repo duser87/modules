@@ -6,4 +6,6 @@ import ru.innopolis.models.Entity.EmployeeEntity;
 
 @Repository
 public interface JpaEmployeeRepository extends JpaRepository<EmployeeEntity, Long> {
+
+    EmployeeEntity findByFioAndTel(String fio, String tel);
 }
