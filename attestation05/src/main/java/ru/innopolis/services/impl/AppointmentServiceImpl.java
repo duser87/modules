@@ -106,11 +106,11 @@ public class AppointmentServiceImpl implements AppointmentServiceInterface {
     }
 
     @Override
-    public AppointmentResponseDTO findById(AppointmentDTO dto) {
+    public AppointmentResponseDTO findById(Long id) {
         AppointmentEntity result = new AppointmentEntity();
         String msg = "";
         try{
-            result = jpaAppointmentRepository.findByIdEmplAndIdPat(dto.getIdEmpl(), dto.getIdPat(), dto.getTime());
+            result = jpaAppointmentRepository.findById(id).orElseThrow();
             if(result.getId() !=  0L){
                 msg = " -> Получена запись на прием с ID-" + result.getId();
             }

@@ -7,5 +7,5 @@ public interface EmployeeServiceInterface {
     EmployeeResponseDTO create(EmployeeDTO dto);
     EmployeeResponseDTO update(EmployeeDTO dto);
     EmployeeResponseDTO delete(EmployeeDTO dto);
-    EmployeeResponseDTO findById(EmployeeDTO dto);
+    EmployeeResponseDTO findById(Long id);
 }

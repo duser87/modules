@@ -8,6 +8,6 @@ public interface AppointmentServiceInterface {
     AppointmentResponseDTO create(AppointmentDTO dto);
     AppointmentResponseDTO update(AppointmentDTO dto);
     AppointmentResponseDTO delete(AppointmentDTO dto);
-    AppointmentResponseDTO findById(AppointmentDTO dto);
+    AppointmentResponseDTO findById(Long id);
 
 }

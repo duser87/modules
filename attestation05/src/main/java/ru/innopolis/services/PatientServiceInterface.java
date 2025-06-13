@@ -8,5 +8,5 @@ public interface PatientServiceInterface {
     PatientResponseDTO create(PatientDTO dto);
     PatientResponseDTO update(PatientDTO dto);
     PatientResponseDTO delete(PatientDTO dto);
-    PatientResponseDTO findById(PatientDTO dto);
+    PatientResponseDTO findById(Long id);
 }

@@ -88,11 +88,11 @@ public class EmployeeServiceImpl implements EmployeeServiceInterface {
     }
 
     @Override
-    public EmployeeResponseDTO findById(EmployeeDTO dto) {
+    public EmployeeResponseDTO findById(Long id) {
         EmployeeEntity result = new EmployeeEntity();
         String msg = "";
         try {
-            result = jpaEmployeeRepository.findByFioAndTel(dto.getFio(), dto.getTel());
+            result = jpaEmployeeRepository.findById(id).orElseThrow();
             if(result.getId() != 0L){
                 msg =" -> Получены данные работника";
             }

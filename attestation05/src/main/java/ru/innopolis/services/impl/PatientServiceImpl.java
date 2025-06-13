@@ -94,11 +94,11 @@ public class PatientServiceImpl implements PatientServiceInterface {
     }
 
     @Override
-    public PatientResponseDTO findById(PatientDTO dto) {
+    public PatientResponseDTO findById(Long id) {
         PatientEntity result = new PatientEntity();
         String msg = "";
         try{
-            result = jpaPatientRepository.findByFioAndTel(dto.getFio(), dto.getTel());
+            result = jpaPatientRepository.findById(id).orElseThrow();
             if(result.getId() != 0L){
                 msg =" -> Получены данные клиента";
             }
