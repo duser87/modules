@@ -54,12 +54,17 @@ public class AppointmentServiceImpl implements AppointmentServiceInterface {
             result = jpaAppointmentRepository.findByIdEmplAndIdPat(dto.getIdEmpl(), dto.getIdPat(), dto.getTime());
 
             if(result.getId() != 0L){
-                result.setIdEmpl(dto.getIdEmpl());
-                result.setIdPat(dto.getIdPat());
-                result.setTime(dto.getTime());
-                result.setDescription(dto.getDescription());
-                jpaAppointmentRepository.save(result);
-                msg = " -> Данные приема №" + result.getId() + " обновлены!";
+                if(result.getDel().equals(false)){
+                    result.setIdEmpl(dto.getIdEmpl());
+                    result.setIdPat(dto.getIdPat());
+                    result.setTime(dto.getTime());
+                    result.setDescription(dto.getDescription());
+                    jpaAppointmentRepository.save(result);
+                    msg = " -> Данные записи на прием с ID-" + result.getId() + " обновлены!";
+                }
+                else{
+                    msg = " -> Данные записи на прием с ID-" + result.getId() + " невозможно обновить, т.к. запись помечена удаленной в БД!";
+                }
             }
             else{
                 msg = " -> Такой записи на прием не существует!";
@@ -86,8 +91,22 @@ public class AppointmentServiceImpl implements AppointmentServiceInterface {
         try{
             result = jpaAppointmentRepository.findByIdEmplAndIdPat(dto.getIdEmpl(), dto.getIdPat(), dto.getTime());
             if(result.getId() !=  0L){
-                jpaAppointmentRepository.deleteById(result.getId());
-                msg = " -> Запись на прием с ID-" + result.getId() + " удалена!";
+                //jpaAppointmentRepository.deleteById(result.getId());
+
+                if(result.getDel().equals(false) ){
+                    jpaAppointmentRepository.save(AppointmentEntity.builder()
+                            .id(result.getId())
+                            .idEmpl(result.getIdEmpl())
+                            .idPat(result.getIdPat())
+                            .time(result.getTime())
+                            .description(result.getDescription())
+                            .del(true)
+                            .build());
+                    msg = " -> Запись на прием с ID-" + result.getId() + " удалена!";
+                }
+                else{
+                    msg = " -> Эта запись помечена удаленой!";
+                }
             }
             else{
                 msg = " -> Записи на прием с ID-" + result.getId() + " не существует...";
