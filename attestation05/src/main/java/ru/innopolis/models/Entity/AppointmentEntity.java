@@ -5,11 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ValueGenerationType;
+import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
 
 @Entity
+@RedisHash
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
