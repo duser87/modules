@@ -2,6 +2,8 @@ package ru.innopolis.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 import ru.innopolis.models.DTO.request.AppointmentDTO;
 import ru.innopolis.models.DTO.response.AppointmentResponseDTO;
@@ -19,6 +21,7 @@ public class AppointmentServiceImpl implements AppointmentServiceInterface {
     private final JpaEmployeeRepository jpaEmployeeRepository;
 
     @Override
+    @CachePut(value = "appointment", key = "#result.id")
     public AppointmentResponseDTO create(AppointmentDTO dto) {
         AppointmentEntity result = new AppointmentEntity();
         String doctor = "";
@@ -30,7 +33,6 @@ public class AppointmentServiceImpl implements AppointmentServiceInterface {
                     .description(dto.getDescription())
                     .del(false)
                     .build());
-
             doctor = jpaEmployeeRepository.findById(dto.getIdEmpl()).get().getFio();
 
         } catch (Exception e) {
@@ -47,6 +49,7 @@ public class AppointmentServiceImpl implements AppointmentServiceInterface {
     }
 
     @Override
+    @CachePut(value = "appointment", key = "#result.id")
     public AppointmentResponseDTO update(AppointmentDTO dto) {
         AppointmentEntity result = new AppointmentEntity();
         String msg = "";
@@ -85,6 +88,7 @@ public class AppointmentServiceImpl implements AppointmentServiceInterface {
     }
 
     @Override
+    @CacheEvict(value = "appointment", key = "#result.id")
     public AppointmentResponseDTO delete(AppointmentDTO dto) {
         AppointmentEntity result = new AppointmentEntity();
         String msg = "";

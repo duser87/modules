@@ -6,13 +6,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Table(name="positions", schema = "clinic")
-public class PositionEntity {
+public class PositionEntity implements Serializable {
 
     @Id
     @GeneratedValue

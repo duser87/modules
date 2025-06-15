@@ -4,9 +4,11 @@ import jakarta.persistence.Column;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 @Builder
-public class AppointmentResponseDTO {
+public class AppointmentResponseDTO implements Serializable {
     private Long id;
     private Long idEmpl;
     private Long idPat;

@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ValueGenerationType;
+
+import java.io.Serializable;
 
 @Entity
 @Data
@@ -12,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Table(name="appointments", schema = "clinic")
-public class AppointmentEntity {
+public class AppointmentEntity implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "id")
