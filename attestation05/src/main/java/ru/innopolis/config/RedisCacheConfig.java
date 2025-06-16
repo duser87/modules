@@ -1,4 +1,4 @@
-package ru.innopolis;
+package ru.innopolis.config;
 
 import org.springframework.boot.autoconfigure.cache.RedisCacheManagerBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
