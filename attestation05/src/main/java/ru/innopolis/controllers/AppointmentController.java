@@ -35,7 +35,7 @@ public class AppointmentController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}", /*consumes = MediaType.APPLICATION_JSON_VALUE,*/ produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AppointmentResponseDTO> find(@PathVariable("id") Long id){
         AppointmentResponseDTO response = appointment.findById(id);
         return ResponseEntity.ok(response);

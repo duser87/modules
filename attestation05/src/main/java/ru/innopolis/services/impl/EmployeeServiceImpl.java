@@ -28,7 +28,6 @@ public class EmployeeServiceImpl implements EmployeeServiceInterface {
             throw new RuntimeException(e);
         }
         return EmployeeResponseDTO.builder()
-                .id(result.getId())
                 .fio(result.getFio())
                 .tel(result.getTel())
                 .message(" -> Работник - " + dto.getFio() + " добавлен в базу!")
@@ -42,11 +41,9 @@ public class EmployeeServiceImpl implements EmployeeServiceInterface {
         try{
             result = jpaEmployeeRepository.findByFioAndTel(dto.getFio(), dto.getTel());
             if(result.getId() != 0L){
-                jpaEmployeeRepository.save(EmployeeEntity.builder()
-                        .id(result.getId())
-                        .fio(dto.getFio())
-                        .tel(dto.getTel())
-                        .build());
+                result.setFio(dto.getFio());
+                result.setTel(dto.getTel());
+                jpaEmployeeRepository.save(result);
                 msg = " -> Данные работника с ID-" + result.getId() + " обновлены!";
             }
             else{

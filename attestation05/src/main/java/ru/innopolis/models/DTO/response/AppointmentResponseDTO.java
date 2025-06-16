@@ -9,7 +9,6 @@ import java.io.Serializable;
 
 @Data
 @Builder
-@RedisHash
 public class AppointmentResponseDTO implements Serializable {
     private Long id;
     private Long idEmpl;

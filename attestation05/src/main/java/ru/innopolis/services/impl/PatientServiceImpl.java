@@ -26,6 +26,7 @@ public class PatientServiceImpl implements PatientServiceInterface {
                     .tel(dto.getTel())
                     .address(dto.getAddress())
                     .build());
+            log.info(result.toString());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -45,12 +46,10 @@ public class PatientServiceImpl implements PatientServiceInterface {
         try{
             result = jpaPatientRepository.findByFioAndTel(dto.getFio(), dto.getTel());
             if(result.getId() != 0L){
-                jpaPatientRepository.save(PatientEntity.builder()
-                        .id(result.getId())
-                        .fio(result.getFio())
-                        .tel(result.getTel())
-                        .address(result.getAddress())
-                        .build());
+                result.setFio(dto.getFio());
+                result.setTel(dto.getTel());
+                result.setAddress(dto.getAddress());
+                jpaPatientRepository.save(result);
                 msg = "-> Данные клиента с ID-" + result.getId() + " обновлены!";
             }
             else{

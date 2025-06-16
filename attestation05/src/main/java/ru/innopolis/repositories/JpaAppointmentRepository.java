@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface JpaAppointmentRepository extends JpaRepository<AppointmentEntity, Long> {
 
-    @Query(value = "SELECT a FROM AppointmentEntity a WHERE a.idEmpl=:idEmpl AND a.idPat=:idPat AND a.time=:time")
-    public AppointmentEntity findByIdEmplAndIdPat(@Param("idEmpl") Long idEmpl, @Param("idPat") Long idPat, @Param("time") String time);
+    @Query(value = "SELECT a FROM AppointmentEntity a WHERE a.idEmpl=:idEmpl AND a.idPat=:idPat")
+    public AppointmentEntity findByIdEmplAndIdPat(@Param("idEmpl") Long idEmpl, @Param("idPat") Long idPat);
 }

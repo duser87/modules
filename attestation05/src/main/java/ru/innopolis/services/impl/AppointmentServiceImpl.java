@@ -54,7 +54,7 @@ public class AppointmentServiceImpl implements AppointmentServiceInterface {
         AppointmentEntity result = new AppointmentEntity();
         String msg = "";
         try{
-            result = jpaAppointmentRepository.findByIdEmplAndIdPat(dto.getIdEmpl(), dto.getIdPat(), dto.getTime());
+            result = jpaAppointmentRepository.findByIdEmplAndIdPat(dto.getIdEmpl(), dto.getIdPat());
 
             if(result.getId() != 0L){
                 if(result.getDel().equals(false)){
@@ -93,22 +93,11 @@ public class AppointmentServiceImpl implements AppointmentServiceInterface {
         AppointmentEntity result = new AppointmentEntity();
         String msg = "";
         try{
-            //result = jpaAppointmentRepository.findByIdEmplAndIdPat(dto.getIdEmpl(), dto.getIdPat(), dto.getTime());
-            var res = jpaAppointmentRepository.findAll();
-            log.info(res.toString());
-            log.info(result.getId().toString());
+            result = jpaAppointmentRepository.findByIdEmplAndIdPat(dto.getIdEmpl(), dto.getIdPat());
             if(result.getId() !=  0L){
-                //jpaAppointmentRepository.deleteById(result.getId());
-
                 if(result.getDel().equals(false) ){
-                    jpaAppointmentRepository.save(AppointmentEntity.builder()
-                           // .id(result.getId())
-                            .idEmpl(result.getIdEmpl())
-                            .idPat(result.getIdPat())
-                            .time(result.getTime())
-                            .description(result.getDescription())
-                            .del(true)
-                            .build());
+                    result.setDel(true);
+                    jpaAppointmentRepository.save(result);
                     msg = " -> Запись на прием с ID-" + result.getId() + " удалена!";
                 }
                 else{
