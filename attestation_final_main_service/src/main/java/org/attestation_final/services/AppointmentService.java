@@ -12,5 +12,4 @@ public class AppointmentService {
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
-    public
 }
