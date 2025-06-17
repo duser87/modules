@@ -41,7 +41,7 @@ attestation01/
 attestation02/
 attestation03/
 /src/main/java/ru/innopolis/test.txt
-homework03/
+homeworks/homework03/
 homework04/
 homework05/
 homework05.2/
@@ -74,3 +74,4 @@ homework25_spring_javadoc/
 homework26_spring_swagger_ui/
 homework27_spring_boot_test/
 attestation04/
+attestation05/
