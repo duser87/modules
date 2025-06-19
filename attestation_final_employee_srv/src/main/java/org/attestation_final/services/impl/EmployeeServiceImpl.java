@@ -6,13 +6,13 @@ import org.attestation_final.model.DTO.request.EmployeeDTO;
 import org.attestation_final.model.DTO.response.EmployeeResponseDTO;
 import org.attestation_final.model.entities.EmployeeEntity;
 import org.attestation_final.repository.JpaEmployeeRepository;
-import org.attestation_final.services.EmployeeServiceInterface;
+import org.attestation_final.services.IEmployeeService;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class EmployeeServiceImpl implements EmployeeServiceInterface {
+public class EmployeeServiceImpl implements IEmployeeService {
 
     private final JpaEmployeeRepository jpaEmployeeRepository;
 

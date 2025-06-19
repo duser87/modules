@@ -6,13 +6,13 @@ import org.attestation_final.model.DTO.request.PatientDTO;
 import org.attestation_final.model.DTO.response.PatientResponseDTO;
 import org.attestation_final.model.entities.PatientEntity;
 import org.attestation_final.repositories.JpaPatientRepository;
-import org.attestation_final.services.PatientServiceInterface;
+import org.attestation_final.services.IPatientService;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class PatientServiceImpl implements PatientServiceInterface {
+public class PatientServiceImpl implements IPatientService {
 
     private final JpaPatientRepository jpaPatientRepository;
 

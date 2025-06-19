@@ -6,13 +6,13 @@ import org.attestation_final.model.DTO.request.PositionDTO;
 import org.attestation_final.model.DTO.response.PositionResponseDTO;
 import org.attestation_final.model.entities.PositionEntity;
 import org.attestation_final.repositories.JpaPositionRepository;
-import org.attestation_final.services.PositionServiceInterface;
+import org.attestation_final.services.IPositionService;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class PositionServiceImpl implements PositionServiceInterface {
+public class PositionServiceImpl implements IPositionService {
 
     private final JpaPositionRepository jpaPositionRepository;
 

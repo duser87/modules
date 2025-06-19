@@ -6,13 +6,13 @@ import org.attestation_final.model.DTO.request.PostDTO;
 import org.attestation_final.model.DTO.response.PostResponseDTO;
 import org.attestation_final.model.entities.PostEntity;
 import org.attestation_final.repositories.JpaPostRepository;
-import org.attestation_final.services.PostServiceInterface;
+import org.attestation_final.services.IPostService;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class PostServiceImpl implements PostServiceInterface {
+public class PostServiceImpl implements IPostService {
 
     private final JpaPostRepository jpaPostRepository;
 

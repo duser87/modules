@@ -6,13 +6,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Table(name="appointments", schema = "appointment_service")
-public class AppointmentEntity {
+public class AppointmentEntity{
     @Id
     @GeneratedValue
     @Column(name = "id")

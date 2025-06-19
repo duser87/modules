@@ -15,6 +15,7 @@
         <option value="$PROJECT_DIR$/attestation_final_employee_srv/pom.xml" />
         <option value="$PROJECT_DIR$/attestation_final_patient_srv/pom.xml" />
         <option value="$PROJECT_DIR$/attestation_final_post_srv/pom.xml" />
+        <option value="$PROJECT_DIR$/attestation_final_main_srv/pom.xml" />
       </list>
     </option>
   </component>

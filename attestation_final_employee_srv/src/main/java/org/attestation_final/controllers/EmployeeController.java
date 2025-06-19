@@ -3,7 +3,7 @@ package org.attestation_final.controllers;
 import lombok.extern.slf4j.Slf4j;
 import org.attestation_final.model.DTO.request.EmployeeDTO;
 import org.attestation_final.model.DTO.response.EmployeeResponseDTO;
-import org.attestation_final.services.EmployeeServiceInterface;
+import org.attestation_final.services.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class EmployeeController {
 
     @Autowired
-    private EmployeeServiceInterface employee;
+    private IEmployeeService employee;
 
     @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EmployeeResponseDTO> create(@RequestBody EmployeeDTO dto){
