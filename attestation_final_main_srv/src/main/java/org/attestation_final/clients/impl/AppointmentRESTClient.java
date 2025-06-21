@@ -1,14 +1,14 @@
-package org.attestation_final.clients.appointment.impl;
+package org.attestation_final.clients.impl;
 
 import jakarta.annotation.PostConstruct;
-import org.attestation_final.clients.appointment.IAppointmentClient;
+import org.attestation_final.clients.IMethodsCRUDRest;
 import org.attestation_final.models.DTO.request.AppointmentDTO;
 import org.attestation_final.models.DTO.response.AppointmentResponseDTO;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
 @Component
-public class AppointmentRESTClient implements IAppointmentClient {
+public class AppointmentRESTClient implements IMethodsCRUDRest<AppointmentResponseDTO, AppointmentDTO> {
 
     RestClient restClient;
     private static final String URL = "http://localhost:8081/api/v1/services/appointment";

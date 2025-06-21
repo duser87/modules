@@ -3,35 +3,35 @@ package org.attestation_final.services.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.attestation_final.clients.IMethodsCRUDRest;
-import org.attestation_final.models.DTO.request.AppointmentDTO;
-import org.attestation_final.models.DTO.response.AppointmentResponseDTO;
+import org.attestation_final.models.DTO.request.PostDTO;
+import org.attestation_final.models.DTO.response.PostResponseDTO;
 import org.attestation_final.services.IMethodsCRUDService;
 import org.springframework.stereotype.Service;
 
-@Slf4j
 @Service
+@Slf4j
 @RequiredArgsConstructor
-public class AppointmentService implements IMethodsCRUDService<AppointmentResponseDTO, AppointmentDTO> {
+public class PostService implements IMethodsCRUDService<PostResponseDTO, PostDTO> {
 
-    private  final IMethodsCRUDRest<AppointmentResponseDTO, AppointmentDTO> restClient;
+    private  final IMethodsCRUDRest<PostResponseDTO, PostDTO> restClient;
 
     @Override
-    public AppointmentResponseDTO create(AppointmentDTO dto) {
+    public PostResponseDTO create(PostDTO dto) {
         return restClient.createREST(dto);
     }
 
     @Override
-    public AppointmentResponseDTO update(AppointmentDTO dto) {
+    public PostResponseDTO update(PostDTO dto) {
         return restClient.updateREST(dto);
     }
 
     @Override
-    public AppointmentResponseDTO delete(Long id) {
+    public PostResponseDTO delete(Long id) {
         return restClient.deleteREST(id);
     }
 
     @Override
-    public AppointmentResponseDTO find(Long id) {
+    public PostResponseDTO find(Long id) {
         return restClient.findREST(id);
     }
 }

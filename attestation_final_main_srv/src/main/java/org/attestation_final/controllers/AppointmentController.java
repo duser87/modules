@@ -3,7 +3,7 @@ package org.attestation_final.controllers;
 import lombok.extern.slf4j.Slf4j;
 import org.attestation_final.models.DTO.request.AppointmentDTO;
 import org.attestation_final.models.DTO.response.AppointmentResponseDTO;
-import org.attestation_final.services.IAppointmentService;
+import org.attestation_final.services.IMethodsCRUDService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class AppointmentController {
 
     @Autowired
-    private IAppointmentService appointmentService;
+    private IMethodsCRUDService<AppointmentResponseDTO, AppointmentDTO> appointmentService;
 
     @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AppointmentResponseDTO> create(@RequestBody AppointmentDTO dto){
