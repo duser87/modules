@@ -36,11 +36,12 @@ public class PostServiceImpl implements IPostService {
     }
 
     @Override
-    public PostResponseDTO delete(PostDTO dto) {
+    public PostResponseDTO delete(Long id) {
         PostEntity result = new PostEntity();
         String msg = "";
         try{
-            result = jpaPostRepository.findByIdPosAndIdEmpl(dto.getIdPost(), dto.getIdEmpl());
+            result = jpaPostRepository.findById(id).orElseThrow();
+            jpaPostRepository.deleteById(id);
             if(result.getId() != 0L){
                 msg = " -> Связь работника с должностью удалена из БД";
             }
@@ -52,8 +53,8 @@ public class PostServiceImpl implements IPostService {
         }
         return PostResponseDTO.builder()
                 .id(result.getId())
-                .idPos(dto.getIdPost())
-                .idEmpl(dto.getIdEmpl())
+                .idPos(result.getIdPos())
+                .idEmpl(result.getIdEmpl())
                 .message(msg)
                 .build();
     }

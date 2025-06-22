@@ -28,6 +28,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
             throw new RuntimeException(e);
         }
         return EmployeeResponseDTO.builder()
+                .id(result.getId())
                 .fio(result.getFio())
                 .tel(result.getTel())
                 .message(" -> Работник - " + dto.getFio() + " добавлен в базу!")
@@ -39,7 +40,8 @@ public class EmployeeServiceImpl implements IEmployeeService {
         EmployeeEntity result = new EmployeeEntity();
         String msg = "";
         try{
-            result = jpaEmployeeRepository.findByFioAndTel(dto.getFio(), dto.getTel());
+            result = jpaEmployeeRepository.findById(dto.getId()).orElseThrow();
+            log.info(result.toString());
             if(result.getId() != 0L){
                 result.setFio(dto.getFio());
                 result.setTel(dto.getTel());
@@ -61,11 +63,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
-    public EmployeeResponseDTO delete(EmployeeDTO dto) {
+    public EmployeeResponseDTO delete(Long id) {
         EmployeeEntity result = new EmployeeEntity();
         String msg = "";
         try{
-            result = jpaEmployeeRepository.findByFioAndTel(dto.getFio(), dto.getTel());
+            result = jpaEmployeeRepository.findById(id).orElseThrow();
             if(result.getId() != 0L){
                 jpaEmployeeRepository.deleteById(result.getId());
                 msg = " -> Данные работника с ID-" + result.getId() + " удалены!";

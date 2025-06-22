@@ -5,5 +5,5 @@ import org.attestation_final.model.DTO.response.PostResponseDTO;
 
 public interface IPostService {
     PostResponseDTO create(PostDTO dto);
-    PostResponseDTO delete(PostDTO dto);
+    PostResponseDTO delete(Long id);
 }

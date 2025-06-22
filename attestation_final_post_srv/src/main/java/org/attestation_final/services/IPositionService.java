@@ -5,5 +5,5 @@ import org.attestation_final.model.DTO.response.PositionResponseDTO;
 
 public interface IPositionService {
     PositionResponseDTO create(PositionDTO dto);
-    PositionResponseDTO delete(PositionDTO dto);
+    PositionResponseDTO delete(Long id);
 }

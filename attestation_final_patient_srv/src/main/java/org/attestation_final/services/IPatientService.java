@@ -6,6 +6,6 @@ import org.attestation_final.model.DTO.response.PatientResponseDTO;
 public interface IPatientService {
     PatientResponseDTO create(PatientDTO dto);
     PatientResponseDTO update(PatientDTO dto);
-    PatientResponseDTO delete(PatientDTO dto);
+    PatientResponseDTO delete(Long id);
     PatientResponseDTO findById(Long id);
 }

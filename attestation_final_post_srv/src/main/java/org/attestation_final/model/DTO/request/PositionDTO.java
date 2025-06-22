@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PositionDTO {
 
+    Long id;
     String description;
 
 }

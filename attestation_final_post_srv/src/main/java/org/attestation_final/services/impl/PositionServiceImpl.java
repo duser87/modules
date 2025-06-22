@@ -35,17 +35,18 @@ public class PositionServiceImpl implements IPositionService {
     }
 
     @Override
-    public PositionResponseDTO delete(PositionDTO dto) {
+    public PositionResponseDTO delete(Long id) {
         PositionEntity result = new PositionEntity();
         String msg = "";
         try{
-            jpaPositionRepository.deleteByPosition(dto.getDescription());
+            result = jpaPositionRepository.findById(id).orElseThrow();
+            jpaPositionRepository.deleteById(id);
             msg = " -> Должность удалена";
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return PositionResponseDTO.builder()
-                .position(dto.getDescription())
+                .position(result.getPosition())
                 .message(msg)
                 .build();
     }

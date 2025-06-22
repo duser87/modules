@@ -18,7 +18,7 @@ public class KafkaConsumer implements IKafkaConsumer {
     @Override
     @KafkaListener(topics = "post-topic")
     public void consumeMessage(String str) {
-        System.out.println(URLDecoder.decode(str, StandardCharsets.UTF_8));
-        producer.sendMessage(URLDecoder.decode(str, StandardCharsets.UTF_8));
+        System.out.println(str);
+        producer.sendMessage(str);
     }
 }

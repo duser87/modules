@@ -23,9 +23,9 @@ public class PositionController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping(path = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PositionResponseDTO> delete(@RequestBody PositionDTO dto){
-        PositionResponseDTO response = position.delete(dto);
+    @DeleteMapping(path = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PositionResponseDTO> delete(@PathVariable("id") Long id){
+        PositionResponseDTO response = position.delete(id);
         return ResponseEntity.ok(response);
     }
 }

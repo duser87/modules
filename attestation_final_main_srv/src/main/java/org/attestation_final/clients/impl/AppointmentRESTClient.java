@@ -39,7 +39,7 @@ public class AppointmentRESTClient implements IMethodsCRUDRest<AppointmentRespon
     @Override
     public AppointmentResponseDTO deleteREST(Long id) {
         return restClient.delete()
-                .uri(URL + "/{id}", id)
+                .uri(URL + "/delete/{id}", id)
                 .retrieve()
                 .body(AppointmentResponseDTO.class);
     }

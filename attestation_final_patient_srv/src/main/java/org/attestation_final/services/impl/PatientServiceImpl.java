@@ -44,7 +44,7 @@ public class PatientServiceImpl implements IPatientService {
         PatientEntity result = new PatientEntity();
         String msg = "";
         try{
-            result = jpaPatientRepository.findByFioAndTel(dto.getFio(), dto.getTel());
+            result = jpaPatientRepository.findById(dto.getId()).orElseThrow();
             if(result.getId() != 0L){
                 result.setFio(dto.getFio());
                 result.setTel(dto.getTel());
@@ -68,11 +68,11 @@ public class PatientServiceImpl implements IPatientService {
     }
 
     @Override
-    public PatientResponseDTO delete(PatientDTO dto) {
+    public PatientResponseDTO delete(Long id) {
         PatientEntity result = new PatientEntity();
         String msg = "";
         try {
-            result = jpaPatientRepository.findByFioAndTel(dto.getFio(), dto.getTel());
+            result = jpaPatientRepository.findById(id).orElseThrow();
             if(result.getId() != 0L){
                 jpaPatientRepository.deleteById(result.getId());
                 msg = "-> Данные клиента с ID-" + result.getId() + " удалены!";

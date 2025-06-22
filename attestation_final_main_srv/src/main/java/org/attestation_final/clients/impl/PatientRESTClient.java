@@ -1,5 +1,6 @@
 package org.attestation_final.clients.impl;
 
+import jakarta.annotation.PostConstruct;
 import org.attestation_final.clients.IMethodsCRUDRest;
 import org.attestation_final.models.DTO.request.PatientDTO;
 import org.attestation_final.models.DTO.response.PatientResponseDTO;
@@ -10,6 +11,11 @@ import org.springframework.web.client.RestClient;
 public class PatientRESTClient implements IMethodsCRUDRest<PatientResponseDTO, PatientDTO> {
     RestClient restClient;
     private static final String URL = "http://localhost:8083/api/v1/services/patient";
+
+    @PostConstruct
+    private void init(){
+        restClient = RestClient.builder().baseUrl(URL).build();
+    }
 
     @Override
     public PatientResponseDTO createREST(PatientDTO dto) {
@@ -32,7 +38,7 @@ public class PatientRESTClient implements IMethodsCRUDRest<PatientResponseDTO, P
     @Override
     public PatientResponseDTO deleteREST(Long id) {
         return restClient.delete()
-                .uri(URL + "/{id}", id)
+                .uri(URL + "/delete/{id}", id)
                 .retrieve()
                 .body(PatientResponseDTO.class);
     }
