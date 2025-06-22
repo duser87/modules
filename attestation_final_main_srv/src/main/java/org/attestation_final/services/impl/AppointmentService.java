@@ -32,6 +32,6 @@ public class AppointmentService implements IMethodsCRUDService<AppointmentRespon
 
     @Override
     public AppointmentResponseDTO find(Long id) {
-        return restClient.findREST(id);
+        return restClient.findByIdREST(id);
     }
 }

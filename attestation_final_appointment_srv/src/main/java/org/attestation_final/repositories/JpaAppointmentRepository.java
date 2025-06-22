@@ -6,6 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Интерфейс, реализующий стандартные CRUD-операции при работе с сущностью AppointmentEntity из БД
+ * findByIdEmplAndIdPat - метода, позволяющий получить запись из БД по двум параметрам: id-работника и id-пациента
+ */
 @Repository
 public interface JpaAppointmentRepository extends JpaRepository<AppointmentEntity, Long> {
     @Query(value = "SELECT a FROM AppointmentEntity a WHERE a.idEmpl=:idEmpl AND a.idPat=:idPat")

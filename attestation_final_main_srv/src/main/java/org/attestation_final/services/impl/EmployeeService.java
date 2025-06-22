@@ -32,6 +32,6 @@ public class EmployeeService implements IMethodsCRUDService<EmployeeResponseDTO,
 
     @Override
     public EmployeeResponseDTO find(Long id) {
-        return restClient.findREST(id);
+        return restClient.findByIdREST(id);
     }
 }

@@ -45,7 +45,7 @@ public class EmployeeRESTClient implements IMethodsCRUDRest<EmployeeResponseDTO,
     }
 
     @Override
-    public EmployeeResponseDTO findREST(Long id) {
+    public EmployeeResponseDTO findByIdREST(Long id) {
         return restClient.get()
                 .uri(URL + "/{id}", id)
                 .retrieve()

@@ -45,7 +45,7 @@ public class PostRESTClient implements IMethodsCRUDRest<PostResponseDTO, PostDTO
     }
 
     @Override
-    public PostResponseDTO findREST(Long id) {
+    public PostResponseDTO findByIdREST(Long id) {
         return restClient.get()
                 .uri(URL + "/{id}", id)
                 .retrieve()

@@ -32,6 +32,6 @@ public class PatientService implements IMethodsCRUDService<PatientResponseDTO, P
 
     @Override
     public PatientResponseDTO find(Long id) {
-        return restClient.findREST(id);
+        return restClient.findByIdREST(id);
     }
 }

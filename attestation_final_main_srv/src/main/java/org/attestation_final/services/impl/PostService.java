@@ -32,6 +32,6 @@ public class PostService implements IMethodsCRUDService<PostResponseDTO, PostDTO
 
     @Override
     public PostResponseDTO find(Long id) {
-        return restClient.findREST(id);
+        return restClient.findByIdREST(id);
     }
 }

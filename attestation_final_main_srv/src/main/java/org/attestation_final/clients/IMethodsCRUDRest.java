@@ -7,5 +7,5 @@ public interface IMethodsCRUDRest<T, V> {
     T createREST(V dto);
     T updateREST(V dto);
     T deleteREST(Long id);
-    T findREST(Long id);
+    T findByIdREST(Long id);
 }

@@ -44,7 +44,7 @@ public class PatientRESTClient implements IMethodsCRUDRest<PatientResponseDTO, P
     }
 
     @Override
-    public PatientResponseDTO findREST(Long id) {
+    public PatientResponseDTO findByIdREST(Long id) {
         return restClient.get()
                 .uri(URL + "/{id}", id)
                 .retrieve()

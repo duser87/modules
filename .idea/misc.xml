@@ -16,7 +16,13 @@
         <option value="$PROJECT_DIR$/attestation_final_patient_srv/pom.xml" />
         <option value="$PROJECT_DIR$/attestation_final_post_srv/pom.xml" />
         <option value="$PROJECT_DIR$/attestation_final_main_srv/pom.xml" />
+        <option value="$PROJECT_DIR$/attestation_final_notification_srv/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/attestation_final_main_service/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="corretto-21" project-jdk-type="JavaSDK">

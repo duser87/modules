@@ -45,7 +45,7 @@ public class AppointmentRESTClient implements IMethodsCRUDRest<AppointmentRespon
     }
 
     @Override
-    public AppointmentResponseDTO findREST(Long id) {
+    public AppointmentResponseDTO findByIdREST(Long id) {
         return restClient.get()
                 .uri(URL + "/{id}", id)
                 .retrieve()
