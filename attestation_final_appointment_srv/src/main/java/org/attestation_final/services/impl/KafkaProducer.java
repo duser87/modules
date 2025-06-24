@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class KafkaProducer implements IKafkaProducer {
 
     @Autowired
-    KafkaTemplate<String, String> kafkaTemplate;
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     /**
      * Метод реализует отправку сообщения в топик
