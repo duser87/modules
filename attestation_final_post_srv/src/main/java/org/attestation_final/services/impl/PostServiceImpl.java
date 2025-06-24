@@ -9,6 +9,9 @@ import org.attestation_final.repositories.JpaPostRepository;
 import org.attestation_final.services.IPostService;
 import org.springframework.stereotype.Service;
 
+/**
+ * Класс service-слоя. Реализующий основную логику программы
+ */
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -16,6 +19,11 @@ public class PostServiceImpl implements IPostService {
 
     private final JpaPostRepository jpaPostRepository;
 
+    /**
+     * Метод добавления новой записи о должности в БД
+     * @param dto - объект класса PostDTO
+     * @return информация о успешном создании записи о новой должности. Тип - PostResponseDTO
+     */
     @Override
     public PostResponseDTO create(PostDTO dto) {
         PostEntity result = new PostEntity();
@@ -35,6 +43,11 @@ public class PostServiceImpl implements IPostService {
                 .build();
     }
 
+    /**
+     * Метод получения записи о должности из БД по id
+     * @param id - идентификатор
+     * @return объект PostResponseDTO, содержащий информацию о получении записи из БД
+     */
     @Override
     public PostResponseDTO delete(Long id) {
         PostEntity result = new PostEntity();

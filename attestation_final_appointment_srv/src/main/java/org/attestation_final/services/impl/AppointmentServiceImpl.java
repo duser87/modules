@@ -2,7 +2,7 @@ package org.attestation_final.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.attestation_final.clients.IMethodsCRUDRest;
+import org.attestation_final.clients.IGetDataRest;
 import org.attestation_final.model.DTO.request.AppointmentDTO;
 import org.attestation_final.model.DTO.response.AppointmentResponseDTO;
 import org.attestation_final.model.DTO.response.EmployeeResponseDTO;
@@ -11,7 +11,6 @@ import org.attestation_final.model.entities.AppointmentEntity;
 import org.attestation_final.repositories.JpaAppointmentRepository;
 import org.attestation_final.services.IAppointmentService;
 import org.attestation_final.services.IKafkaProducer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,8 +22,8 @@ import org.springframework.stereotype.Service;
 public class AppointmentServiceImpl implements IAppointmentService {
 
     private final JpaAppointmentRepository jpaAppointmentRepository;
-    private final IMethodsCRUDRest<EmployeeResponseDTO> restEmployee;
-    private final IMethodsCRUDRest<PatientResponseDTO> restPatient;
+    private final IGetDataRest<EmployeeResponseDTO> restEmployee;
+    private final IGetDataRest<PatientResponseDTO> restPatient;
     private final IKafkaProducer producer;
 
     /**
@@ -107,6 +106,11 @@ public class AppointmentServiceImpl implements IAppointmentService {
                 .build();
     }
 
+    /**
+     * Метод удаления записи о приеме к врачу по id
+     * @param id - идентификатор записи к врачу
+     * @return объект AppointmentResponseDTO, содержащий информацию о изменении записи в БД (установка флага удаления)
+     */
     @Override
     public AppointmentResponseDTO delete(Long id) {
         AppointmentEntity result = new AppointmentEntity();
@@ -139,6 +143,11 @@ public class AppointmentServiceImpl implements IAppointmentService {
                 .build();
     }
 
+    /**
+     * Метод получения записи о приеме к врачу по id
+     * @param id - идентификатор записи к врачу
+     * @return объект класса AppointmentResponseDTO, содержащий всю информацию о записи по id
+     */
     @Override
     public AppointmentResponseDTO findById(Long id) {
             AppointmentEntity result = new AppointmentEntity();

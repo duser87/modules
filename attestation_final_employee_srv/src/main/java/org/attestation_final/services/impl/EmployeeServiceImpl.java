@@ -9,6 +9,9 @@ import org.attestation_final.repository.JpaEmployeeRepository;
 import org.attestation_final.services.IEmployeeService;
 import org.springframework.stereotype.Service;
 
+/**
+ * Класс service-слоя. Реализующий основную логику программы
+ */
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -16,6 +19,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     private final JpaEmployeeRepository jpaEmployeeRepository;
 
+    /**
+     * Метод добавления новой записи о новом работнике в БД
+     * @param dto - объект класса EmployeeDTO
+     * @return информация о успешном создании записи нового работника в БД. Тип - EmployeeResponseDTO
+     */
     @Override
     public EmployeeResponseDTO create(EmployeeDTO dto) {
         EmployeeEntity result = new EmployeeEntity();
@@ -35,6 +43,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 .build();
     }
 
+    /**
+     * Метод обновления записи работника в БД
+     * @param dto - объект класса EmployeeDTO
+     * @return информация о успешном обновлении записи нового работника в БД. Тип - EmployeeResponseDTO
+     */
     @Override
     public EmployeeResponseDTO update(EmployeeDTO dto) {
         EmployeeEntity result = new EmployeeEntity();
@@ -62,6 +75,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 .build();
     }
 
+    /**
+     * Метод удаления записи о работнике в БД по id
+     * @param id - идентификатор работника в БД, тип Long
+     * @return информация о успешном удалении записи работника из БД. Тип - EmployeeResponseDTO
+     */
     @Override
     public EmployeeResponseDTO delete(Long id) {
         EmployeeEntity result = new EmployeeEntity();
@@ -86,6 +104,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 .build();
     }
 
+    /**
+     * Метод получения записи о работнике из БД
+     * @param id - объект класса EmployeeDTO
+     * @return информация о работника из БД. Тип - EmployeeResponseDTO
+     */
     @Override
     public EmployeeResponseDTO findById(Long id) {
         EmployeeEntity result = new EmployeeEntity();

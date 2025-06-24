@@ -4,6 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Это класс, описывающий объект запроса с клиентской стороны. Он имеет следующие поля:
+ * - id - идентификатор записи на прием в БД
+ * - idEmpl - id работника, к которому оформлена запись
+ * - idPat - id пациента
+ * - time - время записи
+ * - description - описание
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -4,6 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Это класс, описывающий объект запроса с клиентской стороны. Он имеет следующие поля:
+ * - id - идентификатор записи работника в БД
+ * - fio - ФИО работника, тип String
+ * - tel - Тел работника, тип String
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

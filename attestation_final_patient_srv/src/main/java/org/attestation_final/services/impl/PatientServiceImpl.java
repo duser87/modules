@@ -9,6 +9,9 @@ import org.attestation_final.repositories.JpaPatientRepository;
 import org.attestation_final.services.IPatientService;
 import org.springframework.stereotype.Service;
 
+/**
+ * Класс service-слоя. Реализующий основную логику программы
+ */
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -16,6 +19,11 @@ public class PatientServiceImpl implements IPatientService {
 
     private final JpaPatientRepository jpaPatientRepository;
 
+    /**
+     * Метод добавления новой записи о пациенте в БД
+     * @param dto - объект класса AppointmentDTO
+     * @return информация о успешном создании записи о новом пациенте. Тип - PatientResponseDTO
+     */
     @Override
     public PatientResponseDTO create(PatientDTO dto) {
         PatientEntity result = new PatientEntity();
@@ -39,6 +47,11 @@ public class PatientServiceImpl implements IPatientService {
                 .build();
     }
 
+    /**
+     * Метод обновления записи клиента в БД
+     * @param dto - объект класса PatientDTO
+     * @return обновленный объект класса PatientResponseDTO
+     */
     @Override
     public PatientResponseDTO update(PatientDTO dto) {
         PatientEntity result = new PatientEntity();
@@ -67,6 +80,11 @@ public class PatientServiceImpl implements IPatientService {
                 .build();
     }
 
+    /**
+     * Метод удаления записи о клиенте в БД по id
+     * @param id - идентификатор
+     * @return объект PatientResponseDTO, содержащий информацию о удалении записи в БД
+     */
     @Override
     public PatientResponseDTO delete(Long id) {
         PatientEntity result = new PatientEntity();
@@ -92,6 +110,11 @@ public class PatientServiceImpl implements IPatientService {
                 .build();
     }
 
+    /**
+     * Метод получения записи о клиенте из БД по id
+     * @param id - идентификатор
+     * @return объект PatientResponseDTO, содержащий информацию о получении записи из БД
+     */
     @Override
     public PatientResponseDTO findById(Long id) {
         PatientEntity result = new PatientEntity();

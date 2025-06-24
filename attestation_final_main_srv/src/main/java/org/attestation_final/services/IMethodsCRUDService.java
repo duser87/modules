@@ -1,5 +1,8 @@
 package org.attestation_final.services;
 
+/**
+ * Интерфейс, определяющий стандартные CRUD-операции
+ */
 public interface IMethodsCRUDService<T, V>{
     T create(V dto );
     T update(V dto);

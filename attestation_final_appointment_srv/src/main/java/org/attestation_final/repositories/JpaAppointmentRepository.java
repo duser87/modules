@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * Интерфейс, реализующий стандартные CRUD-операции при работе с сущностью AppointmentEntity из БД
+ * Интерфейс, определяющий стандартные CRUD-операции при работе с сущностью AppointmentEntity из БД
  * findByIdEmplAndIdPat - метода, позволяющий получить запись из БД по двум параметрам: id-работника и id-пациента
  */
 @Repository

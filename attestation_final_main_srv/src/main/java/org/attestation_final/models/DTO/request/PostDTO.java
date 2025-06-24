@@ -4,6 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Это класс, описывающий объект запроса с клиентской стороны. Он имеет следующие поля:
+ * - id - идентификатор записи о должности в БД
+ * - idPost - идентификатор должности, тип Long
+ * - idEmpl - идентификатор работнника, тип Long
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
