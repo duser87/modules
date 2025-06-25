@@ -7,6 +7,9 @@ import org.attestation_final.model.DTO.response.PatientResponseDTO;
 import org.attestation_final.model.entities.PatientEntity;
 import org.attestation_final.repositories.JpaPatientRepository;
 import org.attestation_final.services.IPatientService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -53,6 +56,7 @@ public class PatientServiceImpl implements IPatientService {
      * @return обновленный объект класса PatientResponseDTO
      */
     @Override
+    @CachePut(value = "patient-data", key = "#dto.id")
     public PatientResponseDTO update(PatientDTO dto) {
         PatientEntity result = new PatientEntity();
         String msg = "";
@@ -86,6 +90,7 @@ public class PatientServiceImpl implements IPatientService {
      * @return объект PatientResponseDTO, содержащий информацию о удалении записи в БД
      */
     @Override
+    @CacheEvict(value = "patient-data", key = "#id")
     public PatientResponseDTO delete(Long id) {
         PatientEntity result = new PatientEntity();
         String msg = "";
@@ -116,6 +121,7 @@ public class PatientServiceImpl implements IPatientService {
      * @return объект PatientResponseDTO, содержащий информацию о получении записи из БД
      */
     @Override
+    @Cacheable(value = "patient-data", key = "#id")
     public PatientResponseDTO findById(Long id) {
         PatientEntity result = new PatientEntity();
         String msg = "";

@@ -7,6 +7,9 @@ import org.attestation_final.model.DTO.response.EmployeeResponseDTO;
 import org.attestation_final.model.entities.EmployeeEntity;
 import org.attestation_final.repository.JpaEmployeeRepository;
 import org.attestation_final.services.IEmployeeService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -49,6 +52,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
      * @return информация о успешном обновлении записи нового работника в БД. Тип - EmployeeResponseDTO
      */
     @Override
+    @CachePut(value = "employee-data", key = "#dto.id")
     public EmployeeResponseDTO update(EmployeeDTO dto) {
         EmployeeEntity result = new EmployeeEntity();
         String msg = "";
@@ -81,6 +85,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
      * @return информация о успешном удалении записи работника из БД. Тип - EmployeeResponseDTO
      */
     @Override
+    @CacheEvict(value = "employee-data", key = "#id")
     public EmployeeResponseDTO delete(Long id) {
         EmployeeEntity result = new EmployeeEntity();
         String msg = "";
@@ -110,6 +115,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
      * @return информация о работника из БД. Тип - EmployeeResponseDTO
      */
     @Override
+    @Cacheable(value = "employee-data", key = "#id")
     public EmployeeResponseDTO findById(Long id) {
         EmployeeEntity result = new EmployeeEntity();
         String msg = "";
