@@ -29,7 +29,7 @@ public class EmployeeController {
      */
     @Operation(summary="Метод создания нового работника в БД", description = "Создание записи о новом работнике в БД")
     @ApiResponse(responseCode = "200", description = "Создание записи о новом работнике")
-    @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EmployeeResponseDTO> create(@RequestBody EmployeeDTO dto){
         EmployeeResponseDTO response = employeeService.create(dto);
         return ResponseEntity.ok(response);
@@ -43,7 +43,7 @@ public class EmployeeController {
      */
     @Operation(summary = "Метод обновления уже существующей записи работника", description = "Обновление записи работника")
     @ApiResponse(responseCode = "200", description = "Обновление существующей записи о работнике в БД")
-    @PutMapping(path = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EmployeeResponseDTO> update(@RequestBody EmployeeDTO dto){
         EmployeeResponseDTO response = employeeService.update(dto);
         return ResponseEntity.ok(response);
@@ -56,7 +56,7 @@ public class EmployeeController {
      */
     @Operation(summary = "Метод удаление записи о работнике", description = "Удаление записи о работнике")
     @ApiResponse(responseCode = "200", description = "Удаление записи о работнике из БД")
-    @DeleteMapping(path = "/delete/{id}", /*consumes = MediaType.APPLICATION_JSON_VALUE,*/ produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(path = "/{id}", /*consumes = MediaType.APPLICATION_JSON_VALUE,*/ produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EmployeeResponseDTO> delete(@PathVariable("id") Long id){
         EmployeeResponseDTO response = employeeService.delete(id);
         return ResponseEntity.ok(response);

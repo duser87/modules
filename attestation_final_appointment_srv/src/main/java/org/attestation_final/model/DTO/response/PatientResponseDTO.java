@@ -13,8 +13,9 @@ import lombok.Data;
 @Data
 @Builder
 public class PatientResponseDTO {
-    Long id;
-    String fio;
-    String tel;
-    String address;
+    private Long id;
+    private String fio;
+    private String tel;
+    private String address;
+
 }

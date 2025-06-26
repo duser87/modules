@@ -15,4 +15,5 @@ public class EmployeeResponseDTO {
     private Long id;
     private String fio;
     private String tel;
+    private String message;
 }

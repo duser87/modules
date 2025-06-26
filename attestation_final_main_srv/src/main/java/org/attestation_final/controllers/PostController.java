@@ -31,7 +31,7 @@ public class PostController {
      */
     @Operation(summary="Метод создания новой записи о должности в БД", description = "Создание записи о новой должности в БД")
     @ApiResponse(responseCode = "200", description = "Создание записи о новой должности в БД")
-    @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PostResponseDTO> create(@RequestBody PostDTO dto){
         PostResponseDTO response = postService.create(dto);
         return ResponseEntity.ok(response);
@@ -45,7 +45,7 @@ public class PostController {
      */
     @Operation(summary = "Метод получения объекта записи о должности из БД", description = "Получение записи о должности по ID")
     @ApiResponse(responseCode = "200", description = "Получение записи о должности по ID")
-    @DeleteMapping(path = "/delete/{id}", /*consumes = MediaType.APPLICATION_JSON_VALUE,*/ produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(path = "/{id}", /*consumes = MediaType.APPLICATION_JSON_VALUE,*/ produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PostResponseDTO> delete(@PathVariable("id") Long id){
         PostResponseDTO response = postService.delete(id);
         return ResponseEntity.ok(response);

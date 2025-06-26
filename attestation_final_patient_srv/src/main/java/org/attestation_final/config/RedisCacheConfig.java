@@ -25,14 +25,10 @@ public class RedisCacheConfig {
     @Bean
     public RedisCacheManagerBuilderCustomizer redisCacheManagerBuilderCustomizer() {
         return (builder) -> builder
-                .withCacheConfiguration("userCache",
+                .withCacheConfiguration("patient-data",
                         RedisCacheConfiguration
                                 .defaultCacheConfig()
-                                .entryTtl(Duration.ofMinutes(20)))
-                .withCacheConfiguration("dataCache",
-                        RedisCacheConfiguration
-                                .defaultCacheConfig()
-                                .entryTtl(Duration.ofMinutes(5)));
+                                .entryTtl(Duration.ofMinutes(20)));
     }
 
 }

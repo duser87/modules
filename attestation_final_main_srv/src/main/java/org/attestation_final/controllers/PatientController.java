@@ -29,7 +29,7 @@ public class PatientController {
      */
     @Operation(summary="Метод создания нового клиента в БД", description = "Создание записи о новом клиенте в БД")
     @ApiResponse(responseCode = "200", description = "Создание записи о новом клиенте")
-    @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PatientResponseDTO> create(@RequestBody PatientDTO dto){
         PatientResponseDTO response = patientService.create(dto);
         return ResponseEntity.ok(response);
@@ -43,7 +43,7 @@ public class PatientController {
      */
     @Operation(summary = "Метод обновления уже существующей записи клиента", description = "Обновление записи клиента")
     @ApiResponse(responseCode = "200", description = "Обновление существующей записи о клиенте в БД")
-    @PutMapping(path = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PatientResponseDTO> update(@RequestBody PatientDTO dto){
         PatientResponseDTO response = patientService.update(dto);
         return ResponseEntity.ok(response);
@@ -56,7 +56,7 @@ public class PatientController {
      */
     @Operation(summary = "Метод удаление записи о клиенте", description = "Удаление записи о клиенте")
     @ApiResponse(responseCode = "200", description = "Удаление записи о клиенте из БД")
-    @DeleteMapping(path = "/delete/{id}", /*consumes = MediaType.APPLICATION_JSON_VALUE,*/ produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(path = "/{id}", /*consumes = MediaType.APPLICATION_JSON_VALUE,*/ produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PatientResponseDTO> delete(@PathVariable("id") Long id){
         PatientResponseDTO response = patientService.delete(id);
         return ResponseEntity.ok(response);

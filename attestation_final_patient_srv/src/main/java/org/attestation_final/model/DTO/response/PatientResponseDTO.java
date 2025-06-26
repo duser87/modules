@@ -2,6 +2,9 @@ package org.attestation_final.model.DTO.response;
 
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.data.redis.core.RedisHash;
+
+import java.io.Serializable;
 
 /**
  * Это класс, описывающий объект ответа клиентской стороне. Он имеет следующие поля:
@@ -13,7 +16,8 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class PatientResponseDTO{
+@RedisHash("patient-data")
+public class PatientResponseDTO implements Serializable {
     private Long id;
     private String fio;
     private String tel;

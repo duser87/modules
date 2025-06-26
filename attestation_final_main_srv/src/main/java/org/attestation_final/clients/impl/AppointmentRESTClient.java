@@ -33,7 +33,7 @@ public class AppointmentRESTClient implements IMethodsCRUDRest<AppointmentRespon
     @Override
     public AppointmentResponseDTO createREST(AppointmentDTO dto) {
         return restClient.post()
-                .uri(URL + "/create")
+                .uri(URL)
                 .body(dto)
                 .retrieve()
                 .body(AppointmentResponseDTO.class);
@@ -47,7 +47,7 @@ public class AppointmentRESTClient implements IMethodsCRUDRest<AppointmentRespon
     @Override
     public AppointmentResponseDTO updateREST(AppointmentDTO dto) {
         return restClient.put()
-                .uri(URL + "/update")
+                .uri(URL)
                 .body(dto)
                 .retrieve()
                 .body(AppointmentResponseDTO.class);
@@ -61,7 +61,7 @@ public class AppointmentRESTClient implements IMethodsCRUDRest<AppointmentRespon
     @Override
     public AppointmentResponseDTO deleteREST(Long id) {
         return restClient.delete()
-                .uri(URL + "/delete/{id}", id)
+                .uri(URL + "/{id}", id)
                 .retrieve()
                 .body(AppointmentResponseDTO.class);
     }

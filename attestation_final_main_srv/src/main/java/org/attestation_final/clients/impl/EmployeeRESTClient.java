@@ -33,7 +33,7 @@ public class EmployeeRESTClient implements IMethodsCRUDRest<EmployeeResponseDTO,
     @Override
     public EmployeeResponseDTO createREST(EmployeeDTO dto) {
         return restClient.post()
-                .uri(URL + "/create")
+                .uri(URL)
                 .body(dto)
                 .retrieve()
                 .body(EmployeeResponseDTO.class);
@@ -47,7 +47,7 @@ public class EmployeeRESTClient implements IMethodsCRUDRest<EmployeeResponseDTO,
     @Override
     public EmployeeResponseDTO updateREST(EmployeeDTO dto) {
         return restClient.put()
-                .uri(URL + "/update")
+                .uri(URL)
                 .body(dto)
                 .retrieve()
                 .body(EmployeeResponseDTO.class);
@@ -61,7 +61,7 @@ public class EmployeeRESTClient implements IMethodsCRUDRest<EmployeeResponseDTO,
     @Override
     public EmployeeResponseDTO deleteREST(Long id) {
         return restClient.delete()
-                .uri(URL + "/delete/{id}", id)
+                .uri(URL + "/{id}", id)
                 .retrieve()
                 .body(EmployeeResponseDTO.class);
     }

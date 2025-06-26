@@ -29,7 +29,7 @@ public class PatientController {
      */
     @Operation(summary="Метод создания записи нового клиента в БД", description = "Создание новой записи о клиенте")
     @ApiResponse(responseCode = "200", description = "Создание записи нового клиента в БД")
-    @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PatientResponseDTO> create(@RequestBody PatientDTO dto){
         log.info("--> 1");
         PatientResponseDTO response = patient.create(dto);
@@ -45,7 +45,7 @@ public class PatientController {
      */
     @Operation(summary = "Метод обновления уже существующей записи о клиенте", description = "Обновление записи о клиенте")
     @ApiResponse(responseCode = "200", description = "Обновление существующей о клиенте в БД")
-    @PutMapping(path = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PatientResponseDTO> update(@RequestBody PatientDTO dto){
         PatientResponseDTO response = patient.update(dto);
         return ResponseEntity.ok(response);
@@ -58,7 +58,7 @@ public class PatientController {
      */
     @Operation(summary = "Метод удаление записи о клиенте", description = "Удаление записи о клиенте из БД")
     @ApiResponse(responseCode = "200", description = "Удаление записи к врачу из БД")
-    @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PatientResponseDTO> delete(@PathVariable("id") Long id){
         PatientResponseDTO response = patient.delete(id);
         return ResponseEntity.ok(response);

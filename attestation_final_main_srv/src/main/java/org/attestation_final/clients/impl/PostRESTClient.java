@@ -33,7 +33,7 @@ public class PostRESTClient implements IMethodsCRUDRest<PostResponseDTO, PostDTO
     @Override
     public PostResponseDTO createREST(PostDTO dto) {
         return restClient.post()
-                .uri(URL + "/create")
+                .uri(URL)
                 .body(dto)
                 .retrieve()
                 .body(PostResponseDTO.class);
@@ -47,7 +47,7 @@ public class PostRESTClient implements IMethodsCRUDRest<PostResponseDTO, PostDTO
     @Override
     public PostResponseDTO updateREST(PostDTO dto) {
         return restClient.put()
-                .uri(URL + "/update")
+                .uri(URL)
                 .body(dto)
                 .retrieve()
                 .body(PostResponseDTO.class);
@@ -61,7 +61,7 @@ public class PostRESTClient implements IMethodsCRUDRest<PostResponseDTO, PostDTO
     @Override
     public PostResponseDTO deleteREST(Long id) {
         return restClient.delete()
-                .uri(URL + "/delete/{id}", id)
+                .uri(URL + "/{id}", id)
                 .retrieve()
                 .body(PostResponseDTO.class);
     }

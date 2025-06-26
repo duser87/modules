@@ -33,7 +33,7 @@ public class PatientRESTClient implements IMethodsCRUDRest<PatientResponseDTO, P
     @Override
     public PatientResponseDTO createREST(PatientDTO dto) {
         return restClient.post()
-                .uri(URL + "/create")
+                .uri(URL)
                 .body(dto)
                 .retrieve()
                 .body(PatientResponseDTO.class);
@@ -47,7 +47,7 @@ public class PatientRESTClient implements IMethodsCRUDRest<PatientResponseDTO, P
     @Override
     public PatientResponseDTO updateREST(PatientDTO dto) {
         return restClient.put()
-                .uri(URL + "/update")
+                .uri(URL)
                 .body(dto)
                 .retrieve()
                 .body(PatientResponseDTO.class);
@@ -61,7 +61,7 @@ public class PatientRESTClient implements IMethodsCRUDRest<PatientResponseDTO, P
     @Override
     public PatientResponseDTO deleteREST(Long id) {
         return restClient.delete()
-                .uri(URL + "/delete/{id}", id)
+                .uri(URL + "/{id}", id)
                 .retrieve()
                 .body(PatientResponseDTO.class);
     }
