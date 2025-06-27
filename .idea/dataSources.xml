@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="hospital@localhost" uuid="c6bd6841-66f8-476f-a65d-c8b02b7d7556">
+    <data-source source="LOCAL" name="appointment@localhost" uuid="8deccf4a-bf67-44fb-a8d2-d26d3a832852">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/hospital</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/appointment</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
@@ -14,24 +14,11 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="hospital@localhost [2]" uuid="02299568-7ec6-465e-95a5-a68bbcd0aedb">
+    <data-source source="LOCAL" name="employee@localhost" uuid="a59e30c1-a92b-4a22-b742-51b816e1735f">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/hospital</jdbc-url>
-      <jdbc-additional-properties>
-        <property name="com.intellij.clouds.kubernetes.db.host.port" />
-        <property name="SHOW_TEMPLATE_DATABASES" value="true" />
-        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
-        <property name="com.intellij.clouds.kubernetes.db.container.port" />
-      </jdbc-additional-properties>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="hospital@localhost [3]" uuid="b2079c36-a0ba-4082-aede-d86d41c9cc31">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/hospital</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/employee</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
@@ -39,11 +26,11 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="hospital@localhost [4]" uuid="3c8b5cb8-e944-414d-8b55-1695094ed7c3">
+    <data-source source="LOCAL" name="patient@localhost" uuid="e8ea3395-eeec-44b9-8dd0-96bbb7b2b37b">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/hospital</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/patient</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
@@ -51,15 +38,14 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="hospital@localhost [5]" uuid="78dea939-177b-4579-b972-5d4b0d01b010">
+    <data-source source="LOCAL" name="post@localhost" uuid="00056a05-79fe-4d04-b4fd-71b877ea2393">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/hospital</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/post</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
-        <property name="com.intellij.clouds.kubernetes.db.resource.type" value="Deployment" />
         <property name="com.intellij.clouds.kubernetes.db.container.port" />
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
