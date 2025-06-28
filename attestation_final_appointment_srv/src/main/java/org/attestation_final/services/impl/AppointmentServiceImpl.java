@@ -13,9 +13,6 @@ import org.attestation_final.services.IAppointmentService;
 import org.attestation_final.services.IKafkaProducer;
 import org.springframework.stereotype.Service;
 
-/**
- * Класс service-слоя. Реализующий основную логику программы
- */
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -150,26 +147,26 @@ public class AppointmentServiceImpl implements IAppointmentService {
      */
     @Override
     public AppointmentResponseDTO findById(Long id) {
-            AppointmentEntity result = new AppointmentEntity();
-            String msg = "";
-            try{
-                result = jpaAppointmentRepository.findById(id).orElseThrow();
-                if(result.getId() !=  0L){
-                    msg = " -> Получена запись на прием с ID-" + result.getId();
-                }
-                else{
-                    msg = " -> Записи на прием с ID-" + result.getId() + " не существует...";
-                }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+        AppointmentEntity result = new AppointmentEntity();
+        String msg = "";
+        try{
+            result = jpaAppointmentRepository.findById(id).orElseThrow();
+            if(result.getId() !=  0L){
+                msg = " -> Получена запись на прием с ID-" + result.getId();
             }
-            return AppointmentResponseDTO.builder()
-                    .id(result.getId())
-                    .idEmpl(result.getIdEmpl())
-                    .idPat(result.getIdPat())
-                    .time(result.getTime())
-                    .description(result.getDescription())
-                    .message(msg)
-                    .build();
+            else{
+                msg = " -> Записи на прием с ID-" + result.getId() + " не существует...";
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+        return AppointmentResponseDTO.builder()
+                .id(result.getId())
+                .idEmpl(result.getIdEmpl())
+                .idPat(result.getIdPat())
+                .time(result.getTime())
+                .description(result.getDescription())
+                .message(msg)
+                .build();
+    }
 }

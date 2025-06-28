@@ -18,7 +18,7 @@ public class KafkaConsumerImpl implements IKafkaConsumer {
     public void consumeMessage(String str) {
         log.info(str);
 
-        emailService.send("duser87@yandex.ru", "Запись на прием", str);
+        //emailService.send("duser87@yandex.ru", "Запись на прием", str);
 
     }
 }

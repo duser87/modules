@@ -1,6 +1,7 @@
 package org.attestation_final.model.DTO.request;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,8 +14,7 @@ import lombok.NoArgsConstructor;
  * - description - описание
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Builder
 public class AppointmentDTO {
     Long idEmpl;
     Long idPat;
